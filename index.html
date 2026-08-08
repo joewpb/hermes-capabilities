@@ -1,0 +1,3367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent — Capability Explorer</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1a1a24;
+  --border: #252530;
+  --text: #d4d4d8;
+  --text2: #90909a;
+  --text3: #60606a;
+  --accent: #8b5cf6;
+  --accent2: #7c3aed;
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --cyan: #06b6d4;
+  --radius: 8px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.logo span { color: var(--accent); }
+.stats-row {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text2);
+}
+.stat { display: flex; align-items: center; gap: 6px; }
+.stat .num { color: var(--accent); font-weight: 600; font-family: var(--mono); }
+
+/* Search */
+.search-wrap {
+  max-width: 1400px;
+  margin: 24px auto 0;
+  padding: 0 24px;
+}
+.search-bar {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 15px;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-bar:focus { border-color: var(--accent); }
+.search-bar::placeholder { color: var(--text3); }
+
+/* Tabs */
+.tabs-wrap {
+  max-width: 1400px;
+  margin: 24px auto 0;
+  padding: 0 24px;
+}
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: var(--text2);
+  font-size: 14px;
+  font-family: var(--font);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-count { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-left: 4px; }
+
+/* Content */
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Skill cards */
+.category-group { margin-bottom: 32px; }
+.category-name {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text3);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 8px;
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.skill-card:hover { border-color: var(--accent); background: var(--surface2); }
+.skill-card .name {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.skill-card .desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.skill-card.expanded .desc { -webkit-line-clamp: unset; }
+
+/* Tool cards */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 8px;
+}
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  transition: border-color 0.15s;
+}
+.tool-card:hover { border-color: var(--accent); }
+.tool-card .name {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+.tool-card .desc { font-size: 13px; color: var(--text2); }
+
+/* Server cards */
+.server-wrap { margin-bottom: 32px; }
+.server-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.server-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.server-meta {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+.server-meta .badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.badge-transport { background: rgba(139,92,246,0.15); color: var(--accent); }
+.badge-count { background: rgba(6,182,212,0.15); color: var(--cyan); }
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 48px;
+  color: var(--text3);
+}
+
+/* Footer */
+footer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text3);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .skills-grid, .tools-grid { grid-template-columns: 1fr; }
+  .header-inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* hidden utility */
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Hermes <span>Capability Explorer</span></div>
+    <div class="stats-row">
+      <div class="stat"><span class="num" id="skillCount">353</span> skills</div>
+      <div class="stat"><span class="num">36</span> direct tools</div>
+      <div class="stat"><span class="num">314</span> deferred tools</div>
+      <div class="stat"><span class="num">8</span> MCP servers</div>
+    </div>
+  </div>
+</header>
+
+<div class="search-wrap">
+  <input class="search-bar" id="search" type="text" placeholder="Search skills, tools, servers... (e.g. 'github', 'image', 'deploy')">
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="skills">Skills <span class="tab-count">353</span></button>
+    <button class="tab-btn" data-tab="direct-tools">Direct Tools <span class="tab-count">36</span></button>
+    <button class="tab-btn" data-tab="mcp-tools">MCP / Plugin Tools <span class="tab-count">314</span></button>
+    <button class="tab-btn" data-tab="servers">Servers <span class="tab-count">8</span></button>
+  </div>
+</div>
+
+<div class="content" id="content">
+  <div class="tab-panel active" id="panel-skills"></div>
+  <div class="tab-panel" id="panel-direct-tools"></div>
+  <div class="tab-panel" id="panel-mcp-tools"></div>
+  <div class="tab-panel" id="panel-servers"></div>
+</div>
+
+<footer>
+  Hermes Agent Capability Explorer · Auto-generated · Last updated: <span id="updated"></span> · 
+  <a href="https://hermes-agent.nousresearch.com/docs">Hermes Docs</a>
+</footer>
+
+<script>
+// Embedded data
+const DATA = {
+  "skills": {
+    "NVIDIA GPU Compute": [
+      {
+        "name": "accelerated-computing-cudf",
+        "desc": "Official NVIDIA-authored guidance for NVIDIA cuDF GPU DataFrames, pandas acceleration, dask-cuDF, ETL, joins, groupby, CSV/Parquet I/O, nullable semantics, and multi-GPU DataFrame workloads."
+      },
+      {
+        "name": "cupynumeric-install",
+        "desc": "Install and verify cuPyNumeric for Python — requirements, commands, verification. Source builds are out of scope."
+      },
+      {
+        "name": "dali-dynamic-mode",
+        "desc": "DALI imperative dynamic mode (nvidia.dali.experimental.dynamic, ndd): use when working on ndd code or migrating pipelines; skip pipeline-only tasks."
+      }
+    ],
+    "NVIDIA cuOpt": [
+      {
+        "name": "cuopt-developer",
+        "desc": "Modify, build, test, debug, and contribute to NVIDIA cuOpt (C++/CUDA, Python, server, CI)."
+      },
+      {
+        "name": "cuopt-install",
+        "desc": "Install cuOpt for Python, C, or server via pip, conda, or Docker; verify the install."
+      },
+      {
+        "name": "cuopt-numerical-optimization-api-c",
+        "desc": "LP, MILP, and QP (beta) with cuOpt — C API only."
+      },
+      {
+        "name": "cuopt-numerical-optimization-api-cli",
+        "desc": "LP, MILP, and QP (beta) with cuOpt — CLI only (MPS files, cuopt_cli)."
+      },
+      {
+        "name": "cuopt-numerical-optimization-api-python",
+        "desc": "Solve LP, MILP, QP (beta) with cuOpt Python API."
+      },
+      {
+        "name": "cuopt-numerical-optimization-formulation",
+        "desc": "LP, MILP, QP — concepts, problem-text parsing, and formulation patterns."
+      },
+      {
+        "name": "cuopt-routing-api-python",
+        "desc": "Vehicle routing (VRP, TSP, PDP) with cuOpt — Python API only."
+      },
+      {
+        "name": "cuopt-routing-formulation",
+        "desc": "Vehicle routing (VRP, TSP, PDP) — problem types and data requirements."
+      },
+      {
+        "name": "cuopt-server-api-python",
+        "desc": "cuOpt REST server — start server, endpoints, Python/curl client examples."
+      },
+      {
+        "name": "cuopt-server-common",
+        "desc": "cuOpt REST server — what it does and how requests flow."
+      },
+      {
+        "name": "cuopt-skill-evolution",
+        "desc": "After solving a non-trivial problem, detect generalizable learnings and propose skill updates."
+      },
+      {
+        "name": "cuopt-user-rules",
+        "desc": "Base rules for end users calling NVIDIA cuOpt (routing/LP/MILP/QP/install/server)."
+      }
+    ],
+    "NVIDIA DeepStream": [
+      {
+        "name": "deepstream-dev",
+        "desc": "NVIDIA DeepStream SDK 9.0 development with Python pyservicemaker API."
+      },
+      {
+        "name": "deepstream-import-vision-model",
+        "desc": "Bring any vision model from HuggingFace or NGC into a DeepStream pipeline with end-to-end automation."
+      }
+    ],
+    "NVIDIA Dynamo": [
+      {
+        "name": "dynamo-interconnect-check",
+        "desc": "Validate that a Dynamo deployment's NIXL/UCX/NCCL interconnect is ready."
+      },
+      {
+        "name": "dynamo-recipe-runner",
+        "desc": "Select, validate, patch, and deploy existing NVIDIA Dynamo Kubernetes recipes."
+      },
+      {
+        "name": "dynamo-router-starter",
+        "desc": "Start or patch Dynamo router modes and run router endpoint smoke checks."
+      },
+      {
+        "name": "dynamo-troubleshoot",
+        "desc": "Diagnose failed or unhealthy Dynamo deployments."
+      }
+    ],
+    "NVIDIA Earth2Studio": [
+      {
+        "name": "earth2studio-data-fetch",
+        "desc": "Fetch weather/climate data via Earth2Studio data sources."
+      },
+      {
+        "name": "earth2studio-deterministic-forecast",
+        "desc": "Build deterministic forecast scripts with Earth2Studio."
+      },
+      {
+        "name": "earth2studio-discover",
+        "desc": "Find Earth2Studio models, data sources, and examples for a weather/climate use case."
+      },
+      {
+        "name": "earth2studio-install",
+        "desc": "Guide installing Earth2Studio via uv or pip."
+      }
+    ],
+    "NVIDIA Megatron / NeMo": [
+      {
+        "name": "mcore-create-issue",
+        "desc": "Investigate a failing GitHub Actions run and create a GitHub issue."
+      },
+      {
+        "name": "mcore-linting-and-formatting",
+        "desc": "Linting and formatting for Megatron-LM (ruff, black, isort, pylint, mypy)."
+      },
+      {
+        "name": "mcore-run-on-slurm",
+        "desc": "Launch distributed Megatron-LM training jobs on a SLURM cluster."
+      },
+      {
+        "name": "mcore-split-pr",
+        "desc": "Split a PR into multiple PRs to reduce CODEOWNERS reviewer groups."
+      },
+      {
+        "name": "mcore-testing",
+        "desc": "Test system for Megatron-LM — recipes, golden values, marker filters."
+      },
+      {
+        "name": "nemo-automodel-distributed-training",
+        "desc": "Select and configure distributed training strategies in NeMo AutoModel."
+      },
+      {
+        "name": "nemo-automodel-launcher-config",
+        "desc": "Configure NeMo AutoModel job launches for interactive, Slurm, and SkyPilot."
+      },
+      {
+        "name": "nemo-automodel-model-onboarding",
+        "desc": "Onboard new model architectures into NeMo AutoModel."
+      },
+      {
+        "name": "nemo-automodel-recipe-development",
+        "desc": "Create and modify NeMo AutoModel training and evaluation recipes."
+      },
+      {
+        "name": "nemo-mbridge-mlm-bridge-training",
+        "desc": "Run Megatron-LM (MLM) and Megatron Bridge training."
+      },
+      {
+        "name": "nemo-mbridge-multi-node-slurm",
+        "desc": "Convert single-node scripts to multi-node Slurm sbatch jobs."
+      },
+      {
+        "name": "nemo-mbridge-perf-activation-recompute",
+        "desc": "Validate and use selective/full activation recompute in Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-cpu-offloading",
+        "desc": "Validate and use CPU offloading in Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-cuda-graphs",
+        "desc": "Validate and use CUDA graph capture in Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-expert-parallel-overlap",
+        "desc": "Validate and use MoE expert-parallel communication overlap."
+      },
+      {
+        "name": "nemo-mbridge-perf-hierarchical-context-parallel",
+        "desc": "Enable hierarchical context parallelism in Megatron-Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-megatron-fsdp",
+        "desc": "Enable Megatron FSDP in Megatron-Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-memory-tuning",
+        "desc": "Techniques for reducing peak GPU memory in Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-moe-comm-overlap",
+        "desc": "MoE expert-parallel communication overlap in Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-moe-dispatcher-selection",
+        "desc": "Choose the right MoE token dispatcher for your hardware."
+      },
+      {
+        "name": "nemo-mbridge-perf-moe-hardware-configs",
+        "desc": "Representative MoE training playbooks by hardware platform."
+      },
+      {
+        "name": "nemo-mbridge-perf-moe-long-context",
+        "desc": "Long-context MoE training guidance for Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-moe-optimization-workflow",
+        "desc": "Systematic workflow for MoE training optimization."
+      },
+      {
+        "name": "nemo-mbridge-perf-moe-vlm-training",
+        "desc": "Practical guidance for training MoE VLMs in Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-parallelism-strategies",
+        "desc": "Choose and combine parallelism strategies in Megatron Bridge."
+      },
+      {
+        "name": "nemo-mbridge-perf-sequence-packing",
+        "desc": "Validate and use packed sequences and long-context training."
+      },
+      {
+        "name": "nemo-mbridge-perf-tp-dp-comm-overlap",
+        "desc": "Enable TP, DP, and PP communication overlap in Megatron-Bridge."
+      },
+      {
+        "name": "nemo-mbridge-recipe-recommender",
+        "desc": "Recommend and customize Megatron Bridge recipes."
+      },
+      {
+        "name": "nemo-mbridge-resiliency",
+        "desc": "Resiliency features in Megatron Bridge — fault tolerance, straggler detection."
+      },
+      {
+        "name": "nemo-retriever",
+        "desc": "Search, query, extract, transcribe across documents (PDF, Office, audio, video)."
+      },
+      {
+        "name": "nemotron-customize",
+        "desc": "Plan, configure, and chain Nemotron customization steps."
+      }
+    ],
+    "NVIDIA Omniverse": [
+      {
+        "name": "omniverse-cad-to-simready",
+        "desc": "Coordinate end-to-end CAD/source-asset to SimReady workflow."
+      },
+      {
+        "name": "omniverse-realtime-viewer",
+        "desc": "Top-level router for Omniverse Realtime Viewer USD app requests."
+      },
+      {
+        "name": "omniverse-usd-performance-tuning",
+        "desc": "USD performance diagnosis and optimization."
+      }
+    ],
+    "NVIDIA Physical AI": [
+      {
+        "name": "physical-ai-infrastructure-setup-and-resilient-scaling",
+        "desc": "Set up, scale, validate, or harden NVIDIA physical AI infrastructure."
+      },
+      {
+        "name": "physical-ai-neural-reconstruction",
+        "desc": "Router for NVIDIA NuRec/NRE: USDZ rendering, NCore conversion, 3DGS."
+      }
+    ],
+    "NVIDIA PhysicsNeMo": [
+      {
+        "name": "physicsnemo-discover",
+        "desc": "Navigate PhysicsNeMo — pick the model, datapipe, or example for a SciML/AI4Science task."
+      }
+    ],
+    "NVIDIA RAG": [
+      {
+        "name": "rag-blueprint",
+        "desc": "NVIDIA RAG Blueprint — deploy, configure, troubleshoot, and manage."
+      },
+      {
+        "name": "rag-eval",
+        "desc": "Filesystem RAG benchmarks: corpus/, train.json, evaluate_rag.py (RAGAS quality)."
+      },
+      {
+        "name": "rag-perf",
+        "desc": "Performance benchmarking for a deployed NVIDIA RAG Blueprint server."
+      }
+    ],
+    "NVIDIA NemoClaw / OpenClaw": [
+      {
+        "name": "nemoclaw-user-agent-skills",
+        "desc": "Agent skills shipped with NemoClaw and how to access them."
+      },
+      {
+        "name": "nemoclaw-user-configure-inference",
+        "desc": "Connect NemoClaw to a local inference server (Ollama, vLLM, etc.)."
+      },
+      {
+        "name": "nemoclaw-user-configure-security",
+        "desc": "Risk framework for every configurable security control in NemoClaw."
+      },
+      {
+        "name": "nemoclaw-user-deploy-remote",
+        "desc": "Run NemoClaw on a remote GPU instance."
+      },
+      {
+        "name": "nemoclaw-user-get-started",
+        "desc": "Install NemoClaw, launch a sandbox, and run the first agent prompt."
+      },
+      {
+        "name": "nemoclaw-user-manage-policy",
+        "desc": "Add, remove, or modify allowed endpoints in the sandbox policy."
+      },
+      {
+        "name": "nemoclaw-user-manage-sandboxes",
+        "desc": "Operational tasks: listing sandboxes, status, logs, rebuilds, upgrades."
+      },
+      {
+        "name": "nemoclaw-user-monitor-sandbox",
+        "desc": "Inspect sandbox health, trace agent behavior, and diagnose problems."
+      },
+      {
+        "name": "nemoclaw-user-overview",
+        "desc": "Explains OpenClaw, OpenShell, and NemoClaw ecosystem."
+      },
+      {
+        "name": "nemoclaw-user-reference",
+        "desc": "NemoClaw plugin and blueprint architecture reference."
+      }
+    ],
+    "NVIDIA VSS (Video Surveillance)": [
+      {
+        "name": "vss-ask-video",
+        "desc": "Ask the VSS agent's video_understanding tool a visual question about a recorded clip."
+      },
+      {
+        "name": "vss-deploy-dense-captioning",
+        "desc": "Deploy standalone RT-VLM dense captioning or call its REST API."
+      },
+      {
+        "name": "vss-deploy-detection-tracking-2d",
+        "desc": "Deploy, run, debug, or tear down the RTVI-CV 2D detection/tracking microservice."
+      },
+      {
+        "name": "vss-deploy-detection-tracking-3d",
+        "desc": "Deploy and operate the RTVI-CV-3D stack (Multi-View 3D Tracking)."
+      },
+      {
+        "name": "vss-deploy-profile",
+        "desc": "Select, configure, deploy, verify, debug, or tear down a VSS profile."
+      },
+      {
+        "name": "vss-deploy-video-embedding",
+        "desc": "Deploy and operate the VSS 3.2 GA RT-Embed Video Embedding microservice."
+      },
+      {
+        "name": "vss-generate-video-calibration",
+        "desc": "Run AutoMagicCalib on local MP4s, RTSP, or the bundled sample dataset."
+      },
+      {
+        "name": "vss-generate-video-report",
+        "desc": "Produce a VSS analysis report — Mode A per-clip VLM, Mode B incident-range."
+      },
+      {
+        "name": "vss-manage-alerts",
+        "desc": "VSS alert workflows — real-time monitoring, Alert-Bridge subscriptions."
+      },
+      {
+        "name": "vss-manage-video-io-storage",
+        "desc": "Call the VIOS REST API (sensor list, timelines, clip extraction, snapshots)."
+      },
+      {
+        "name": "vss-query-analytics",
+        "desc": "Read video-analytics metrics, incidents, alerts, and sensor data."
+      },
+      {
+        "name": "vss-search-archive",
+        "desc": "Run VSS fusion search on archived video, or ingest video/RTSP for search."
+      },
+      {
+        "name": "vss-setup-behavior-analytics",
+        "desc": "Deploy the vss-behavior-analytics service standalone."
+      },
+      {
+        "name": "vss-setup-video-analytics-api",
+        "desc": "Deploy the vss-video-analytics-api REST service standalone."
+      },
+      {
+        "name": "vss-summarize-video",
+        "desc": "Summarize a recorded video via the LVS summarization microservice."
+      }
+    ],
+    "TileGym": [
+      {
+        "name": "tilegym-adding-cutile-kernel",
+        "desc": "Add a new cuTile GPU kernel operator to TileGym."
+      }
+    ],
+    "AI-Q": [
+      {
+        "name": "aiq-deploy",
+        "desc": "Install, deploy, run, validate, troubleshoot, or stop NVIDIA AI-Q Blueprint infrastructure."
+      },
+      {
+        "name": "aiq-research",
+        "desc": "Run deep research or AI-Q research through a reachable NVIDIA AI-Q Blueprint backend."
+      }
+    ],
+    "Autonomous AI Agents": [
+      {
+        "name": "claude-code",
+        "desc": "Delegate coding to Claude Code CLI (features, PRs)."
+      },
+      {
+        "name": "codex",
+        "desc": "Delegate coding to OpenAI Codex CLI (features, PRs)."
+      },
+      {
+        "name": "computer-use",
+        "desc": "Drive the user's desktop in the background without stealing the cursor."
+      },
+      {
+        "name": "hermes-agent",
+        "desc": "Configure, extend, or contribute to Hermes Agent."
+      },
+      {
+        "name": "kanban-codex-lane",
+        "desc": "Run Codex CLI as an isolated implementation lane in Kanban."
+      },
+      {
+        "name": "opencode",
+        "desc": "Delegate coding to OpenCode CLI (features, PR review)."
+      }
+    ],
+    "Creative": [
+      {
+        "name": "architecture-diagram",
+        "desc": "Dark-themed SVG architecture/cloud/infra diagrams as HTML."
+      },
+      {
+        "name": "ascii-art",
+        "desc": "ASCII art: pyfiglet, cowsay, boxes, image-to-ascii."
+      },
+      {
+        "name": "ascii-video",
+        "desc": "ASCII video: convert video/audio to colored ASCII MP4/GIF."
+      },
+      {
+        "name": "baoyu-article-illustrator",
+        "desc": "Article illustrations: type x style x palette consistency."
+      },
+      {
+        "name": "baoyu-comic",
+        "desc": "Knowledge comics: educational, biography, tutorial."
+      },
+      {
+        "name": "baoyu-infographic",
+        "desc": "Infographics: 21 layouts x 21 styles."
+      },
+      {
+        "name": "brand-voice-content",
+        "desc": "Write original content in a specific brand voice from scratch."
+      },
+      {
+        "name": "brand-voice-copywriting",
+        "desc": "Write editorial content in a specified brand voice."
+      },
+      {
+        "name": "claude-design",
+        "desc": "Design one-off HTML artifacts (landing, deck, prototype)."
+      },
+      {
+        "name": "comfyui",
+        "desc": "Generate images, video, and audio via diffusion workflows."
+      },
+      {
+        "name": "design-md",
+        "desc": "Author/validate/export Google's DESIGN.md token spec files."
+      },
+      {
+        "name": "editorial-cartoon",
+        "desc": "Generate editorial/political cartoons from news articles."
+      },
+      {
+        "name": "excalidraw",
+        "desc": "Hand-drawn Excalidraw JSON diagrams (arch, flow, seq)."
+      },
+      {
+        "name": "humanizer",
+        "desc": "Humanize text: strip AI-isms and add real voice."
+      },
+      {
+        "name": "ideation",
+        "desc": "Generate project ideas via creative constraints."
+      },
+      {
+        "name": "manim-video",
+        "desc": "Manim CE animations: 3Blue1Brown math/algo videos."
+      },
+      {
+        "name": "p5js",
+        "desc": "p5.js sketches: gen art, shaders, interactive, 3D."
+      },
+      {
+        "name": "pixel-art",
+        "desc": "Pixel art w/ era palettes (NES, Game Boy, PICO-8)."
+      },
+      {
+        "name": "popular-web-designs",
+        "desc": "54 real design systems (Stripe, Linear, Vercel) as HTML/CSS."
+      },
+      {
+        "name": "pretext",
+        "desc": "Build creative browser demos with DOM-free text layout."
+      },
+      {
+        "name": "sketch",
+        "desc": "Throwaway HTML mockups: 2-3 design variants to compare."
+      },
+      {
+        "name": "songwriting-and-ai-music",
+        "desc": "Songwriting craft and Suno AI music prompts."
+      },
+      {
+        "name": "touchdesigner-mcp",
+        "desc": "Control TouchDesigner via twozero MCP."
+      }
+    ],
+    "Data Science": [
+      {
+        "name": "jupyter-live-kernel",
+        "desc": "Iterative Python via live Jupyter kernel (hamelnb)."
+      }
+    ],
+    "DevOps": [
+      {
+        "name": "agent-reach",
+        "desc": "Multi-platform internet access layer for AI agents."
+      },
+      {
+        "name": "astro-content-site",
+        "desc": "Build, extend, and maintain content-driven Astro sites (v6+)."
+      },
+      {
+        "name": "b2g-vendor-pipeline",
+        "desc": "Deploy and operate a B2G vendor acquisition pipeline across FL jurisdictions."
+      },
+      {
+        "name": "captcha-watcher",
+        "desc": "Detect CAPTCHA/bot-verification pages and notify via Telegram."
+      },
+      {
+        "name": "contribution-art",
+        "desc": "Draw text or pixel art on your GitHub contribution graph."
+      },
+      {
+        "name": "cron-jobs",
+        "desc": "Create, test, debug, and maintain Hermes cron jobs."
+      },
+      {
+        "name": "deployment-preflight",
+        "desc": "Pre-flight checks before any deployment or publishing pipeline."
+      },
+      {
+        "name": "domain-github-pages",
+        "desc": "Buy a domain (Porkbun), configure DNS, set up GitHub Pages custom domain."
+      },
+      {
+        "name": "domain-purchase",
+        "desc": "Buy and register domains through registrar websites."
+      },
+      {
+        "name": "fal-image-gen-setup",
+        "desc": "Configure Hermes to use FAL.ai for image generation."
+      },
+      {
+        "name": "github-pages-deploy",
+        "desc": "Deploy Vite/React/static sites to GitHub Pages."
+      },
+      {
+        "name": "github-pages-deployment",
+        "desc": "Deploy static sites to GitHub Pages with GitHub Actions CI/CD."
+      },
+      {
+        "name": "hermes-agent-profiles",
+        "desc": "Create and manage isolated Hermes profiles for autonomous agents."
+      },
+      {
+        "name": "hermes-dashboard",
+        "desc": "Set up and run the Hermes web dashboard."
+      },
+      {
+        "name": "hermes-gateway-debugging",
+        "desc": "Diagnose and repair Hermes gateway failures."
+      },
+      {
+        "name": "kanban-orchestrator",
+        "desc": "Decomposition playbook for orchestrator routing work through Kanban."
+      },
+      {
+        "name": "kanban-worker",
+        "desc": "Pitfalls, examples, and edge cases for Hermes Kanban workers."
+      },
+      {
+        "name": "legal-data-pipelines",
+        "desc": "Download large legal datasets from APIs, store in PostgreSQL+pgvector."
+      },
+      {
+        "name": "legalclear",
+        "desc": "Operate the LegalClear backend — run locally, execute tests."
+      },
+      {
+        "name": "local-docker-deploy",
+        "desc": "Deploy a third-party Docker Compose application locally on Pop!_OS."
+      },
+      {
+        "name": "manager-surface",
+        "desc": "Manager Surface multi-agent orchestration system on Orin."
+      },
+      {
+        "name": "mesh-security-audit",
+        "desc": "Comprehensive network security audit for multi-node Tailscale meshes."
+      },
+      {
+        "name": "openclaw-config-repair",
+        "desc": "Diagnose and repair OpenClaw gateway configuration."
+      },
+      {
+        "name": "openclaw-gateway",
+        "desc": "Diagnose and repair OpenClaw gateway crashes."
+      },
+      {
+        "name": "push-to-talk-dictation",
+        "desc": "Set up push-to-talk dictation on Linux X11."
+      },
+      {
+        "name": "remote-computer-use",
+        "desc": "Give Hermes desktop control over a remote Linux machine via MCP."
+      },
+      {
+        "name": "remote-linux-gui-debugging",
+        "desc": "Remotely debug a Linux desktop GUI via SSH."
+      },
+      {
+        "name": "remote-service-deployment",
+        "desc": "Deploy containerized services to remote machines over Tailscale/SSH."
+      },
+      {
+        "name": "repo-maintenance-agent",
+        "desc": "Autonomous repository maintenance — 4x/day cron agent."
+      },
+      {
+        "name": "self-hosted-mail-server",
+        "desc": "Deploy docker-mailserver on a VPS with IMAP/SMTP, SPF/DKIM/DMARC."
+      },
+      {
+        "name": "soflo-content-agent",
+        "desc": "Evaluates discovery manifest, synthesizes article in SoFlo voice."
+      },
+      {
+        "name": "soflo-discovery",
+        "desc": "Daily research agent for SoFlo Digital — AI and South FL tech news."
+      },
+      {
+        "name": "soflo-email-agent",
+        "desc": "Monitors soflodigital.xyz email inboxes, replies professionally."
+      },
+      {
+        "name": "soflo-image-agent",
+        "desc": "Extracts visual concepts, crafts image prompt, returns image URL."
+      },
+      {
+        "name": "soflo-publisher",
+        "desc": "Final phase of SoFlo Digital content pipeline — writes, builds, confirms."
+      },
+      {
+        "name": "soflodigital-site",
+        "desc": "Master umbrella for the SoFlo Digital website."
+      },
+      {
+        "name": "static-site-email-forms",
+        "desc": "Add working email forms to static sites without a backend."
+      },
+      {
+        "name": "tailscale-management",
+        "desc": "Manage Tailscale nodes — exit nodes, subnet routers, health checks."
+      },
+      {
+        "name": "takeover-supervisor",
+        "desc": "Human-takeover handoff for CAPTCHA/bot detection roadblocks."
+      },
+      {
+        "name": "takeover-supervisor-vnc",
+        "desc": "Full remote-control browser takeover via Camofox VNC plugin."
+      },
+      {
+        "name": "uv-enforcement",
+        "desc": "Enforce uv-only package management."
+      },
+      {
+        "name": "vite-github-pages",
+        "desc": "Deploy Vite + React / TypeScript sites to GitHub Pages."
+      },
+      {
+        "name": "vps-static-site-deployment",
+        "desc": "Build and deploy a static site on this VPS."
+      },
+      {
+        "name": "webhook-subscriptions",
+        "desc": "Webhook subscriptions: event-driven agent runs."
+      }
+    ],
+    "Email": [
+      {
+        "name": "email-inbox-triage",
+        "desc": "Triage an inbox: prioritize threads, draft replies safely."
+      },
+      {
+        "name": "himalaya",
+        "desc": "Himalaya CLI: IMAP/SMTP email from terminal."
+      }
+    ],
+    "Firecrawl": [
+      {
+        "name": "firecrawl",
+        "desc": "Search, scrape, and interact with the web via Firecrawl CLI."
+      },
+      {
+        "name": "firecrawl-agent",
+        "desc": "AI-powered autonomous data extraction with structured JSON output."
+      },
+      {
+        "name": "firecrawl-build-interact",
+        "desc": "Integrate Firecrawl /interact into product code."
+      },
+      {
+        "name": "firecrawl-build-onboarding",
+        "desc": "Get Firecrawl credentials and SDK setup into a project."
+      },
+      {
+        "name": "firecrawl-build-scrape",
+        "desc": "Integrate Firecrawl /scrape into product code."
+      },
+      {
+        "name": "firecrawl-build-search",
+        "desc": "Integrate Firecrawl /search into product code."
+      },
+      {
+        "name": "firecrawl-company-directories",
+        "desc": "Extract structured company lists from directories."
+      },
+      {
+        "name": "firecrawl-competitive-intel",
+        "desc": "Monitor competitor pricing, features, changelogs."
+      },
+      {
+        "name": "firecrawl-crawl",
+        "desc": "Bulk extract content from an entire website or site section."
+      },
+      {
+        "name": "firecrawl-dashboard-reporting",
+        "desc": "Pull metrics from analytics dashboards."
+      },
+      {
+        "name": "firecrawl-deep-research",
+        "desc": "Run multi-source deep research with Firecrawl."
+      },
+      {
+        "name": "firecrawl-demo-walkthrough",
+        "desc": "Walk through a product's key flows with Firecrawl browser."
+      },
+      {
+        "name": "firecrawl-download",
+        "desc": "Download an entire website as local files."
+      },
+      {
+        "name": "firecrawl-interact",
+        "desc": "Control and interact with a live browser session on any scraped page."
+      },
+      {
+        "name": "firecrawl-knowledge-base",
+        "desc": "Build a knowledge base from web content."
+      },
+      {
+        "name": "firecrawl-knowledge-ingest",
+        "desc": "Ingest public or authenticated knowledge bases and docs portals."
+      },
+      {
+        "name": "firecrawl-lead-gen",
+        "desc": "Generate structured lead lists from prospect databases."
+      },
+      {
+        "name": "firecrawl-lead-research",
+        "desc": "Produce pre-meeting lead intelligence briefs."
+      },
+      {
+        "name": "firecrawl-map",
+        "desc": "Discover and list all URLs on a website."
+      },
+      {
+        "name": "firecrawl-market-research",
+        "desc": "Extract market, financial, earnings, industry metrics."
+      },
+      {
+        "name": "firecrawl-monitor",
+        "desc": "Detect when content on a website changes and get notified."
+      },
+      {
+        "name": "firecrawl-parse",
+        "desc": "Extract and convert local files (PDF, DOCX, XLSX) to markdown."
+      },
+      {
+        "name": "firecrawl-qa",
+        "desc": "QA test a live website with Firecrawl browser."
+      },
+      {
+        "name": "firecrawl-research-papers",
+        "desc": "Find and synthesize research papers, whitepapers, PDFs."
+      },
+      {
+        "name": "firecrawl-scrape",
+        "desc": "Extract clean markdown from any URL including JS-rendered SPAs."
+      },
+      {
+        "name": "firecrawl-search",
+        "desc": "Web search with full page content extraction."
+      },
+      {
+        "name": "firecrawl-seo-audit",
+        "desc": "Audit a website's SEO with Firecrawl."
+      },
+      {
+        "name": "firecrawl-shop",
+        "desc": "Research products across the web with Firecrawl."
+      },
+      {
+        "name": "firecrawl-website-design-clone",
+        "desc": "Extract any website's design system into DESIGN.md."
+      },
+      {
+        "name": "firecrawl-workflows",
+        "desc": "Run outcome-focused Firecrawl workflows."
+      }
+    ],
+    "Gaming": [
+      {
+        "name": "minecraft-modpack-server",
+        "desc": "Host modded Minecraft servers (CurseForge, Modrinth)."
+      },
+      {
+        "name": "pokemon-player",
+        "desc": "Play Pokemon via headless emulator + RAM reads."
+      }
+    ],
+    "GitHub": [
+      {
+        "name": "codebase-inspection",
+        "desc": "Inspect codebases w/ pygount: LOC, languages, ratios."
+      },
+      {
+        "name": "github-auth",
+        "desc": "GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login."
+      },
+      {
+        "name": "github-code-review",
+        "desc": "Review PRs: diffs, inline comments via gh or REST."
+      },
+      {
+        "name": "github-issue-to-pr",
+        "desc": "Carry a GitHub issue to a verified PR with honest CI state."
+      },
+      {
+        "name": "github-issues",
+        "desc": "Create, triage, label, assign GitHub issues via gh or REST."
+      },
+      {
+        "name": "github-network-scout",
+        "desc": "Discover GitHub users to network with or follow."
+      },
+      {
+        "name": "github-pr-workflow",
+        "desc": "GitHub PR lifecycle: branch, commit, open, CI, merge."
+      },
+      {
+        "name": "github-repo-management",
+        "desc": "Clone/create/fork repos; manage remotes, releases."
+      },
+      {
+        "name": "github-security-hardening",
+        "desc": "Batch-apply GitHub security policies across repos."
+      }
+    ],
+    "Hermes Agent": [
+      {
+        "name": "hermes-desktop-plugins",
+        "desc": "Write desktop app plugins that add UI panes and commands."
+      },
+      {
+        "name": "hermes-voice",
+        "desc": "Set up and troubleshoot Hermes voice features."
+      },
+      {
+        "name": "humanized-computer-use",
+        "desc": "Human-like mouse/keyboard — bezier paths, variable typing."
+      },
+      {
+        "name": "memory-os-query",
+        "desc": "Unified query across all 5 Hermes memory stores."
+      }
+    ],
+    "LegalClear": [
+      {
+        "name": "courtlistener-bulk-ingestion",
+        "desc": "Download FL court opinions from CourtListener bulk CSVs on S3."
+      },
+      {
+        "name": "dispatch-legal-downloader",
+        "desc": "Download, normalize, and stage FL court opinions from CourtListener API."
+      },
+      {
+        "name": "legalclear-harvest-integration",
+        "desc": "Integrate forms-harvest repo into main LegalClear pipeline."
+      },
+      {
+        "name": "legalclear-module-build",
+        "desc": "Build a new LegalClear v2 module with strict isolation."
+      },
+      {
+        "name": "legalclear-refactor-agent",
+        "desc": "Daily architecture & code refactor agent for LegalClear."
+      },
+      {
+        "name": "orin-legal-pipeline",
+        "desc": "Deploy and operate FL legal opinions pipeline on Jetson AGX Orin."
+      }
+    ],
+    "MCP": [
+      {
+        "name": "hermes-mcp-patterns",
+        "desc": "MCP server config patterns for Hermes. Secrets, wrappers."
+      },
+      {
+        "name": "native-mcp",
+        "desc": "MCP client: connect servers, register tools (stdio/HTTP)."
+      }
+    ],
+    "Media": [
+      {
+        "name": "gif-search",
+        "desc": "Search/download GIFs from Tenor via curl + jq."
+      },
+      {
+        "name": "heartmula",
+        "desc": "HeartMuLa: Suno-like song generation from lyrics + tags."
+      },
+      {
+        "name": "nvidia-studio-voice",
+        "desc": "Clean voice audio with NVIDIA Studio Voice."
+      },
+      {
+        "name": "songsee",
+        "desc": "Audio spectrograms/features (mel, chroma, MFCC) via CLI."
+      },
+      {
+        "name": "spotify",
+        "desc": "Spotify: play, search, queue, manage playlists and devices."
+      },
+      {
+        "name": "youtube-content",
+        "desc": "YouTube transcripts to summaries, threads, blogs."
+      }
+    ],
+    "MLOps": [
+      {
+        "name": "audiocraft-audio-generation",
+        "desc": "AudioCraft: MusicGen text-to-music, AudioGen text-to-sound."
+      },
+      {
+        "name": "cosyvoice-jetson",
+        "desc": "Install and run CosyVoice 3 on Jetson AGX Orin for voice cloning."
+      },
+      {
+        "name": "dspy",
+        "desc": "DSPy: declarative LM programs, auto-optimize prompts, RAG."
+      },
+      {
+        "name": "evaluating-llms-harness",
+        "desc": "lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.)."
+      },
+      {
+        "name": "gaze-calibration",
+        "desc": "Calibrate the gaze redirector to your camera position."
+      },
+      {
+        "name": "huggingface-hub",
+        "desc": "HuggingFace hf CLI: search/download/upload models, datasets."
+      },
+      {
+        "name": "jetson",
+        "desc": "NVIDIA Jetson AGX Orin development — ML, GPU video pipelines, real-time inference."
+      },
+      {
+        "name": "kaggle-competition-pipeline",
+        "desc": "End-to-end Kaggle competition workflow."
+      },
+      {
+        "name": "kaggle-competition-workflow",
+        "desc": "End-to-end Kaggle competition workflow — auth, recon, data, submission."
+      },
+      {
+        "name": "llama-cpp",
+        "desc": "llama.cpp local GGUF inference + HF Hub model discovery."
+      },
+      {
+        "name": "model-config-optimization",
+        "desc": "Audit and optimize Hermes model/provider configuration."
+      },
+      {
+        "name": "model-fleet",
+        "desc": "Query Joe's Tailnet model fleet by capability, size, device."
+      },
+      {
+        "name": "obliteratus",
+        "desc": "OBLITERATUS: abliterate LLM refusals (diff-in-means)."
+      },
+      {
+        "name": "orin-headless-services",
+        "desc": "Reliably run long-lived Python scripts on Jetson Orin."
+      },
+      {
+        "name": "realsrgan-upscaling",
+        "desc": "Upscale images with Real-ESRGAN via ONNX Runtime API."
+      },
+      {
+        "name": "segment-anything-model",
+        "desc": "SAM: zero-shot image segmentation via points, boxes, masks."
+      },
+      {
+        "name": "serving-llms-vllm",
+        "desc": "vLLM: high-throughput LLM serving, OpenAI API, quantization."
+      },
+      {
+        "name": "weights-and-biases",
+        "desc": "W&B: log ML experiments, sweeps, model registry, dashboards."
+      }
+    ],
+    "Note-Taking": [
+      {
+        "name": "obsidian",
+        "desc": "Read, search, create, and edit notes in the Obsidian vault."
+      }
+    ],
+    "Productivity": [
+      {
+        "name": "airtable",
+        "desc": "Airtable REST API via curl. Records CRUD, filters, upserts."
+      },
+      {
+        "name": "document-to-action-items",
+        "desc": "Extract cited obligations, deadlines, tasks from documents."
+      },
+      {
+        "name": "docx",
+        "desc": "Create, read, edit Word .docx documents and templates."
+      },
+      {
+        "name": "google-workspace",
+        "desc": "Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python."
+      },
+      {
+        "name": "legal-clear",
+        "desc": "Florida Pro Se legal form finder + PDF auto-fill engine."
+      },
+      {
+        "name": "linear",
+        "desc": "Linear: manage issues, projects, teams via GraphQL + curl."
+      },
+      {
+        "name": "maps",
+        "desc": "Geocode, POIs, routes, timezones via OpenStreetMap/OSRM."
+      },
+      {
+        "name": "nano-pdf",
+        "desc": "Edit text in existing PDFs via natural-language prompts."
+      },
+      {
+        "name": "notion",
+        "desc": "Notion API + ntn CLI: pages, databases, markdown, Workers."
+      },
+      {
+        "name": "ocr-and-documents",
+        "desc": "Extract text from PDFs/scans (pymupdf, marker-pdf)."
+      },
+      {
+        "name": "pdf",
+        "desc": "Create, merge, split, fill, and secure PDF files."
+      },
+      {
+        "name": "petdex",
+        "desc": "Install and select animated petdex mascots for Hermes."
+      },
+      {
+        "name": "powerpoint",
+        "desc": "Create, read, edit .pptx decks, slides, notes, templates."
+      },
+      {
+        "name": "second-brain",
+        "desc": "Manage Joseph's Notion Second Brain."
+      },
+      {
+        "name": "teams-meeting-pipeline",
+        "desc": "Teams meeting summaries, job replay, Graph subscriptions."
+      },
+      {
+        "name": "us-passport-photo",
+        "desc": "Convert any headshot into USA-compliant 2x2 passport photo."
+      },
+      {
+        "name": "web-copy-style",
+        "desc": "Interpret and apply content voice/style briefs for web copy."
+      },
+      {
+        "name": "xlsx",
+        "desc": "Create, read, edit Excel .xlsx spreadsheets and CSVs."
+      }
+    ],
+    "Research": [
+      {
+        "name": "arxiv",
+        "desc": "Search arXiv papers by keyword, author, category, or ID."
+      },
+      {
+        "name": "blogwatcher",
+        "desc": "Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool."
+      },
+      {
+        "name": "florida-court-forms-harvest",
+        "desc": "Harvest Florida court forms for pro se filer training data."
+      },
+      {
+        "name": "florida-court-research",
+        "desc": "Collect official FL court closure dates and holiday schedules."
+      },
+      {
+        "name": "grounded-citations",
+        "desc": "Ground answers and documents in cited, verifiable sources."
+      },
+      {
+        "name": "llm-wiki",
+        "desc": "Karpathy's LLM Wiki: build/query interlinked markdown KB."
+      },
+      {
+        "name": "polymarket",
+        "desc": "Query Polymarket: markets, prices, orderbooks, history."
+      },
+      {
+        "name": "vendor-due-diligence",
+        "desc": "Research and vet third-party suppliers."
+      },
+      {
+        "name": "web-harvest",
+        "desc": "General web-harvest techniques: proxy, SQLite dedup, batch downloads."
+      }
+    ],
+    "SoFlo Digital": [
+      {
+        "name": "soflo-digital",
+        "desc": "SoFlo Digital website on VPS."
+      },
+      {
+        "name": "soflo_content_agent",
+        "desc": "Synthesizes article content in SoFlo Digital voice."
+      },
+      {
+        "name": "soflo_discovery",
+        "desc": "Daily research agent — AI news and South FL tech."
+      },
+      {
+        "name": "soflo_email_agent",
+        "desc": "Monitors email inboxes, replies, sends summary to Telegram."
+      },
+      {
+        "name": "soflo_image_agent",
+        "desc": "Crafts image prompts, calls Orin generation, returns URL."
+      },
+      {
+        "name": "soflo_publisher",
+        "desc": "Writes post to Astro content dir, triggers rebuild."
+      },
+      {
+        "name": "soflo_seo_agent",
+        "desc": "Recurring on-page SEO maintenance."
+      },
+      {
+        "name": "soflo_site_critic",
+        "desc": "Adversarial agent that audits and fixes design/functional defects."
+      },
+      {
+        "name": "soflodigital-deploy",
+        "desc": "Deploy soflodigital.xyz — Astro via Caddy Docker + CF Tunnel."
+      }
+    ],
+    "Software Development": [
+      {
+        "name": "agent-state-machine",
+        "desc": "Pattern for building strict-phase state machine agents."
+      },
+      {
+        "name": "backend-migration",
+        "desc": "Replace one backend with another while keeping both operational."
+      },
+      {
+        "name": "codebase-review",
+        "desc": "Review every source file in repo, fix issues, revise README."
+      },
+      {
+        "name": "context-handoff",
+        "desc": "Structured project resumption and bug-fix handoff prompts."
+      },
+      {
+        "name": "deadline-engine",
+        "desc": "Deterministic deadline computation for legal/government domains."
+      },
+      {
+        "name": "debugging-hermes-tui-commands",
+        "desc": "Debug Hermes TUI slash commands."
+      },
+      {
+        "name": "github-profile-audit",
+        "desc": "Audit a GitHub profile: scan repos, flag weaknesses, fix."
+      },
+      {
+        "name": "gnu-tool-navigator",
+        "desc": "Navigate the GNU package ecosystem to recommend the right tool."
+      },
+      {
+        "name": "hermes-agent-skill-authoring",
+        "desc": "Author SKILL.md files and manage Hermes skill inventory."
+      },
+      {
+        "name": "hermes-s6-container-supervision",
+        "desc": "Modify, debug, or extend s6-overlay inside Hermes Docker image."
+      },
+      {
+        "name": "inspecting-hermes-desktop-dom",
+        "desc": "Read the live Hermes desktop DOM/CSS over CDP."
+      },
+      {
+        "name": "legalclear-build",
+        "desc": "Build methodology for LegalClear modules."
+      },
+      {
+        "name": "node-inspect-debugger",
+        "desc": "Debug Node.js via --inspect + Chrome DevTools Protocol CLI."
+      },
+      {
+        "name": "phased-execution",
+        "desc": "Execute large multi-file projects in small, verifiable phases."
+      },
+      {
+        "name": "plan",
+        "desc": "Write a markdown plan to .hermes/plans/; no execution."
+      },
+      {
+        "name": "platform-message-filters",
+        "desc": "Add preprocessing filters to a platform adapter's outbound messages."
+      },
+      {
+        "name": "port-web-tool",
+        "desc": "Reverse-engineer a client-side web tool and port to FastAPI."
+      },
+      {
+        "name": "python-debugpy",
+        "desc": "Debug Python: pdb REPL + debugpy remote (DAP)."
+      },
+      {
+        "name": "requesting-code-review",
+        "desc": "Pre-commit review: security scan, quality gates, auto-fix."
+      },
+      {
+        "name": "simplify-code",
+        "desc": "Parallel 4-agent cleanup of recent code changes."
+      },
+      {
+        "name": "spike",
+        "desc": "Throwaway experiments to validate an idea before build."
+      },
+      {
+        "name": "subagent-driven-development",
+        "desc": "Execute plans via delegate_task subagents (2-stage review)."
+      },
+      {
+        "name": "systematic-debugging",
+        "desc": "4-phase root cause debugging: understand bugs before fixing."
+      },
+      {
+        "name": "test-driven-development",
+        "desc": "TDD: enforce RED-GREEN-REFACTOR, tests before code."
+      },
+      {
+        "name": "writing-plans",
+        "desc": "Write implementation plans: bite-sized tasks, paths, code."
+      }
+    ],
+    "Swarm": [
+      {
+        "name": "agent-discovery",
+        "desc": "Teach swarm agents how to discover each other's capabilities."
+      },
+      {
+        "name": "browser-agent-core",
+        "desc": "Core identity for Browser Agent swarm worker."
+      },
+      {
+        "name": "builder-core",
+        "desc": "Core identity for Builder swarm worker."
+      },
+      {
+        "name": "content-agent-core",
+        "desc": "Core identity for Content Agent swarm worker."
+      },
+      {
+        "name": "data-pipeline-core",
+        "desc": "Core identity for Data Pipeline Agent swarm worker."
+      },
+      {
+        "name": "devops-agent-core",
+        "desc": "Core identity for DevOps Agent swarm worker."
+      },
+      {
+        "name": "inbox-triage-core",
+        "desc": "Core identity for Inbox Triage swarm worker."
+      },
+      {
+        "name": "km-agent-core",
+        "desc": "Core identity for KM Agent swarm worker."
+      },
+      {
+        "name": "maintainer-core",
+        "desc": "Core identity for Maintainer swarm worker."
+      },
+      {
+        "name": "ops-watch-core",
+        "desc": "Core identity for Ops Watch swarm worker."
+      },
+      {
+        "name": "orchestrator-core",
+        "desc": "Core identity for Orchestrator swarm worker."
+      },
+      {
+        "name": "qa-core",
+        "desc": "Core identity for QA swarm worker."
+      },
+      {
+        "name": "researcher-core",
+        "desc": "Core identity for Researcher swarm worker."
+      },
+      {
+        "name": "reviewer-core",
+        "desc": "Core identity for Reviewer swarm worker."
+      },
+      {
+        "name": "security-agent-core",
+        "desc": "Core identity for Security Agent swarm worker."
+      },
+      {
+        "name": "strategist-core",
+        "desc": "Core identity for Strategist swarm worker."
+      },
+      {
+        "name": "swarm-agent-authoring",
+        "desc": "Create new swarm agents end-to-end."
+      }
+    ],
+    "Other": [
+      {
+        "name": "ai-video-content",
+        "desc": "Generate and post AI video/image content using Higgsfield."
+      },
+      {
+        "name": "auto-research",
+        "desc": "Autonomous NeMo-RL research agent workflow."
+      },
+      {
+        "name": "brev-etiquette",
+        "desc": "Brev instance operating guidance for NeMo-RL agents."
+      },
+      {
+        "name": "digital-health-clinical-asr-build",
+        "desc": "Stage 2 of Clinical ASR Flywheel — curate clinical terms."
+      },
+      {
+        "name": "digital-health-clinical-asr-eval",
+        "desc": "Stage 3 of Clinical ASR Flywheel — score NeMo manifest."
+      },
+      {
+        "name": "digital-health-clinical-asr-finetune",
+        "desc": "Stage 4 of Clinical ASR Flywheel — NeMo SFT fine-tuning."
+      },
+      {
+        "name": "digital-health-clinical-asr-setup",
+        "desc": "Stage 1 of Clinical ASR Flywheel — bootstrap."
+      },
+      {
+        "name": "docs",
+        "desc": "Documentation conventions for NeMo-RL."
+      },
+      {
+        "name": "dogfood",
+        "desc": "Exploratory QA of web apps: find bugs, evidence, reports."
+      },
+      {
+        "name": "hill-codex-content",
+        "desc": "Content voice, brand rules, site ops for The Hill Codex."
+      },
+      {
+        "name": "launch-nemo-rl",
+        "desc": "Playbook for launching, monitoring, stopping NeMo-RL recipes."
+      },
+      {
+        "name": "linkedin-autopilot",
+        "desc": "LinkedIn posting pipeline."
+      },
+      {
+        "name": "red-teaming",
+        "desc": "Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN."
+      },
+      {
+        "name": "research-paper-writing",
+        "desc": "Write ML papers for NeurIPS/ICML/ICLR."
+      },
+      {
+        "name": "scene-forge",
+        "desc": "Convert vague human intent into quality-gated keyframes."
+      },
+      {
+        "name": "seedance-clean",
+        "desc": "Seedance 2.0 prompt-writing system."
+      },
+      {
+        "name": "session-memory",
+        "desc": "Manage durable working-session memory for coding agents."
+      },
+      {
+        "name": "skill-card-generator",
+        "desc": "Generate or update governance skill cards."
+      },
+      {
+        "name": "yuanbao",
+        "desc": "Yuanbao groups: @mention users, query info/members."
+      },
+      {
+        "name": "social-media-posting",
+        "desc": "Draft, format, and publish content across multiple social platforms."
+      },
+      {
+        "name": "facebook-post",
+        "desc": "Post text, images, and links to Facebook Pages via Graph API."
+      },
+      {
+        "name": "instagram-post",
+        "desc": "Post images, carousels, reels to Instagram via Graph API."
+      },
+      {
+        "name": "linkedin-post",
+        "desc": "Post text, images, articles to LinkedIn via Posts API v2."
+      },
+      {
+        "name": "xurl",
+        "desc": "X/Twitter via xurl CLI: post, search, DM, media, v2 API."
+      },
+      {
+        "name": "openhue",
+        "desc": "Control Philips Hue lights, scenes, rooms via OpenHue CLI."
+      },
+      {
+        "name": "android-apk-modding",
+        "desc": "Reverse engineer, patch, and rebuild Android APKs."
+      },
+      {
+        "name": "android-apk-reverse-engineering",
+        "desc": "APK reverse engineering — unpack, decompile, smali patch."
+      },
+      {
+        "name": "apk-reverse-engineering",
+        "desc": "Unpack, decompile, patch, rebuild, and re-sign Android APKs."
+      }
+    ]
+  },
+  "direct_tools": [
+    {
+      "name": "browser_back",
+      "desc": "Navigate back to the previous page in browser history."
+    },
+    {
+      "name": "browser_click",
+      "desc": "Click on an element identified by its ref ID from the snapshot."
+    },
+    {
+      "name": "browser_console",
+      "desc": "Get browser console output and JS errors, or evaluate JS expressions."
+    },
+    {
+      "name": "browser_get_images",
+      "desc": "Get all images on the current page with URLs and alt text."
+    },
+    {
+      "name": "browser_navigate",
+      "desc": "Navigate to a URL in the browser."
+    },
+    {
+      "name": "browser_press",
+      "desc": "Press a keyboard key (Enter, Tab, Escape, ArrowDown, etc.)."
+    },
+    {
+      "name": "browser_scroll",
+      "desc": "Scroll the page up or down."
+    },
+    {
+      "name": "browser_snapshot",
+      "desc": "Get a text-based snapshot of the current page's accessibility tree."
+    },
+    {
+      "name": "browser_type",
+      "desc": "Type text into an input field identified by its ref ID."
+    },
+    {
+      "name": "browser_vision",
+      "desc": "Take a screenshot of the current page for visual inspection."
+    },
+    {
+      "name": "clarify",
+      "desc": "Ask the user a question — multiple choice, multi-select, or open-ended."
+    },
+    {
+      "name": "cronjob",
+      "desc": "Manage scheduled cron jobs (create, list, update, pause, resume, remove, run)."
+    },
+    {
+      "name": "delegate_task",
+      "desc": "Spawn subagents in isolated contexts for parallel or complex work."
+    },
+    {
+      "name": "execute_code",
+      "desc": "Run a Python script that calls Hermes tools programmatically."
+    },
+    {
+      "name": "image_generate",
+      "desc": "Generate images from text prompts (text-to-image) or edit existing images."
+    },
+    {
+      "name": "memory",
+      "desc": "Save durable facts to persistent memory across sessions."
+    },
+    {
+      "name": "patch",
+      "desc": "Targeted find-and-replace edits in files using fuzzy matching."
+    },
+    {
+      "name": "process",
+      "desc": "Manage background processes (list, poll, log, wait, kill, write, submit, close)."
+    },
+    {
+      "name": "read_file",
+      "desc": "Read a text file with line numbers and pagination."
+    },
+    {
+      "name": "search_files",
+      "desc": "Search file contents (ripgrep) or find files by name."
+    },
+    {
+      "name": "session_search",
+      "desc": "Search past sessions stored in the local session DB."
+    },
+    {
+      "name": "skill_manage",
+      "desc": "Manage skills (create, update, delete, write_file, remove_file)."
+    },
+    {
+      "name": "skill_view",
+      "desc": "Load a skill's full SKILL.md content or access linked files."
+    },
+    {
+      "name": "skills_list",
+      "desc": "List available skills with name and description."
+    },
+    {
+      "name": "terminal",
+      "desc": "Execute shell commands on a Linux environment."
+    },
+    {
+      "name": "text_to_speech",
+      "desc": "Convert text to speech audio."
+    },
+    {
+      "name": "todo",
+      "desc": "Manage task list for the current session."
+    },
+    {
+      "name": "tool_search",
+      "desc": "Search 314 additional tools that are loaded on demand."
+    },
+    {
+      "name": "tool_describe",
+      "desc": "Load the full JSON schema for one deferred tool."
+    },
+    {
+      "name": "tool_call",
+      "desc": "Invoke a deferred tool by name with arguments."
+    },
+    {
+      "name": "vision_analyze",
+      "desc": "Load an image into the conversation for the model to see."
+    },
+    {
+      "name": "web_extract",
+      "desc": "Extract content from web page URLs as clean markdown."
+    },
+    {
+      "name": "web_search",
+      "desc": "Search the web for information."
+    },
+    {
+      "name": "write_file",
+      "desc": "Write content to a file, completely replacing existing content."
+    },
+    {
+      "name": "fact_store",
+      "desc": "Deep structured memory with algebraic reasoning."
+    },
+    {
+      "name": "fact_feedback",
+      "desc": "Rate a fact after using it — helpful/unhelpful."
+    }
+  ],
+  "mcp_servers": {
+    "GitHub (MCP)": {
+      "tool_count": 26,
+      "transport": "stdio (bash wrapper)",
+      "tools": [
+        {
+          "name": "search_repositories",
+          "desc": "Search for GitHub repositories"
+        },
+        {
+          "name": "search_code",
+          "desc": "Search for code across GitHub repositories"
+        },
+        {
+          "name": "search_users",
+          "desc": "Search for users on GitHub"
+        },
+        {
+          "name": "search_issues",
+          "desc": "Search for issues and pull requests across GitHub"
+        },
+        {
+          "name": "create_repository",
+          "desc": "Create a new GitHub repository in your account"
+        },
+        {
+          "name": "create_branch",
+          "desc": "Create a new branch in a GitHub repository"
+        },
+        {
+          "name": "fork_repository",
+          "desc": "Fork a GitHub repository"
+        },
+        {
+          "name": "get_file_contents",
+          "desc": "Get contents of a file or directory from a repo"
+        },
+        {
+          "name": "create_or_update_file",
+          "desc": "Create or update a single file in a repo"
+        },
+        {
+          "name": "push_files",
+          "desc": "Push multiple files to a repo in a single commit"
+        },
+        {
+          "name": "list_commits",
+          "desc": "Get list of commits of a branch"
+        },
+        {
+          "name": "get_issue",
+          "desc": "Get details of a specific issue"
+        },
+        {
+          "name": "create_issue",
+          "desc": "Create a new issue in a GitHub repository"
+        },
+        {
+          "name": "update_issue",
+          "desc": "Update an existing issue"
+        },
+        {
+          "name": "list_issues",
+          "desc": "List issues with filtering options"
+        },
+        {
+          "name": "add_issue_comment",
+          "desc": "Add a comment to an existing issue"
+        },
+        {
+          "name": "create_pull_request",
+          "desc": "Create a new pull request"
+        },
+        {
+          "name": "get_pull_request",
+          "desc": "Get details of a specific pull request"
+        },
+        {
+          "name": "list_pull_requests",
+          "desc": "List and filter repository pull requests"
+        },
+        {
+          "name": "create_pull_request_review",
+          "desc": "Create a review on a pull request"
+        },
+        {
+          "name": "get_pull_request_reviews",
+          "desc": "Get the reviews on a pull request"
+        },
+        {
+          "name": "get_pull_request_comments",
+          "desc": "Get the review comments on a pull request"
+        },
+        {
+          "name": "get_pull_request_files",
+          "desc": "Get list of files changed in a pull request"
+        },
+        {
+          "name": "get_pull_request_status",
+          "desc": "Get combined status of all status checks for a PR"
+        },
+        {
+          "name": "merge_pull_request",
+          "desc": "Merge a pull request"
+        },
+        {
+          "name": "update_pull_request_branch",
+          "desc": "Update PR branch with latest from base branch"
+        }
+      ]
+    },
+    "Higgsfield (MCP)": {
+      "tool_count": 88,
+      "transport": "OAuth (blancojosepheric@gmail.com)",
+      "tools": [
+        {
+          "name": "generate_image",
+          "desc": "Generate an image and render in widget. 2-4 for variants."
+        },
+        {
+          "name": "generate_image_batch",
+          "desc": "Submit 1-12 independent image generations in parallel."
+        },
+        {
+          "name": "generate_video",
+          "desc": "Generate one video request and render result(s)."
+        },
+        {
+          "name": "generate_video_batch",
+          "desc": "Submit 1-12 independent video generations in parallel."
+        },
+        {
+          "name": "generate_3d",
+          "desc": "Generate a 3D GLB mesh from image or text."
+        },
+        {
+          "name": "generate_audio",
+          "desc": "Generate audio (TTS, music, sound effects)."
+        },
+        {
+          "name": "generate_audio_batch",
+          "desc": "Submit 1-12 independent audio generations in parallel."
+        },
+        {
+          "name": "animation_actions",
+          "desc": "Catalog of 678 3D rig animation actions."
+        },
+        {
+          "name": "motion_control",
+          "desc": "Control motion in video generation (camera, subject)."
+        },
+        {
+          "name": "upscale_image",
+          "desc": "Upscale/enhance an image to 2K/4K."
+        },
+        {
+          "name": "upscale_video",
+          "desc": "Upscale/enhance a video (Bytedance or Topaz)."
+        },
+        {
+          "name": "remove_background",
+          "desc": "Remove/cut out background from image or video."
+        },
+        {
+          "name": "outpaint_image",
+          "desc": "Expand/uncrop an image beyond original frame."
+        },
+        {
+          "name": "reframe",
+          "desc": "Expand/reframe a video to a new aspect ratio."
+        },
+        {
+          "name": "voice_change",
+          "desc": "Replace spoken voice in a video with a different voice."
+        },
+        {
+          "name": "dubbing",
+          "desc": "Dub a video into another language with lip-sync."
+        },
+        {
+          "name": "create_voice",
+          "desc": "Open Create Voice UI for recording/uploading voice samples."
+        },
+        {
+          "name": "create_voice_from_confirmed_audio",
+          "desc": "Backend creation of a cloned voice."
+        },
+        {
+          "name": "list_voices",
+          "desc": "List available voices (presets + custom)."
+        },
+        {
+          "name": "create_website",
+          "desc": "Start a new full-stack website (React 19 + TanStack Start)."
+        },
+        {
+          "name": "deploy_website",
+          "desc": "Build and deploy website via CI, return live URL."
+        },
+        {
+          "name": "publish_website",
+          "desc": "List live build on the community feed."
+        },
+        {
+          "name": "website_repo_access",
+          "desc": "Get git access to a website's repo."
+        },
+        {
+          "name": "website_secrets",
+          "desc": "Manage website environment variables (API keys, tokens)."
+        },
+        {
+          "name": "website_db",
+          "desc": "Manage website D1/Durable Objects databases."
+        },
+        {
+          "name": "tiktok_prepare_publish",
+          "desc": "Step 1: validate media/account, create publish session."
+        },
+        {
+          "name": "tiktok_publish",
+          "desc": "Step 2: publish to TikTok with user choices."
+        },
+        {
+          "name": "tiktok_publish_status",
+          "desc": "Check TikTok publish status."
+        },
+        {
+          "name": "tiktok_accounts",
+          "desc": "List connected TikTok accounts."
+        },
+        {
+          "name": "tiktok_connect",
+          "desc": "Start TikTok OAuth flow."
+        },
+        {
+          "name": "tiktok_reconnect",
+          "desc": "Re-run TikTok OAuth for expired connector."
+        },
+        {
+          "name": "tiktok_music_trending",
+          "desc": "List trending TikTok music."
+        },
+        {
+          "name": "tiktok_music_tune",
+          "desc": "Search TikTok music library."
+        },
+        {
+          "name": "shorts_studio_create",
+          "desc": "Create a Shorts Studio session."
+        },
+        {
+          "name": "shorts_studio_create_preset",
+          "desc": "Create Shorts Studio preset."
+        },
+        {
+          "name": "shorts_studio_list_presets",
+          "desc": "List Shorts Studio presets."
+        },
+        {
+          "name": "shorts_studio_list_sessions",
+          "desc": "List Shorts Studio sessions."
+        },
+        {
+          "name": "shorts_studio_status",
+          "desc": "Check Shorts Studio session status."
+        },
+        {
+          "name": "show_marketing_studio",
+          "desc": "Open Marketing Studio (DTC Ads) widget."
+        },
+        {
+          "name": "show_marketing_studio_generations",
+          "desc": "Browse past Marketing Studio generations."
+        },
+        {
+          "name": "video_analysis_create",
+          "desc": "Create video analysis job."
+        },
+        {
+          "name": "video_analysis_jobs",
+          "desc": "List video analysis jobs."
+        },
+        {
+          "name": "video_analysis_status",
+          "desc": "Check video analysis job status."
+        },
+        {
+          "name": "virality_predictor",
+          "desc": "Predict virality of video content."
+        },
+        {
+          "name": "get_explainer_presets",
+          "desc": "Show explainer video style presets."
+        },
+        {
+          "name": "resolve_explainer_preset",
+          "desc": "Resolve explainer preset to style reference media_id."
+        },
+        {
+          "name": "presets_show",
+          "desc": "Show image-to-video generation presets."
+        },
+        {
+          "name": "models_explore",
+          "desc": "Explore available models and their parameters."
+        },
+        {
+          "name": "show_characters",
+          "desc": "Show reusable character library."
+        },
+        {
+          "name": "show_reference_elements",
+          "desc": "Elements widget — characters/environments/props."
+        },
+        {
+          "name": "media_upload",
+          "desc": "Upload media for generation or files for sharing."
+        },
+        {
+          "name": "media_upload_widget",
+          "desc": "Open Higgsfield upload widget for local file upload."
+        },
+        {
+          "name": "media_import_url",
+          "desc": "Import HTTPS URL into Higgsfield storage."
+        },
+        {
+          "name": "media_confirm",
+          "desc": "Confirm uploaded media after PUT."
+        },
+        {
+          "name": "show_medias",
+          "desc": "List/browse user's media library."
+        },
+        {
+          "name": "show_generations",
+          "desc": "Browse past generation history."
+        },
+        {
+          "name": "show_generation_by_ids",
+          "desc": "Render 1-60 jobs in gallery widget."
+        },
+        {
+          "name": "job_status",
+          "desc": "Check status of a generation job."
+        },
+        {
+          "name": "job_display",
+          "desc": "Show one specific generation in single-result widget."
+        },
+        {
+          "name": "jobs_wait",
+          "desc": "Long-poll 1-12 jobs until terminal state."
+        },
+        {
+          "name": "reveal_generation",
+          "desc": "Reveal hidden generation results."
+        },
+        {
+          "name": "balance",
+          "desc": "Check account balance and credits."
+        },
+        {
+          "name": "transactions",
+          "desc": "View billing transactions."
+        },
+        {
+          "name": "show_plans_and_credits",
+          "desc": "Show available plans and credit packages."
+        },
+        {
+          "name": "confirm_billing_purchase",
+          "desc": "Confirm a billing purchase."
+        },
+        {
+          "name": "cancel_trial_auto_renewal",
+          "desc": "Cancel trial auto-renewal."
+        },
+        {
+          "name": "confirm_trial_cancel",
+          "desc": "INTERNAL — invoked by cancel-trial widget."
+        },
+        {
+          "name": "sandbox_exec",
+          "desc": "Execute shell command in Higgsfield cloud Linux sandbox."
+        },
+        {
+          "name": "sync_agents",
+          "desc": "Sync agent state with Higgsfield."
+        },
+        {
+          "name": "select_workspace",
+          "desc": "Select active workspace."
+        },
+        {
+          "name": "list_workspaces",
+          "desc": "List available workspaces."
+        },
+        {
+          "name": "list_resources",
+          "desc": "List available MCP resources."
+        },
+        {
+          "name": "read_resource",
+          "desc": "Read a specific MCP resource."
+        },
+        {
+          "name": "apps_search",
+          "desc": "Search available Apps (UI widgets)."
+        },
+        {
+          "name": "apps_describe",
+          "desc": "Describe an App's capabilities."
+        },
+        {
+          "name": "apps_invoke",
+          "desc": "Invoke an App."
+        },
+        {
+          "name": "participate_in_contest",
+          "desc": "Participate in a Higgsfield contest."
+        },
+        {
+          "name": "personal_clipper_create",
+          "desc": "Create a Personal Clipper job."
+        },
+        {
+          "name": "personal_clipper_jobs",
+          "desc": "List Personal Clipper jobs."
+        },
+        {
+          "name": "personal_clipper_status",
+          "desc": "Check Personal Clipper job status."
+        }
+      ]
+    },
+    "Hostinger (MCP)": {
+      "tool_count": 181,
+      "transport": "API key",
+      "tools": [
+        {
+          "name": "DNS_getDNSRecordsV1",
+          "desc": "Retrieve DNS zone records for a domain."
+        },
+        {
+          "name": "DNS_updateDNSRecordsV1",
+          "desc": "Update DNS records (overwrite or merge)."
+        },
+        {
+          "name": "DNS_deleteDNSRecordsV1",
+          "desc": "Delete DNS records by name and type filter."
+        },
+        {
+          "name": "DNS_validateDNSRecordsV1",
+          "desc": "Validate DNS records before applying changes."
+        },
+        {
+          "name": "DNS_resetDNSRecordsV1",
+          "desc": "Reset DNS zone to default records."
+        },
+        {
+          "name": "DNS_getDNSSnapshotV1",
+          "desc": "Retrieve a specific DNS snapshot."
+        },
+        {
+          "name": "DNS_getDNSSnapshotListV1",
+          "desc": "List available DNS snapshots."
+        },
+        {
+          "name": "DNS_restoreDNSSnapshotV1",
+          "desc": "Restore DNS zone to a snapshot."
+        },
+        {
+          "name": "VPS_getVirtualMachinesV1",
+          "desc": "List all virtual machines."
+        },
+        {
+          "name": "VPS_getVirtualMachineDetailsV1",
+          "desc": "Get details of a specific VM."
+        },
+        {
+          "name": "VPS_startVirtualMachineV1",
+          "desc": "Start a virtual machine."
+        },
+        {
+          "name": "VPS_stopVirtualMachineV1",
+          "desc": "Stop a virtual machine."
+        },
+        {
+          "name": "VPS_restartVirtualMachineV1",
+          "desc": "Restart a virtual machine."
+        },
+        {
+          "name": "VPS_createSnapshotV1",
+          "desc": "Create a VM snapshot."
+        },
+        {
+          "name": "VPS_restoreSnapshotV1",
+          "desc": "Restore VM from snapshot."
+        },
+        {
+          "name": "VPS_deleteSnapshotV1",
+          "desc": "Delete a VM snapshot."
+        },
+        {
+          "name": "VPS_getSnapshotV1",
+          "desc": "Get snapshot details."
+        },
+        {
+          "name": "VPS_getBackupsV1",
+          "desc": "List available backups."
+        },
+        {
+          "name": "VPS_restoreBackupV1",
+          "desc": "Restore VM from backup."
+        },
+        {
+          "name": "VPS_setNameserversV1",
+          "desc": "Set custom DNS resolvers for a VM."
+        },
+        {
+          "name": "VPS_setHostnameV1",
+          "desc": "Set VM hostname."
+        },
+        {
+          "name": "VPS_resetHostnameV1",
+          "desc": "Reset VM hostname."
+        },
+        {
+          "name": "VPS_setRootPasswordV1",
+          "desc": "Set VM root password."
+        },
+        {
+          "name": "VPS_setPanelPasswordV1",
+          "desc": "Set VM control panel password."
+        },
+        {
+          "name": "VPS_getMetricsV1",
+          "desc": "Get VM performance metrics."
+        },
+        {
+          "name": "VPS_getActionsV1",
+          "desc": "List VM action history."
+        },
+        {
+          "name": "VPS_getActionDetailsV1",
+          "desc": "Get action details."
+        },
+        {
+          "name": "VPS_getTemplatesV1",
+          "desc": "List available OS templates."
+        },
+        {
+          "name": "VPS_getTemplateDetailsV1",
+          "desc": "Get template details."
+        },
+        {
+          "name": "VPS_getDataCenterListV1",
+          "desc": "List available datacenters."
+        },
+        {
+          "name": "VPS_createFirewallV1",
+          "desc": "Create a new firewall."
+        },
+        {
+          "name": "VPS_createFirewallRuleV1",
+          "desc": "Add a rule to a firewall."
+        },
+        {
+          "name": "VPS_updateFirewallRuleV1",
+          "desc": "Update a firewall rule."
+        },
+        {
+          "name": "VPS_deleteFirewallRuleV1",
+          "desc": "Delete a firewall rule."
+        },
+        {
+          "name": "VPS_deleteFirewallV1",
+          "desc": "Delete a firewall."
+        },
+        {
+          "name": "VPS_getFirewallListV1",
+          "desc": "List firewalls."
+        },
+        {
+          "name": "VPS_getFirewallDetailsV1",
+          "desc": "Get firewall details."
+        },
+        {
+          "name": "VPS_activateFirewallV1",
+          "desc": "Activate a firewall."
+        },
+        {
+          "name": "VPS_deactivateFirewallV1",
+          "desc": "Deactivate a firewall."
+        },
+        {
+          "name": "VPS_syncFirewallV1",
+          "desc": "Sync firewall rules."
+        },
+        {
+          "name": "VPS_createPublicKeyV1",
+          "desc": "Create a public key for SSH."
+        },
+        {
+          "name": "VPS_attachPublicKeyV1",
+          "desc": "Attach a public key to a VM."
+        },
+        {
+          "name": "VPS_getPublicKeysV1",
+          "desc": "List public keys."
+        },
+        {
+          "name": "VPS_deletePublicKeyV1",
+          "desc": "Delete a public key."
+        },
+        {
+          "name": "VPS_getAttachedPublicKeysV1",
+          "desc": "List public keys attached to a VM."
+        },
+        {
+          "name": "VPS_createPTRRecordV1",
+          "desc": "Create/update PTR (reverse DNS) record."
+        },
+        {
+          "name": "VPS_deletePTRRecordV1",
+          "desc": "Delete PTR record."
+        },
+        {
+          "name": "VPS_createProjectV1",
+          "desc": "Create a new project."
+        },
+        {
+          "name": "VPS_updateProjectV1",
+          "desc": "Update a project."
+        },
+        {
+          "name": "VPS_deleteProjectV1",
+          "desc": "Delete a project."
+        },
+        {
+          "name": "VPS_getProjectListV1",
+          "desc": "List projects."
+        },
+        {
+          "name": "VPS_getProjectContentsV1",
+          "desc": "Get project contents."
+        },
+        {
+          "name": "VPS_getProjectContainersV1",
+          "desc": "Get project containers."
+        },
+        {
+          "name": "VPS_getProjectLogsV1",
+          "desc": "Get project logs."
+        },
+        {
+          "name": "VPS_startProjectV1",
+          "desc": "Start a project."
+        },
+        {
+          "name": "VPS_stopProjectV1",
+          "desc": "Stop a project."
+        },
+        {
+          "name": "VPS_restartProjectV1",
+          "desc": "Restart a project."
+        },
+        {
+          "name": "VPS_createPostInstallScriptV1",
+          "desc": "Create a post-install script."
+        },
+        {
+          "name": "VPS_updatePostInstallScriptV1",
+          "desc": "Update a post-install script."
+        },
+        {
+          "name": "VPS_deletePostInstallScriptV1",
+          "desc": "Delete a post-install script."
+        },
+        {
+          "name": "VPS_getPostInstallScriptV1",
+          "desc": "Get post-install script details."
+        },
+        {
+          "name": "VPS_getPostInstallScriptsV1",
+          "desc": "List post-install scripts."
+        },
+        {
+          "name": "VPS_installMonarxV1",
+          "desc": "Install Monarx malware scanner."
+        },
+        {
+          "name": "VPS_uninstallMonarxV1",
+          "desc": "Uninstall Monarx malware scanner."
+        },
+        {
+          "name": "VPS_getScanMetricsV1",
+          "desc": "Get security scan metrics."
+        },
+        {
+          "name": "VPS_startRecoveryModeV1",
+          "desc": "Start recovery mode."
+        },
+        {
+          "name": "VPS_stopRecoveryModeV1",
+          "desc": "Stop recovery mode."
+        },
+        {
+          "name": "VPS_purchaseNewVirtualMachineV1",
+          "desc": "Purchase new VM."
+        },
+        {
+          "name": "VPS_setupPurchasedVirtualMachineV1",
+          "desc": "Setup purchased VM."
+        },
+        {
+          "name": "VPS_recreateVirtualMachineV1",
+          "desc": "Recreate VM."
+        },
+        {
+          "name": "domains_getDomainListV1",
+          "desc": "List all domains."
+        },
+        {
+          "name": "domains_getDomainDetailsV1",
+          "desc": "Get domain details."
+        },
+        {
+          "name": "domains_checkDomainAvailabilityV1",
+          "desc": "Check if domain is available."
+        },
+        {
+          "name": "domains_purchaseNewDomainV1",
+          "desc": "Purchase a new domain."
+        },
+        {
+          "name": "domains_updateDomainNameserversV1",
+          "desc": "Set domain nameservers."
+        },
+        {
+          "name": "domains_enableDomainLockV1",
+          "desc": "Enable domain transfer lock."
+        },
+        {
+          "name": "domains_disableDomainLockV1",
+          "desc": "Disable domain transfer lock."
+        },
+        {
+          "name": "domains_enablePrivacyProtectionV1",
+          "desc": "Enable WHOIS privacy."
+        },
+        {
+          "name": "domains_disablePrivacyProtectionV1",
+          "desc": "Disable WHOIS privacy."
+        },
+        {
+          "name": "domains_createDomainForwardingV1",
+          "desc": "Create domain forwarding."
+        },
+        {
+          "name": "domains_deleteDomainForwardingV1",
+          "desc": "Delete domain forwarding."
+        },
+        {
+          "name": "domains_getDomainForwardingV1",
+          "desc": "Get domain forwarding config."
+        },
+        {
+          "name": "domains_createWHOISProfileV1",
+          "desc": "Create WHOIS profile."
+        },
+        {
+          "name": "domains_deleteWHOISProfileV1",
+          "desc": "Delete WHOIS profile."
+        },
+        {
+          "name": "domains_getWHOISProfileV1",
+          "desc": "Get WHOIS profile."
+        },
+        {
+          "name": "domains_getWHOISProfileListV1",
+          "desc": "List WHOIS profiles."
+        },
+        {
+          "name": "domains_getWHOISProfileUsageV1",
+          "desc": "Get WHOIS profile usage."
+        },
+        {
+          "name": "hosting_listWebsitesV1",
+          "desc": "List hosting websites."
+        },
+        {
+          "name": "hosting_createWebsiteV1",
+          "desc": "Create a new hosting website."
+        },
+        {
+          "name": "hosting_listWebsiteSubdomainsV1",
+          "desc": "List subdomains."
+        },
+        {
+          "name": "hosting_createWebsiteSubdomainV1",
+          "desc": "Create a subdomain."
+        },
+        {
+          "name": "hosting_deleteWebsiteSubdomainV1",
+          "desc": "Delete a subdomain."
+        },
+        {
+          "name": "hosting_listWebsiteParkedDomainsV1",
+          "desc": "List parked domains."
+        },
+        {
+          "name": "hosting_createWebsiteParkedDomainV1",
+          "desc": "Create parked domain."
+        },
+        {
+          "name": "hosting_deleteWebsiteParkedDomainV1",
+          "desc": "Delete parked domain."
+        },
+        {
+          "name": "hosting_verifyDomainOwnershipV1",
+          "desc": "Verify domain ownership."
+        },
+        {
+          "name": "hosting_getPHPDetailsV1",
+          "desc": "Get PHP configuration."
+        },
+        {
+          "name": "hosting_getPHPInfoV1",
+          "desc": "Get phpinfo output."
+        },
+        {
+          "name": "hosting_updatePHPVersionV1",
+          "desc": "Update PHP version."
+        },
+        {
+          "name": "hosting_updatePHPOptionsV1",
+          "desc": "Update PHP options."
+        },
+        {
+          "name": "hosting_updatePHPExtensionsV1",
+          "desc": "Update PHP extensions."
+        },
+        {
+          "name": "hosting_resetPHPExtensionsV1",
+          "desc": "Reset PHP extensions."
+        },
+        {
+          "name": "hosting_getPhpMyAdminLinkV1",
+          "desc": "Get phpMyAdmin access link."
+        },
+        {
+          "name": "hosting_listAccountDatabasesV1",
+          "desc": "List databases."
+        },
+        {
+          "name": "hosting_createAccountDatabaseV1",
+          "desc": "Create a database."
+        },
+        {
+          "name": "hosting_deleteAccountDatabaseV1",
+          "desc": "Delete a database."
+        },
+        {
+          "name": "hosting_changeDatabasePasswordV1",
+          "desc": "Change database password."
+        },
+        {
+          "name": "hosting_repairDatabaseV1",
+          "desc": "Repair a database."
+        },
+        {
+          "name": "hosting_createAccountDatabaseRemoteConnectionV1",
+          "desc": "Create remote DB connection."
+        },
+        {
+          "name": "hosting_deleteAccountDatabaseRemoteConnectionV1",
+          "desc": "Delete remote DB connection."
+        },
+        {
+          "name": "hosting_listAccountDatabaseRemoteConnectionsV1",
+          "desc": "List remote DB connections."
+        },
+        {
+          "name": "hosting_listAccountCronJobsV1",
+          "desc": "List cron jobs."
+        },
+        {
+          "name": "hosting_createAccountCronJobV1",
+          "desc": "Create cron job."
+        },
+        {
+          "name": "hosting_deleteAccountCronJobV1",
+          "desc": "Delete cron job."
+        },
+        {
+          "name": "hosting_getCronJobOutputV1",
+          "desc": "Get cron job output."
+        },
+        {
+          "name": "hosting_installWordPressV1",
+          "desc": "Install WordPress."
+        },
+        {
+          "name": "hosting_listWordPressInstallationsV1",
+          "desc": "List WordPress installations."
+        },
+        {
+          "name": "hosting_installWordPressPluginsV1",
+          "desc": "Install WordPress plugins."
+        },
+        {
+          "name": "hosting_listInstalledWordPressPluginsV1",
+          "desc": "List installed plugins."
+        },
+        {
+          "name": "hosting_activateWordPressPluginV1",
+          "desc": "Activate a plugin."
+        },
+        {
+          "name": "hosting_deactivateWordPressPluginV1",
+          "desc": "Deactivate a plugin."
+        },
+        {
+          "name": "hosting_updateWordPressPluginsV1",
+          "desc": "Update plugins."
+        },
+        {
+          "name": "hosting_uninstallWordPressPluginsV1",
+          "desc": "Uninstall plugins."
+        },
+        {
+          "name": "hosting_searchWordPressPluginsV1",
+          "desc": "Search plugin directory."
+        },
+        {
+          "name": "hosting_listSuggestedWordPressPluginsV1",
+          "desc": "List suggested plugins."
+        },
+        {
+          "name": "hosting_listAvailableWordPressPluginsV1",
+          "desc": "List available plugins."
+        },
+        {
+          "name": "hosting_installWordPressThemeV1",
+          "desc": "Install a theme."
+        },
+        {
+          "name": "hosting_listInstalledWordPressThemesV1",
+          "desc": "List installed themes."
+        },
+        {
+          "name": "hosting_activateWordPressThemeV1",
+          "desc": "Activate a theme."
+        },
+        {
+          "name": "hosting_updateWordPressThemesV1",
+          "desc": "Update themes."
+        },
+        {
+          "name": "hosting_uninstallWordPressThemesV1",
+          "desc": "Uninstall themes."
+        },
+        {
+          "name": "hosting_listWordPressThemesV1",
+          "desc": "List available themes."
+        },
+        {
+          "name": "hosting_deployWordpressPlugin",
+          "desc": "Deploy a WordPress plugin from directory."
+        },
+        {
+          "name": "hosting_deployWordpressTheme",
+          "desc": "Deploy a WordPress theme from directory."
+        },
+        {
+          "name": "hosting_importWordpressWebsite",
+          "desc": "Import WordPress site from archive."
+        },
+        {
+          "name": "hosting_checkIfWooCommerceIsInstalledV1",
+          "desc": "Check if WooCommerce is installed."
+        },
+        {
+          "name": "hosting_updateHostingerWordPressPluginV1",
+          "desc": "Update Hostinger WP plugin."
+        },
+        {
+          "name": "hosting_deployStaticWebsite",
+          "desc": "Deploy static website from archive."
+        },
+        {
+          "name": "hosting_deployJsApplication",
+          "desc": "Deploy JS application from archive."
+        },
+        {
+          "name": "hosting_listJsDeployments",
+          "desc": "List JS deployment statuses."
+        },
+        {
+          "name": "hosting_showJsDeploymentLogs",
+          "desc": "Show JS deployment logs."
+        },
+        {
+          "name": "hosting_createNodeJSBuildFromArchiveV1",
+          "desc": "Create Node.js build."
+        },
+        {
+          "name": "hosting_listNodeJSBuildsV1",
+          "desc": "List Node.js builds."
+        },
+        {
+          "name": "hosting_getNodeJSBuildLogsV1",
+          "desc": "Get Node.js build logs."
+        },
+        {
+          "name": "hosting_listOrdersV1",
+          "desc": "List hosting orders."
+        },
+        {
+          "name": "hosting_listAvailableDatacentersV1",
+          "desc": "List available datacenters."
+        },
+        {
+          "name": "hosting_generateAFreeSubdomainV1",
+          "desc": "Generate free subdomain."
+        },
+        {
+          "name": "horizons_createWebsiteV1",
+          "desc": "Create Hostinger Horizons website."
+        },
+        {
+          "name": "horizons_getWebsiteV1",
+          "desc": "Get Horizons website edit link."
+        },
+        {
+          "name": "billing_getSubscriptionListV1",
+          "desc": "List subscriptions."
+        },
+        {
+          "name": "billing_getPaymentMethodListV1",
+          "desc": "List payment methods."
+        },
+        {
+          "name": "billing_deletePaymentMethodV1",
+          "desc": "Delete payment method."
+        },
+        {
+          "name": "billing_setDefaultPaymentMethodV1",
+          "desc": "Set default payment method."
+        },
+        {
+          "name": "billing_enableAutoRenewalV1",
+          "desc": "Enable auto-renewal."
+        },
+        {
+          "name": "billing_disableAutoRenewalV1",
+          "desc": "Disable auto-renewal."
+        },
+        {
+          "name": "billing_getCatalogItemListV1",
+          "desc": "List catalog items."
+        },
+        {
+          "name": "ecommerce_createStoreV1",
+          "desc": "Create ecommerce store."
+        },
+        {
+          "name": "ecommerce_deleteStoreV1",
+          "desc": "Delete ecommerce store."
+        },
+        {
+          "name": "ecommerce_getStoresV1",
+          "desc": "List stores."
+        },
+        {
+          "name": "ecommerce_getStoreMetadataV1",
+          "desc": "Get store metadata."
+        },
+        {
+          "name": "ecommerce_createPhysicalProductV1",
+          "desc": "Create physical product."
+        },
+        {
+          "name": "ecommerce_createDigitalProductV1",
+          "desc": "Create digital product."
+        },
+        {
+          "name": "ecommerce_setStoreShippingV1",
+          "desc": "Set store shipping."
+        },
+        {
+          "name": "ecommerce_createCustomSalesChannelV1",
+          "desc": "Create custom sales channel."
+        },
+        {
+          "name": "ecommerce_updateSalesChannelV1",
+          "desc": "Update sales channel."
+        },
+        {
+          "name": "ecommerce_listSalesChannelsV1",
+          "desc": "List sales channels."
+        },
+        {
+          "name": "ecommerce_getCustomStorefrontSetupInstructionsV1",
+          "desc": "Get storefront setup instructions."
+        },
+        {
+          "name": "ecommerce_enableManualPaymentMethodV1",
+          "desc": "Enable manual payment method."
+        },
+        {
+          "name": "reach_getProfileDomainDNSStatusV1",
+          "desc": "Get domain DNS status for email."
+        },
+        {
+          "name": "reach_listProfilesV1",
+          "desc": "List mail profiles."
+        },
+        {
+          "name": "reach_listContactsV1",
+          "desc": "List contacts."
+        },
+        {
+          "name": "reach_createANewContactV1",
+          "desc": "Create a contact."
+        },
+        {
+          "name": "reach_createNewContactsV1",
+          "desc": "Create multiple contacts."
+        },
+        {
+          "name": "reach_deleteAContactV1",
+          "desc": "Delete a contact."
+        },
+        {
+          "name": "reach_listContactGroupsV1",
+          "desc": "List contact groups."
+        },
+        {
+          "name": "reach_listSegmentsV1",
+          "desc": "List segments."
+        },
+        {
+          "name": "reach_createANewContactSegmentV1",
+          "desc": "Create contact segment."
+        },
+        {
+          "name": "reach_getSegmentDetailsV1",
+          "desc": "Get segment details."
+        },
+        {
+          "name": "reach_listSegmentContactsV1",
+          "desc": "List segment contacts."
+        },
+        {
+          "name": "reach_listProfileSegmentContactsV1",
+          "desc": "List profile segment contacts."
+        },
+        {
+          "name": "v2_getDomainVerificationsDIRECT",
+          "desc": "Get domain verification status."
+        }
+      ]
+    },
+    "Open Computer Use (MCP)": {
+      "tool_count": 9,
+      "transport": "SSH tunnel (QwenLM, pop-os)",
+      "tools": [
+        {
+          "name": "click",
+          "desc": "Click element by index or pixel coordinates."
+        },
+        {
+          "name": "drag",
+          "desc": "Drag from one point to another using pixel coordinates."
+        },
+        {
+          "name": "scroll",
+          "desc": "Scroll an element in a direction by pages."
+        },
+        {
+          "name": "type_text",
+          "desc": "Type literal text using keyboard input."
+        },
+        {
+          "name": "press_key",
+          "desc": "Press a key or key-combo (xdotool syntax)."
+        },
+        {
+          "name": "set_value",
+          "desc": "Set the value of a settable accessibility element."
+        },
+        {
+          "name": "perform_secondary_action",
+          "desc": "Invoke a secondary accessibility action."
+        },
+        {
+          "name": "get_app_state",
+          "desc": "Get app window screenshot + accessibility tree."
+        },
+        {
+          "name": "list_apps",
+          "desc": "List running and recently used apps."
+        }
+      ]
+    },
+    "Spotify (Plugin)": {
+      "tool_count": 7,
+      "transport": "OAuth (plugin)",
+      "tools": [
+        {
+          "name": "spotify_playback",
+          "desc": "Control playback, inspect state, fetch recently played."
+        },
+        {
+          "name": "spotify_search",
+          "desc": "Search catalog for tracks, albums, artists, playlists."
+        },
+        {
+          "name": "spotify_playlists",
+          "desc": "List, inspect, create, update, modify playlists."
+        },
+        {
+          "name": "spotify_library",
+          "desc": "List, save, or remove saved tracks or albums."
+        },
+        {
+          "name": "spotify_devices",
+          "desc": "List Connect devices or transfer playback."
+        },
+        {
+          "name": "spotify_queue",
+          "desc": "Inspect queue or add an item to it."
+        },
+        {
+          "name": "spotify_albums",
+          "desc": "Fetch album metadata or album tracks."
+        }
+      ]
+    },
+    "Video Gen (Plugin)": {
+      "tool_count": 1,
+      "transport": "Plugin",
+      "tools": [
+        {
+          "name": "video_generate",
+          "desc": "Generate video from text prompt (text-to-video), animate image, or use reference images."
+        }
+      ]
+    },
+    "Video Analyze (Plugin)": {
+      "tool_count": 1,
+      "transport": "Plugin",
+      "tools": [
+        {
+          "name": "video_analyze",
+          "desc": "Analyze video content (details depend on provider)."
+        }
+      ]
+    },
+    "X Search (Plugin)": {
+      "tool_count": 1,
+      "transport": "Plugin (xAI built-in)",
+      "tools": [
+        {
+          "name": "x_search",
+          "desc": "Search X (Twitter) posts, profiles, and threads. Read-only discovery."
+        }
+      ]
+    }
+  }
+};
+
+document.getElementById('updated').textContent = new Date().toISOString().slice(0, 10);
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Search
+const search = document.getElementById('search');
+let searchTimeout;
+search.addEventListener('input', () => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(renderAll, 150);
+});
+
+// Render functions
+function escapeHtml(s) {
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function highlight(text, query) {
+  if (!query) return escapeHtml(text);
+  const words = query.split(/\s+/).filter(w => w.length > 0);
+  let result = escapeHtml(text);
+  words.forEach(w => {
+    const re = new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    result = result.replace(re, '<mark style="background:rgba(139,92,246,0.3);color:#c4b5fd;border-radius:2px;padding:0 2px">$1</mark>');
+  });
+  return result;
+}
+
+function matchesFilter(text, query) {
+  if (!query) return true;
+  const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+  const t = text.toLowerCase();
+  return words.every(w => t.includes(w));
+}
+
+// ---- SKILLS ----
+function renderSkills(query) {
+  const panel = document.getElementById('panel-skills');
+  let html = '';
+  let totalVisible = 0;
+  for (const [category, skills] of Object.entries(DATA.skills)) {
+    const filtered = skills.filter(s => matchesFilter(s.name + ' ' + s.desc, query));
+    if (filtered.length === 0) continue;
+    totalVisible += filtered.length;
+    html += '<div class="category-group">';
+    html += '<div class="category-name">' + escapeHtml(category) + ' <span style="font-weight:400;color:var(--text3)">(' + filtered.length + ')</span></div>';
+    html += '<div class="skills-grid">';
+    filtered.forEach(s => {
+      html += '<div class="skill-card" onclick="this.classList.toggle(\'expanded\')">';
+      html += '<div class="name">' + highlight(s.name, query) + '</div>';
+      html += '<div class="desc">' + highlight(s.desc, query) + '</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  }
+  if (totalVisible === 0) {
+    html = '<div class="no-results">No skills match "' + escapeHtml(query) + '"</div>';
+  }
+  panel.innerHTML = html;
+}
+
+// ---- DIRECT TOOLS ----
+function renderDirectTools(query) {
+  const panel = document.getElementById('panel-direct-tools');
+  const filtered = DATA.direct_tools.filter(t => matchesFilter(t.name + ' ' + t.desc, query));
+  if (filtered.length === 0) {
+    panel.innerHTML = '<div class="no-results">No tools match "' + escapeHtml(query) + '"</div>';
+    return;
+  }
+  let html = '<div class="tools-grid">';
+  filtered.forEach(t => {
+    html += '<div class="tool-card">';
+    html += '<div class="name">' + highlight(t.name, query) + '</div>';
+    html += '<div class="desc">' + highlight(t.desc, query) + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  panel.innerHTML = html;
+}
+
+// ---- MCP / PLUGIN TOOLS ----
+function renderMcpTools(query) {
+  const panel = document.getElementById('panel-mcp-tools');
+  let html = '';
+  let totalVisible = 0;
+  for (const [server, info] of Object.entries(DATA.mcp_servers)) {
+    const filtered = info.tools.filter(t => matchesFilter(t.name + ' ' + t.desc, query));
+    if (filtered.length === 0) continue;
+    totalVisible += filtered.length;
+    html += '<div class="server-wrap">';
+    html += '<div class="server-header">';
+    html += '<div class="server-name">' + escapeHtml(server) + '</div>';
+    html += '<div class="server-meta">';
+    html += '<span class="badge badge-count">' + filtered.length + ' tools</span> ';
+    html += '<span class="badge badge-transport">' + escapeHtml(info.transport) + '</span>';
+    html += '</div></div>';
+    html += '<div class="tools-grid">';
+    filtered.forEach(t => {
+      html += '<div class="tool-card">';
+      html += '<div class="name">' + highlight(t.name, query) + '</div>';
+      html += '<div class="desc">' + highlight(t.desc, query) + '</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  }
+  if (totalVisible === 0) {
+    html = '<div class="no-results">No tools match "' + escapeHtml(query) + '"</div>';
+  }
+  panel.innerHTML = html;
+}
+
+// ---- SERVERS ----
+function renderServers(query) {
+  const panel = document.getElementById('panel-servers');
+  const entries = Object.entries(DATA.mcp_servers).filter(([name, info]) =>
+    matchesFilter(name + ' ' + info.transport, query)
+  );
+  if (entries.length === 0) {
+    panel.innerHTML = '<div class="no-results">No servers match "' + escapeHtml(query) + '"</div>';
+    return;
+  }
+  let html = '';
+  entries.forEach(([name, info]) => {
+    html += '<div class="server-wrap">';
+    html += '<div class="server-header">';
+    html += '<div class="server-name">' + escapeHtml(name) + '</div>';
+    html += '<div class="server-meta">';
+    html += '<span class="badge badge-count">' + info.tool_count + ' tools total</span> ';
+    html += '<span class="badge badge-transport">' + escapeHtml(info.transport) + '</span>';
+    html += '</div></div>';
+    html += '<div class="tools-grid">';
+    info.tools.slice(0, 12).forEach(t => {
+      html += '<div class="tool-card">';
+      html += '<div class="name">' + escapeHtml(t.name) + '</div>';
+      html += '<div class="desc">' + escapeHtml(t.desc) + '</div>';
+      html += '</div>';
+    });
+    if (info.tools.length > 12) {
+      html += '<div style="color:var(--text3);font-size:12px;padding:8px 16px">... and ' + (info.tools.length - 12) + ' more tools (switch to MCP Tools tab to search)</div>';
+    }
+    html += '</div></div>';
+  });
+  panel.innerHTML = html;
+}
+
+function renderAll() {
+  const q = search.value;
+  renderSkills(q);
+  renderDirectTools(q);
+  renderMcpTools(q);
+  renderServers(q);
+}
+
+renderAll();
+</script>
+</body>
+</html>
