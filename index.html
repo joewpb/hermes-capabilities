@@ -298,7 +298,7 @@ const DATA = {
     "NVIDIA GPU Compute": [
       {
         "name": "accelerated-computing-cudf",
-        "desc": "Official NVIDIA-authored guidance for NVIDIA cuDF GPU DataFrames, pandas acceleration, dask-cuDF, ETL, joins, groupby, CSV/Parquet I/O, nullable semantics, and …"
+        "desc": "Official NVIDIA-authored guidance for NVIDIA cuDF GPU DataFrames, pandas acceleration, dask-cuDF, ETL, joins, groupby, CSV/Parquet I/O, nullable semantics, and multi-GPU DataFrame…"
       },
       {
         "name": "cupynumeric-install",
@@ -362,29 +362,29 @@ const DATA = {
     "NVIDIA DeepStream": [
       {
         "name": "deepstream-dev",
-        "desc": "NVIDIA DeepStream SDK 9.0 development with Python pyservicemaker API."
+        "desc": "NVIDIA DeepStream SDK 9.0 development with Python pyservicemaker API. Use when building video analytics pipelines, GStreamer-based video processing, TensorRT inference integration,…"
       },
       {
         "name": "deepstream-import-vision-model",
-        "desc": "Use this skill to bring any vision model from HuggingFace or NVIDIA NGC into an NVIDIA DeepStream pipeline with end-to-end automation: ONNX download, SafeTensor…"
+        "desc": "Use this skill to bring any vision model from HuggingFace or NVIDIA NGC into an NVIDIA DeepStream pipeline with end-to-end automation: ONNX download, SafeTensors export, TRT engine…"
       }
     ],
     "NVIDIA Dynamo": [
       {
         "name": "dynamo-interconnect-check",
-        "desc": "Validate that a Dynamo deployment's NIXL/UCX/NCCL interconnect is ready for disaggregated serving over RDMA/NVLink."
+        "desc": "Validate that a Dynamo deployment's NIXL/UCX/NCCL interconnect is ready for disaggregated serving over RDMA/NVLink. Use after recipe-runner brings a deployment up (especially disag…"
       },
       {
         "name": "dynamo-recipe-runner",
-        "desc": "Select, validate, patch, and deploy existing NVIDIA Dynamo Kubernetes recipes."
+        "desc": "Select, validate, patch, and deploy existing NVIDIA Dynamo Kubernetes recipes. Use for model/backend/GPU/deployment-mode recipe bring-up; use router-starter for router-only mode wo…"
       },
       {
         "name": "dynamo-router-starter",
-        "desc": "Start or patch Dynamo router modes and run router endpoint smoke checks."
+        "desc": "Start or patch Dynamo router modes and run router endpoint smoke checks. Use for round-robin, KV-aware, least-loaded, or device-aware routing setup; use recipe-runner for recipe de…"
       },
       {
         "name": "dynamo-troubleshoot",
-        "desc": "Diagnose failed or unhealthy Dynamo deployments. Use when pods, model-cache jobs, PVCs, workers, frontend/router health, endpoints, or benchmark jobs fail; use …"
+        "desc": "Diagnose failed or unhealthy Dynamo deployments. Use when pods, model-cache jobs, PVCs, workers, frontend/router health, endpoints, or benchmark jobs fail; use recipe-runner/router…"
       }
     ],
     "NVIDIA Earth2Studio": [
@@ -402,7 +402,7 @@ const DATA = {
       },
       {
         "name": "earth2studio-install",
-        "desc": "Guide installing Earth2Studio via uv or pip, selecting model extras, and configuring the environment."
+        "desc": "Guide installing Earth2Studio via uv or pip, selecting model extras, and configuring the environment. Do NOT use for writing inference code, choosing models, or PhysicsNeMo questio…"
       }
     ],
     "NVIDIA Megatron / NeMo": [
@@ -416,7 +416,7 @@ const DATA = {
       },
       {
         "name": "mcore-run-on-slurm",
-        "desc": "How to launch distributed Megatron-LM training jobs on a SLURM cluster."
+        "desc": "How to launch distributed Megatron-LM training jobs on a SLURM cluster. Covers a minimal sbatch skeleton, environment-variable setup for torch.distributed.run, CUDA_DEVICE_MAX_CONN…"
       },
       {
         "name": "mcore-split-pr",
@@ -424,7 +424,7 @@ const DATA = {
       },
       {
         "name": "mcore-testing",
-        "desc": "Test system for Megatron-LM. Covers test layout, recipe YAML structure, adding and running unit and functional tests, golden values, marker filters, and CI pari…"
+        "desc": "Test system for Megatron-LM. Covers test layout, recipe YAML structure, adding and running unit and functional tests, golden values, marker filters, and CI parity."
       },
       {
         "name": "nemo-automodel-distributed-training",
@@ -448,7 +448,7 @@ const DATA = {
       },
       {
         "name": "nemo-mbridge-multi-node-slurm",
-        "desc": "Convert single-node scripts to multi-node Slurm sbatch jobs and debug common multi-node failures."
+        "desc": "Convert single-node scripts to multi-node Slurm sbatch jobs and debug common multi-node failures. Covers srun-native vs uv run torch.distributed approaches, container setup, NCCL t…"
       },
       {
         "name": "nemo-mbridge-perf-activation-recompute",
@@ -456,15 +456,15 @@ const DATA = {
       },
       {
         "name": "nemo-mbridge-perf-cpu-offloading",
-        "desc": "Validate and use CPU offloading in Megatron Bridge, including layer-level activation offloading and fractional optimizer state offloading with HybridDeviceOptim…"
+        "desc": "Validate and use CPU offloading in Megatron Bridge, including layer-level activation offloading and fractional optimizer state offloading with HybridDeviceOptimizer."
       },
       {
         "name": "nemo-mbridge-perf-cuda-graphs",
-        "desc": "Validate and use CUDA graph capture in Megatron Bridge, including local full-iteration graphs and Transformer Engine scoped graphs for attention, MLP, and MoE m…"
+        "desc": "Validate and use CUDA graph capture in Megatron Bridge, including local full-iteration graphs and Transformer Engine scoped graphs for attention, MLP, and MoE modules."
       },
       {
         "name": "nemo-mbridge-perf-expert-parallel-overlap",
-        "desc": "Validate and use MoE expert-parallel communication overlap in Megatron-Bridge, including overlap_moe_expert_parallel_comm, delay_wgrad_compute, and flex dispatc…"
+        "desc": "Validate and use MoE expert-parallel communication overlap in Megatron-Bridge, including overlap_moe_expert_parallel_comm, delay_wgrad_compute, and flex dispatcher backends such as…"
       },
       {
         "name": "nemo-mbridge-perf-hierarchical-context-parallel",
@@ -476,7 +476,7 @@ const DATA = {
       },
       {
         "name": "nemo-mbridge-perf-memory-tuning",
-        "desc": "Techniques for reducing peak GPU memory in Megatron Bridge — expandable segments, parallelism resizing, activation recompute, CPU offloading constraints, and co…"
+        "desc": "Techniques for reducing peak GPU memory in Megatron Bridge — expandable segments, parallelism resizing, activation recompute, CPU offloading constraints, and common OOM fixes."
       },
       {
         "name": "nemo-mbridge-perf-moe-comm-overlap",
@@ -484,31 +484,31 @@ const DATA = {
       },
       {
         "name": "nemo-mbridge-perf-moe-dispatcher-selection",
-        "desc": "Choose the right MoE token dispatcher (`alltoall`, DeepEP, or HybridEP) for the hardware, EP degree, and optimization stage."
+        "desc": "Choose the right MoE token dispatcher (`alltoall`, DeepEP, or HybridEP) for the hardware, EP degree, and optimization stage. Summarizes patterns from DSV3, Qwen3, Qwen3-Next, and V…"
       },
       {
         "name": "nemo-mbridge-perf-moe-hardware-configs",
-        "desc": "Representative MoE training playbooks by hardware platform and model family."
+        "desc": "Representative MoE training playbooks by hardware platform and model family. Summarizes rounded throughput bands, parallelism patterns, and common tuning stacks."
       },
       {
         "name": "nemo-mbridge-perf-moe-long-context",
-        "desc": "Long-context MoE training guidance for Megatron Bridge. Covers CP sizing, selective recompute, dispatcher choices, and practical patterns from DSV3, Qwen3, and …"
+        "desc": "Long-context MoE training guidance for Megatron Bridge. Covers CP sizing, selective recompute, dispatcher choices, and practical patterns from DSV3, Qwen3, and Qwen3-Next long-cont…"
       },
       {
         "name": "nemo-mbridge-perf-moe-optimization-workflow",
-        "desc": "Systematic workflow for MoE training optimization in Megatron Bridge, based on the Megatron-Core MoE paper."
+        "desc": "Systematic workflow for MoE training optimization in Megatron Bridge, based on the Megatron-Core MoE paper. Covers the Three Walls framework, parallel folding, recompute strategy,…"
       },
       {
         "name": "nemo-mbridge-perf-moe-vlm-training",
-        "desc": "Practical guidance for training MoE VLMs in Megatron Bridge. Compares FSDP and 3D-parallel approaches, using rounded lessons from Qwen3-VL, Qwen3-Next, and othe…"
+        "desc": "Practical guidance for training MoE VLMs in Megatron Bridge. Compares FSDP and 3D-parallel approaches, using rounded lessons from Qwen3-VL, Qwen3-Next, and other multimodal experim…"
       },
       {
         "name": "nemo-mbridge-perf-parallelism-strategies",
-        "desc": "Operational guide for choosing and combining parallelism strategies in Megatron Bridge, including sizing rules, hardware topology mapping, and combined parallel…"
+        "desc": "Operational guide for choosing and combining parallelism strategies in Megatron Bridge, including sizing rules, hardware topology mapping, and combined parallelism configuration."
       },
       {
         "name": "nemo-mbridge-perf-sequence-packing",
-        "desc": "Validate and use packed sequences and long-context training in Megatron-Bridge, distinguishing offline packed SFT for LLMs from in-batch packing for VLMs, and a…"
+        "desc": "Validate and use packed sequences and long-context training in Megatron-Bridge, distinguishing offline packed SFT for LLMs from in-batch packing for VLMs, and applying the right CP…"
       },
       {
         "name": "nemo-mbridge-perf-tp-dp-comm-overlap",
@@ -516,7 +516,7 @@ const DATA = {
       },
       {
         "name": "nemo-mbridge-recipe-recommender",
-        "desc": "Recommend and customize Megatron Bridge recipes for a user's model, GPU count, and training goal."
+        "desc": "Recommend and customize Megatron Bridge recipes for a user's model, GPU count, and training goal. Indexes library recipes (pretrain/SFT/PEFT) and performance recipes."
       },
       {
         "name": "nemo-mbridge-resiliency",
@@ -524,17 +524,17 @@ const DATA = {
       },
       {
         "name": "nemo-retriever",
-        "desc": "Use when the user wants to search, query, extract, transcribe, describe, quote, filter, or aggregate across documents — PDFs, scanned forms / images (`.jpg` `.p…"
+        "desc": "Use when the user wants to search, query, extract, transcribe, describe, quote, filter, or aggregate across documents — PDFs, scanned forms / images (`.jpg` `.png` `.tiff`), Office…"
       },
       {
         "name": "nemotron-customize",
-        "desc": "Plan, configure, and chain repo-native Nemotron customization steps into single-step or multi-step pipelines: curation, translation, SFT/PEFT (AutoModel or Mega…"
+        "desc": "Plan, configure, and chain repo-native Nemotron customization steps into single-step or multi-step pipelines: curation, translation, SFT/PEFT (AutoModel or Megatron-Bridge), pretra…"
       }
     ],
     "NVIDIA Omniverse": [
       {
         "name": "omniverse-cad-to-simready",
-        "desc": "Coordinate the end-to-end CAD/source-asset to SimReady workflow. Use for broad requests such as CAD to SimReady, source asset to simulation-ready USD, or prop p…"
+        "desc": "Coordinate the end-to-end CAD/source-asset to SimReady workflow. Use for broad requests such as CAD to SimReady, source asset to simulation-ready USD, or prop packaging that requir…"
       },
       {
         "name": "omniverse-realtime-viewer",
@@ -542,13 +542,13 @@ const DATA = {
       },
       {
         "name": "omniverse-usd-performance-tuning",
-        "desc": "Top-level workflow skill for USD performance diagnosis and optimization."
+        "desc": "Top-level workflow skill for USD performance diagnosis and optimization. Use for slow loading, high memory, low FPS, or 'optimize my scene' requests; delegates auth/runtime setup t…"
       }
     ],
     "NVIDIA Physical AI": [
       {
         "name": "physical-ai-infrastructure-setup-and-resilient-scaling",
-        "desc": "Use when the user wants to set up, scale, validate, or harden NVIDIA physical AI infrastructure for synthetic data generation workflows across local MicroK8s or…"
+        "desc": "Use when the user wants to set up, scale, validate, or harden NVIDIA physical AI infrastructure for synthetic data generation workflows across local MicroK8s or Azure AKS, includin…"
       },
       {
         "name": "physical-ai-neural-reconstruction",
@@ -558,93 +558,93 @@ const DATA = {
     "NVIDIA PhysicsNeMo": [
       {
         "name": "physicsnemo-discover",
-        "desc": "Official NVIDIA-authored guidance for navigating PhysicsNeMo — pick the model, datapipe, or example for a SciML/AI4Science task (surrogates, forecasting, downsc…"
+        "desc": "Official NVIDIA-authored guidance for navigating PhysicsNeMo — pick the model, datapipe, or example for a SciML/AI4Science task (surrogates, forecasting, downscaling, physics-infor…"
       }
     ],
     "NVIDIA RAG": [
       {
         "name": "rag-blueprint",
-        "desc": "NVIDIA RAG Blueprint — deploy, configure, troubleshoot, and manage."
+        "desc": "NVIDIA RAG Blueprint — deploy, configure, troubleshoot, and manage. Handles any RAG action: deploy, install, start, enable, disable, toggle, change, configure, troubleshoot, debug,…"
       },
       {
         "name": "rag-eval",
-        "desc": "Filesystem RAG benchmarks: corpus/, train.json, evaluate_rag.py (RAGAS quality)."
+        "desc": "Filesystem RAG benchmarks: corpus/, train.json, evaluate_rag.py (RAGAS quality). Not for prod monitoring, latency/throughput benchmarking (use rag-perf), or evals outside this repo…"
       },
       {
         "name": "rag-perf",
-        "desc": "Performance benchmarking for a deployed NVIDIA RAG Blueprint server: profiling pass + aiperf load test driven by a single YAML config."
+        "desc": "Performance benchmarking for a deployed NVIDIA RAG Blueprint server: profiling pass + aiperf load test driven by a single YAML config. Not for accuracy / RAGAS scoring (use rag-eva…"
       }
     ],
     "NVIDIA NemoClaw / OpenClaw": [
       {
         "name": "nemoclaw-user-agent-skills",
-        "desc": "Describes the agent skills shipped with NemoClaw and how to access them by cloning the repository."
+        "desc": "Describes the agent skills shipped with NemoClaw and how to access them by cloning the repository. Use when users ask about AI agent support, coding assistant integration, or the .…"
       },
       {
         "name": "nemoclaw-user-configure-inference",
-        "desc": "Connects NemoClaw to a local inference server. Use when setting up Ollama, vLLM, TensorRT-LLM, NIM, or any OpenAI-compatible local model server with NemoClaw."
+        "desc": "Connects NemoClaw to a local inference server. Use when setting up Ollama, vLLM, TensorRT-LLM, NIM, or any OpenAI-compatible local model server with NemoClaw. Trigger keywords - ne…"
       },
       {
         "name": "nemoclaw-user-configure-security",
-        "desc": "Presents a risk framework for every configurable security control in NemoClaw."
+        "desc": "Presents a risk framework for every configurable security control in NemoClaw. Use when evaluating security posture, reviewing sandbox security defaults, or assessing control trade…"
       },
       {
         "name": "nemoclaw-user-deploy-remote",
-        "desc": "Explains how to run NemoClaw on a remote GPU instance, including the deprecated Brev compatibility path and the preferred installer plus onboard flow."
+        "desc": "Explains how to run NemoClaw on a remote GPU instance, including the deprecated Brev compatibility path and the preferred installer plus onboard flow. Use when deploying NemoClaw t…"
       },
       {
         "name": "nemoclaw-user-get-started",
-        "desc": "Installs NemoClaw, launches a sandbox, and runs the first agent prompt. Use when onboarding, installing, or launching a NemoClaw sandbox for the first time."
+        "desc": "Installs NemoClaw, launches a sandbox, and runs the first agent prompt. Use when onboarding, installing, or launching a NemoClaw sandbox for the first time. Trigger keywords - nemo…"
       },
       {
         "name": "nemoclaw-user-manage-policy",
-        "desc": "Adds, removes, or modifies allowed endpoints in the sandbox policy."
+        "desc": "Adds, removes, or modifies allowed endpoints in the sandbox policy. Use when customizing network policy, changing egress rules, or configuring sandbox endpoint access. Trigger keyw…"
       },
       {
         "name": "nemoclaw-user-manage-sandboxes",
-        "desc": "Explains operational tasks after the quickstart: listing sandboxes, status and health checks, logs, diagnostics, port forwards, multiple sandboxes, credential r…"
+        "desc": "Explains operational tasks after the quickstart: listing sandboxes, status and health checks, logs, diagnostics, port forwards, multiple sandboxes, credential reset, rebuilds, netw…"
       },
       {
         "name": "nemoclaw-user-monitor-sandbox",
-        "desc": "Inspects sandbox health, traces agent behavior, and diagnoses problems."
+        "desc": "Inspects sandbox health, traces agent behavior, and diagnoses problems. Use when monitoring a running sandbox, debugging agent issues, or checking sandbox logs. Trigger keywords -…"
       },
       {
         "name": "nemoclaw-user-overview",
-        "desc": "Explains how OpenClaw, OpenShell, and NemoClaw form the ecosystem, NemoClaw's position in the stack, what NemoClaw adds beyond the community sandbox, and when t…"
+        "desc": "Explains how OpenClaw, OpenShell, and NemoClaw form the ecosystem, NemoClaw's position in the stack, what NemoClaw adds beyond the community sandbox, and when to prefer NemoClaw ve…"
       },
       {
         "name": "nemoclaw-user-reference",
-        "desc": "Describes the NemoClaw plugin and blueprint architecture and how they orchestrate the OpenClaw sandbox."
+        "desc": "Describes the NemoClaw plugin and blueprint architecture and how they orchestrate the OpenClaw sandbox. Use when looking up architecture, plugin structure, or blueprint design. Tri…"
       }
     ],
     "NVIDIA VSS (Video Surveillance)": [
       {
         "name": "vss-ask-video",
-        "desc": "Use to ask the VSS agent's video_understanding tool a fresh visual question about a recorded clip."
+        "desc": "Use to ask the VSS agent's video_understanding tool a fresh visual question about a recorded clip. Not for prior tool output, search hits, or metadata-answerable questions."
       },
       {
         "name": "vss-deploy-dense-captioning",
-        "desc": "Use this skill when deploying standalone RT-VLM dense captioning or calling its REST API (uploads, captions, streams, chat-completions, Kafka)."
+        "desc": "Use this skill when deploying standalone RT-VLM dense captioning or calling its REST API (uploads, captions, streams, chat-completions, Kafka). Not for VSS profile deploy or video-…"
       },
       {
         "name": "vss-deploy-detection-tracking-2d",
-        "desc": "Use to deploy, run, debug, or tear down the RTVI-CV 2D detection / tracking microservice and call its REST API."
+        "desc": "Use to deploy, run, debug, or tear down the RTVI-CV 2D detection / tracking microservice and call its REST API. Not for VLM, embedding, or analytics — use the matching vss-* skill."
       },
       {
         "name": "vss-deploy-detection-tracking-3d",
-        "desc": "Deploy and operate the RTVI-CV-3D stack (also known as MV3DT, Multi-View 3D Tracking, or RTVI-CV-MV3DT) — per-camera DeepStream perception plus BEV Fusion over …"
+        "desc": "Deploy and operate the RTVI-CV-3D stack (also known as MV3DT, Multi-View 3D Tracking, or RTVI-CV-MV3DT) — per-camera DeepStream perception plus BEV Fusion over multiple calibrated…"
       },
       {
         "name": "vss-deploy-profile",
-        "desc": "Use to select, configure, deploy, verify, debug, or tear down a VSS profile (base, search, lvs, warehouse, edge)."
+        "desc": "Use to select, configure, deploy, verify, debug, or tear down a VSS profile (base, search, lvs, warehouse, edge). Not for standalone microservices — use the vss-deploy-* skill."
       },
       {
         "name": "vss-deploy-video-embedding",
-        "desc": "Deploy, operate, and integrate the VSS 3.2 GA RT-Embed Video Embedding microservice."
+        "desc": "Deploy, operate, and integrate the VSS 3.2 GA RT-Embed Video Embedding microservice. Covers Docker Compose bring-up, GPU and storage prerequisites, the `/v1` REST API (file uploads…"
       },
       {
         "name": "vss-generate-video-calibration",
-        "desc": "Use to run AutoMagicCalib on local MP4s, RTSP, or the bundled sample dataset, and to deploy vss-auto-calibration when needed."
+        "desc": "Use to run AutoMagicCalib on local MP4s, RTSP, or the bundled sample dataset, and to deploy vss-auto-calibration when needed. Not for non-AMC calibration or runtime analytics."
       },
       {
         "name": "vss-generate-video-report",
@@ -652,7 +652,7 @@ const DATA = {
       },
       {
         "name": "vss-manage-alerts",
-        "desc": "Use for VSS alert workflows — real-time monitoring, Alert-Bridge subscriptions, Slack notifications, incident queries, camera onboarding."
+        "desc": "Use for VSS alert workflows — real-time monitoring, Alert-Bridge subscriptions, Slack notifications, incident queries, camera onboarding. Not for non-alert analytics."
       },
       {
         "name": "vss-manage-video-io-storage",
@@ -660,7 +660,7 @@ const DATA = {
       },
       {
         "name": "vss-query-analytics",
-        "desc": "Use this skill when reading video-analytics metrics, incidents, alerts, and sensor data via the VA-MCP server (port 9901)."
+        "desc": "Use this skill when reading video-analytics metrics, incidents, alerts, and sensor data via the VA-MCP server (port 9901). Not for live VLM or incident-range narrative reports."
       },
       {
         "name": "vss-search-archive",
@@ -676,13 +676,13 @@ const DATA = {
       },
       {
         "name": "vss-summarize-video",
-        "desc": "Use to summarize a recorded video via the LVS summarization microservice (HITL-gated) with a VLM fallback."
+        "desc": "Use to summarize a recorded video via the LVS summarization microservice (HITL-gated) with a VLM fallback. Not for live RTSP captioning or incident-range reports."
       }
     ],
     "TileGym": [
       {
         "name": "tilegym-adding-cutile-kernel",
-        "desc": "Add a new cuTile GPU kernel operator to TileGym. Covers dispatch registration in ops.py, cuTile backend implementation, __init__.py exports, test creation, and …"
+        "desc": "Add a new cuTile GPU kernel operator to TileGym. Covers dispatch registration in ops.py, cuTile backend implementation, __init__.py exports, test creation, and benchmark in tests/b…"
       }
     ],
     "AI-Q": [
@@ -730,7 +730,7 @@ const DATA = {
       },
       {
         "name": "kanban-codex-lane",
-        "desc": "Use when a Hermes Kanban worker wants to run Codex CLI as an isolated implementation lane while Hermes keeps ownership of task lifecycle, reconciliation, testin…"
+        "desc": "Use when a Hermes Kanban worker wants to run Codex CLI as an isolated implementation lane while Hermes keeps ownership of task lifecycle, reconciliation, testing, and handoff."
       },
       {
         "name": "merge-reconciler",
@@ -768,11 +768,11 @@ const DATA = {
       },
       {
         "name": "brand-voice-content",
-        "desc": "Write original content in a specific brand voice from scratch — not editing existing text to remove AI patterns (that's humanizer), but producing new copy in a …"
+        "desc": "Write original content in a specific brand voice from scratch — not editing existing text to remove AI patterns (that's humanizer), but producing new copy in a calibrated register…"
       },
       {
         "name": "brand-voice-copywriting",
-        "desc": "Write editorial content (exercise instructions, resource blurbs, event details, form microcopy) in a specified brand voice with explicit style guardrails."
+        "desc": "Write editorial content (exercise instructions, resource blurbs, event details, form microcopy) in a specified brand voice with explicit style guardrails. Handles content gap-fill…"
       },
       {
         "name": "claude-design",
@@ -788,15 +788,19 @@ const DATA = {
       },
       {
         "name": "editorial-cartoon",
-        "desc": "Generate editorial/political cartoons from news articles using Orin SDXL."
+        "desc": "Generate editorial/political cartoons from news articles using Orin SDXL. Extracts article, distills narrative into a satirical visual prompt, deploys to Jetson Orin, delivers resu…"
       },
       {
         "name": "excalidraw",
         "desc": "Hand-drawn Excalidraw JSON diagrams (arch, flow, seq)."
       },
       {
+        "name": "handdrawn-diagrams",
+        "desc": "Use when making hand-drawn pen-on-paper diagram images."
+      },
+      {
         "name": "hill-codex-content",
-        "desc": "Content voice, structure, brand rules, site operations, and deployment for The Hill Codex (josie.ai, thehillcodex.xyz)."
+        "desc": "Content voice, structure, brand rules, site operations, and deployment for The Hill Codex (josie.ai, thehillcodex.xyz). Writing Think and Grow Rich study materials in the josie.ai…"
       },
       {
         "name": "humanizer",
@@ -827,6 +831,10 @@ const DATA = {
         "desc": "Build creative browser demos with DOM-free text layout."
       },
       {
+        "name": "screenshot-annotation",
+        "desc": "Use when annotating screenshots or images with overlays."
+      },
+      {
         "name": "sketch",
         "desc": "Throwaway HTML mockups: 2-3 design variants to compare."
       },
@@ -852,7 +860,7 @@ const DATA = {
     "DevOps": [
       {
         "name": "agent-reach",
-        "desc": "Multi-platform internet access layer for AI agents. Install, configure, and troubleshoot Agent Reach channels (Twitter, Reddit, LinkedIn, YouTube, Bilibili, Xia…"
+        "desc": "Multi-platform internet access layer for AI agents. Install, configure, and troubleshoot Agent Reach channels (Twitter, Reddit, LinkedIn, YouTube, Bilibili, Xiaohongshu, RSS, web s…"
       },
       {
         "name": "astro-content-site",
@@ -860,11 +868,11 @@ const DATA = {
       },
       {
         "name": "b2g-vendor-pipeline",
-        "desc": "Deploy and operate a B2G (business-to-government) vendor acquisition pipeline across multiple Florida jurisdictions."
+        "desc": "Deploy and operate a B2G (business-to-government) vendor acquisition pipeline across multiple Florida jurisdictions. Covers phase-gated registration, certification, portal polling,…"
       },
       {
         "name": "captcha-watcher",
-        "desc": "Detect CAPTCHA, bot-verification, or human-check pages during browser navigation and automatically notify the user via Telegram with a VNC link for manual takeo…"
+        "desc": "Detect CAPTCHA, bot-verification, or human-check pages during browser navigation and automatically notify the user via Telegram with a VNC link for manual takeover."
       },
       {
         "name": "contribution-art",
@@ -876,15 +884,15 @@ const DATA = {
       },
       {
         "name": "deployment-preflight",
-        "desc": "Pre-flight checks before any deployment or publishing pipeline — ledger state, dynamic branch verification, safe-first-target isolation, Jekyll theming setup, a…"
+        "desc": "Pre-flight checks before any deployment or publishing pipeline — ledger state, dynamic branch verification, safe-first-target isolation, Jekyll theming setup, and pre-deploy verifi…"
       },
       {
         "name": "domain-github-pages",
-        "desc": "Buy a domain (Porkbun), configure DNS records, set up GitHub Pages custom domain, enforce HTTPS."
+        "desc": "Buy a domain (Porkbun), configure DNS records, set up GitHub Pages custom domain, enforce HTTPS. Covers the full workflow from domain availability check through SSL provisioning."
       },
       {
         "name": "domain-purchase",
-        "desc": "Buy and register domains through registrar websites. Covers availability checking, TLD price comparison, cart management, account creation, and checkout walkthr…"
+        "desc": "Buy and register domains through registrar websites. Covers availability checking, TLD price comparison, cart management, account creation, and checkout walkthrough with credit car…"
       },
       {
         "name": "fal-image-gen-setup",
@@ -892,15 +900,15 @@ const DATA = {
       },
       {
         "name": "github-pages-deploy",
-        "desc": "Deploy Vite/React/static sites to GitHub Pages with GitHub Actions."
+        "desc": "Deploy Vite/React/static sites to GitHub Pages with GitHub Actions. Covers repo setup, Vite config (base), deploy workflow, custom domains, and CNAME configuration."
       },
       {
         "name": "github-pages-deployment",
-        "desc": "Deploy static sites (Vite, React, plain HTML, SPAs) to GitHub Pages with GitHub Actions CI/CD — workflow setup, build configuration, path resolution, and common…"
+        "desc": "Deploy static sites (Vite, React, plain HTML, SPAs) to GitHub Pages with GitHub Actions CI/CD — workflow setup, build configuration, path resolution, and common failure patterns."
       },
       {
         "name": "hermes-agent-profiles",
-        "desc": "Create and manage isolated Hermes profiles for autonomous agents with fine-grained credential separation."
+        "desc": "Create and manage isolated Hermes profiles for autonomous agents with fine-grained credential separation. Covers profile creation, .env templates, wrapper scripts, and deployment p…"
       },
       {
         "name": "hermes-dashboard",
@@ -908,7 +916,7 @@ const DATA = {
       },
       {
         "name": "hermes-gateway-debugging",
-        "desc": "Diagnose and repair Hermes gateway failures — adapter load errors, platform crashes, plugin import failures, and class-definition corruption."
+        "desc": "Diagnose and repair Hermes gateway failures — adapter load errors, platform crashes, plugin import failures, and class-definition corruption. Use when a platform adapter (Telegram,…"
       },
       {
         "name": "hermes-harness-audit",
@@ -920,7 +928,7 @@ const DATA = {
       },
       {
         "name": "legal-data-pipelines",
-        "desc": "Download large legal datasets from APIs (CourtListener, PACER), store in PostgreSQL+pgvector with embeddings, and serve via RAG on edge devices (Orin) or VPS."
+        "desc": "Download large legal datasets from APIs (CourtListener, PACER), store in PostgreSQL+pgvector with embeddings, and serve via RAG on edge devices (Orin) or VPS. Covers rate-limited A…"
       },
       {
         "name": "legalclear",
@@ -932,7 +940,7 @@ const DATA = {
       },
       {
         "name": "local-docker-deploy",
-        "desc": "Deploy a third-party Docker Compose application locally on Pop!_OS / Linux."
+        "desc": "Deploy a third-party Docker Compose application locally on Pop!_OS / Linux. Use when the user asks to install, deploy, or run a repo that ships a docker-compose.yml."
       },
       {
         "name": "manager-surface",
@@ -940,15 +948,15 @@ const DATA = {
       },
       {
         "name": "mesh-security-audit",
-        "desc": "Comprehensive network security audit for multi-node Tailscale meshes."
+        "desc": "Comprehensive network security audit for multi-node Tailscale meshes. Covers per-node service recon, firewall audit, perimeter exposure analysis, Tailscale ACL review, cross-node c…"
       },
       {
         "name": "openclaw-config-repair",
-        "desc": "Diagnose and repair OpenClaw gateway configuration — model context windows, compaction settings, config validation errors, and restart procedures."
+        "desc": "Diagnose and repair OpenClaw gateway configuration — model context windows, compaction settings, config validation errors, and restart procedures. Use when the user reports context…"
       },
       {
         "name": "openclaw-gateway",
-        "desc": "Diagnose and repair OpenClaw gateway crashes, connection losses, config corruption, startup failures, and auto-compaction overflows."
+        "desc": "Diagnose and repair OpenClaw gateway crashes, connection losses, config corruption, startup failures, and auto-compaction overflows. Use when the gateway won't start, Telegram disc…"
       },
       {
         "name": "push-to-talk-dictation",
@@ -960,7 +968,7 @@ const DATA = {
       },
       {
         "name": "remote-computer-use",
-        "desc": "Give Hermes desktop control over a remote Linux machine via an MCP-based Computer Use server tunneled over SSH (Tailscale)."
+        "desc": "Give Hermes desktop control over a remote Linux machine via an MCP-based Computer Use server tunneled over SSH (Tailscale). Covers Open Computer Use installation, Linux accessibili…"
       },
       {
         "name": "remote-linux-gui-debugging",
@@ -968,23 +976,23 @@ const DATA = {
       },
       {
         "name": "remote-service-deployment",
-        "desc": "Deploy containerized services to remote machines over Tailscale/SSH — health probes, readiness polling, first-run patience with model downloads, and Docker volu…"
+        "desc": "Deploy containerized services to remote machines over Tailscale/SSH — health probes, readiness polling, first-run patience with model downloads, and Docker volume persistence."
       },
       {
         "name": "repo-maintenance-agent",
-        "desc": "Autonomous repository maintenance — 4x/day cron agent that performs randomized high-value tasks (log updates, dep audits, docs gen, linting, safe refactoring) t…"
+        "desc": "Autonomous repository maintenance — 4x/day cron agent that performs randomized high-value tasks (log updates, dep audits, docs gen, linting, safe refactoring) to show consistent en…"
       },
       {
         "name": "self-hosted-mail-server",
-        "desc": "Deploy docker-mailserver on a VPS with full IMAP/SMTP, SPF/DKIM/DMARC, Porkbun DNS management, and Let's Encrypt TLS."
+        "desc": "Deploy docker-mailserver on a VPS with full IMAP/SMTP, SPF/DKIM/DMARC, Porkbun DNS management, and Let's Encrypt TLS. Covers the full pipeline from DNS records to working email acc…"
       },
       {
         "name": "soflo-content-agent",
-        "desc": "Evaluates the discovery manifest from soflo-discovery. If signal threshold is met, synthesizes original article content in the SoFlo Digital brand voice with se…"
+        "desc": "Evaluates the discovery manifest from soflo-discovery. If signal threshold is met, synthesizes original article content in the SoFlo Digital brand voice with self-evaluation fact c…"
       },
       {
         "name": "soflo-discovery",
-        "desc": "Daily research agent for SoFlo Digital. Queries for AI news and South Florida tech developments published in the last 24 hours."
+        "desc": "Daily research agent for SoFlo Digital. Queries for AI news and South Florida tech developments published in the last 24 hours. Produces a structured discovery manifest consumed by…"
       },
       {
         "name": "soflo-email-agent",
@@ -996,7 +1004,7 @@ const DATA = {
       },
       {
         "name": "soflo-publisher",
-        "desc": "Final phase of the SoFlo Digital content pipeline. Receives article + image, writes markdown to Astro content directory, triggers rebuild, and confirms publicat…"
+        "desc": "Final phase of the SoFlo Digital content pipeline. Receives article + image, writes markdown to Astro content directory, triggers rebuild, and confirms publication. Fail-closed."
       },
       {
         "name": "soflodigital-site",
@@ -1012,15 +1020,19 @@ const DATA = {
       },
       {
         "name": "tailscale-management",
-        "desc": "Manage Tailscale nodes — exit nodes, subnet routers, exit node setup, health checks, local API debugging."
+        "desc": "Manage Tailscale nodes — exit nodes, subnet routers, exit node setup, health checks, local API debugging. Use when the user asks to route traffic through a Tailscale node, set up a…"
       },
       {
         "name": "takeover-supervisor",
-        "desc": "Human-takeover handoff for CAPTCHA, bot detection, or any browser roadblock."
+        "desc": "Human-takeover handoff for CAPTCHA, bot detection, or any browser roadblock. When the agent hits an unsolvable puzzle, it takes a page snapshot, sends it to the user via Telegram (…"
       },
       {
         "name": "takeover-supervisor-vnc",
-        "desc": "Full remote-control browser takeover via Camofox's native VNC plugin. Enable the plugin, and Camofox handles Xvfb + x11vnc + noVNC."
+        "desc": "Full remote-control browser takeover via Camofox's native VNC plugin. Enable the plugin, and Camofox handles Xvfb + x11vnc + noVNC. The supervisor only handles the stuck/resume fil…"
+      },
+      {
+        "name": "usb-image-flashing",
+        "desc": "Use when flashing an ISO/disk image to a USB stick."
       },
       {
         "name": "uv-enforcement",
@@ -1032,7 +1044,7 @@ const DATA = {
       },
       {
         "name": "vps-static-site-deployment",
-        "desc": "Build and deploy a static site (Astro, Vite, plain HTML) on this VPS — nginx port conflicts, Caddy Docker, Tailscale serve, DNS wiring, and Astro v6 migration q…"
+        "desc": "Build and deploy a static site (Astro, Vite, plain HTML) on this VPS — nginx port conflicts, Caddy Docker, Tailscale serve, DNS wiring, and Astro v6 migration quirks."
       },
       {
         "name": "webapp-qa-evidence",
@@ -1056,123 +1068,123 @@ const DATA = {
     "Firecrawl": [
       {
         "name": "firecrawl",
-        "desc": "Search, scrape, and interact with the web via the Firecrawl CLI. Use this skill whenever the user wants to search the web, find articles, research a topic, look…"
+        "desc": "Search, scrape, and interact with the web via the Firecrawl CLI. Use this skill whenever the user wants to search the web, find articles, research a topic, look something up online…"
       },
       {
         "name": "firecrawl-agent",
-        "desc": "AI-powered autonomous data extraction that navigates complex sites and returns structured JSON."
+        "desc": "AI-powered autonomous data extraction that navigates complex sites and returns structured JSON. Use this skill when the user wants structured data from websites, needs to extract p…"
       },
       {
         "name": "firecrawl-build-interact",
-        "desc": "Integrate Firecrawl `/interact` into product code for dynamic pages and browser actions after scraping."
+        "desc": "Integrate Firecrawl `/interact` into product code for dynamic pages and browser actions after scraping. Use when a feature needs clicks, form fills, pagination, authentication-awar…"
       },
       {
         "name": "firecrawl-build-onboarding",
-        "desc": "Get Firecrawl credentials and SDK setup into a project. Use when an application needs `FIRECRAWL_API_KEY`, when an agent should add Firecrawl to `.env`, when th…"
+        "desc": "Get Firecrawl credentials and SDK setup into a project. Use when an application needs `FIRECRAWL_API_KEY`, when an agent should add Firecrawl to `.env`, when the user wants to auth…"
       },
       {
         "name": "firecrawl-build-scrape",
-        "desc": "Integrate Firecrawl `/scrape` into product code for single-page extraction."
+        "desc": "Integrate Firecrawl `/scrape` into product code for single-page extraction. Use when an app already has a URL and needs markdown, HTML, links, screenshots, metadata, or structured…"
       },
       {
         "name": "firecrawl-build-search",
-        "desc": "Integrate Firecrawl `/search` into product code and agent workflows."
+        "desc": "Integrate Firecrawl `/search` into product code and agent workflows. Use when an app needs discovery before extraction, when the feature starts with a query instead of a URL, or wh…"
       },
       {
         "name": "firecrawl-company-directories",
-        "desc": "Extract structured company lists from directories with Firecrawl. Use for scraping YC, Crunchbase, Product Hunt, G2, startup directories, category directories, …"
+        "desc": "Extract structured company lists from directories with Firecrawl. Use for scraping YC, Crunchbase, Product Hunt, G2, startup directories, category directories, or custom company da…"
       },
       {
         "name": "firecrawl-competitive-intel",
-        "desc": "Monitor competitor pricing, features, changelogs, dashboards, and product changes with Firecrawl."
+        "desc": "Monitor competitor pricing, features, changelogs, dashboards, and product changes with Firecrawl. Use for recurring competitive intelligence, pricing tier extraction, feature chang…"
       },
       {
         "name": "firecrawl-crawl",
-        "desc": "Bulk extract content from an entire website or site section. Use this skill when the user wants to crawl a site, extract all pages from a docs section, bulk-scr…"
+        "desc": "Bulk extract content from an entire website or site section. Use this skill when the user wants to crawl a site, extract all pages from a docs section, bulk-scrape multiple pages f…"
       },
       {
         "name": "firecrawl-dashboard-reporting",
-        "desc": "Pull metrics from analytics dashboards and internal web tools with Firecrawl browser."
+        "desc": "Pull metrics from analytics dashboards and internal web tools with Firecrawl browser. Use when the user needs dashboard reporting, cross-platform metric summaries, authenticated an…"
       },
       {
         "name": "firecrawl-deep-research",
-        "desc": "Run multi-source deep research with Firecrawl. Use when the user asks to research a topic, compare perspectives, produce a sourced briefing, investigate a techn…"
+        "desc": "Run multi-source deep research with Firecrawl. Use when the user asks to research a topic, compare perspectives, produce a sourced briefing, investigate a technical or market quest…"
       },
       {
         "name": "firecrawl-demo-walkthrough",
-        "desc": "Walk through a product's key flows with Firecrawl browser and produce a structured UX/product walkthrough."
+        "desc": "Walk through a product's key flows with Firecrawl browser and produce a structured UX/product walkthrough. Use for signup, onboarding, pricing, docs, dashboard, product demo prep,…"
       },
       {
         "name": "firecrawl-download",
-        "desc": "Download an entire website as local files — markdown, screenshots, or multiple formats per page."
+        "desc": "Download an entire website as local files — markdown, screenshots, or multiple formats per page. Use this skill when the user wants to save a site locally, download documentation f…"
       },
       {
         "name": "firecrawl-interact",
-        "desc": "Control and interact with a live browser session on any scraped page — click buttons, fill forms, navigate flows, and extract data using natural language prompt…"
+        "desc": "Control and interact with a live browser session on any scraped page — click buttons, fill forms, navigate flows, and extract data using natural language prompts or code. Use when…"
       },
       {
         "name": "firecrawl-knowledge-base",
-        "desc": "Build a knowledge base from web content with Firecrawl. Use for local reference docs, RAG-ready chunks, fine-tuning datasets, documentation mirrors, topic corpo…"
+        "desc": "Build a knowledge base from web content with Firecrawl. Use for local reference docs, RAG-ready chunks, fine-tuning datasets, documentation mirrors, topic corpora, or LLM-ready mar…"
       },
       {
         "name": "firecrawl-knowledge-ingest",
-        "desc": "Ingest public or authenticated knowledge bases and docs portals with Firecrawl browser."
+        "desc": "Ingest public or authenticated knowledge bases and docs portals with Firecrawl browser. Use for JS-heavy docs, login-gated portals, paginated help centers, support knowledge bases,…"
       },
       {
         "name": "firecrawl-lead-gen",
-        "desc": "Generate structured lead lists from prospect databases and web directories with Firecrawl browser."
+        "desc": "Generate structured lead lists from prospect databases and web directories with Firecrawl browser. Use for finding prospects by role, company type, industry, stage, location, techn…"
       },
       {
         "name": "firecrawl-lead-research",
-        "desc": "Produce pre-meeting lead intelligence briefs with Firecrawl. Use when the user needs company research, person research, recent news, talking points, pain points…"
+        "desc": "Produce pre-meeting lead intelligence briefs with Firecrawl. Use when the user needs company research, person research, recent news, talking points, pain points, or outreach prepar…"
       },
       {
         "name": "firecrawl-map",
-        "desc": "Discover and list all URLs on a website, with optional search filtering."
+        "desc": "Discover and list all URLs on a website, with optional search filtering. Use this skill when the user wants to find a specific page on a large site, list all URLs, see the site str…"
       },
       {
         "name": "firecrawl-market-research",
-        "desc": "Extract market, financial, earnings, industry, and company metrics with Firecrawl."
+        "desc": "Extract market, financial, earnings, industry, and company metrics with Firecrawl. Use when the user asks for market research, industry trends, public company data, financial compa…"
       },
       {
         "name": "firecrawl-monitor",
-        "desc": "Detect when content on a website changes and get notified by webhook or email — no cron jobs, scrapers, or diff scripts required."
+        "desc": "Detect when content on a website changes and get notified by webhook or email — no cron jobs, scrapers, or diff scripts required. Use this skill whenever the user wants to track ch…"
       },
       {
         "name": "firecrawl-parse",
-        "desc": "Efficiently extract and convert the contents of any local file—such as PDF, DOCX, DOC, ODT, RTF, XLSX, XLS, or HTML—into clean, well-formatted markdown saved to…"
+        "desc": "Efficiently extract and convert the contents of any local file—such as PDF, DOCX, DOC, ODT, RTF, XLSX, XLS, or HTML—into clean, well-formatted markdown saved to disk. Use this skil…"
       },
       {
         "name": "firecrawl-qa",
-        "desc": "QA test a live website with Firecrawl browser and scrape evidence."
+        "desc": "QA test a live website with Firecrawl browser and scrape evidence. Use when the user wants exploratory QA, form testing, navigation/link checks, responsive checks, performance obse…"
       },
       {
         "name": "firecrawl-research-papers",
-        "desc": "Find and synthesize research papers, whitepapers, PDFs, technical reports, and academic sources with Firecrawl."
+        "desc": "Find and synthesize research papers, whitepapers, PDFs, technical reports, and academic sources with Firecrawl. Use when the user wants a literature review, paper summary, research…"
       },
       {
         "name": "firecrawl-scrape",
-        "desc": "Extract clean markdown from any URL, including JavaScript-rendered SPAs."
+        "desc": "Extract clean markdown from any URL, including JavaScript-rendered SPAs. Use this skill whenever the user provides a URL and wants its content, says \"scrape\", \"grab\", \"fetch\", \"pul…"
       },
       {
         "name": "firecrawl-search",
-        "desc": "Web search with full page content extraction. Use this skill whenever the user asks to search the web, find articles, research a topic, look something up, find …"
+        "desc": "Web search with full page content extraction. Use this skill whenever the user asks to search the web, find articles, research a topic, look something up, find recent news, discove…"
       },
       {
         "name": "firecrawl-seo-audit",
-        "desc": "Audit a website's SEO with Firecrawl. Use when the user asks for an SEO audit, metadata and heading review, sitemap/site-structure analysis, keyword opportuniti…"
+        "desc": "Audit a website's SEO with Firecrawl. Use when the user asks for an SEO audit, metadata and heading review, sitemap/site-structure analysis, keyword opportunities, competitor SERP…"
       },
       {
         "name": "firecrawl-shop",
-        "desc": "Research products across the web with Firecrawl and produce a shopping recommendation or cart-ready summary."
+        "desc": "Research products across the web with Firecrawl and produce a shopping recommendation or cart-ready summary. Use when the user wants to compare products, find the best option, eval…"
       },
       {
         "name": "firecrawl-website-design-clone",
-        "desc": "Extract any website's design system into an agent-ready DESIGN.md using Firecrawl scrape evidence."
+        "desc": "Extract any website's design system into an agent-ready DESIGN.md using Firecrawl scrape evidence. Use when the user wants colors, fonts, spacing, components, layout patterns, or b…"
       },
       {
         "name": "firecrawl-workflows",
-        "desc": "Run outcome-focused Firecrawl workflows that produce deliverables such as research reports, SEO audits, QA reports, lead lists, knowledge bases, website design …"
+        "desc": "Run outcome-focused Firecrawl workflows that produce deliverables such as research reports, SEO audits, QA reports, lead lists, knowledge bases, website design systems, and other s…"
       }
     ],
     "Gaming": [
@@ -1244,11 +1256,11 @@ const DATA = {
     "LegalClear": [
       {
         "name": "courtlistener-bulk-ingestion",
-        "desc": "Download Florida court opinions from CourtListener bulk CSVs on S3. Stream-and-filter approach — zero API calls, zero rate limits."
+        "desc": "Download Florida court opinions from CourtListener bulk CSVs on S3. Stream-and-filter approach — zero API calls, zero rate limits. 427K FL opinions in ~4 hours vs 87 days via API p…"
       },
       {
         "name": "dispatch-legal-downloader",
-        "desc": "Download, normalize, and stage Florida court opinions from CourtListener (Free Law Project) API. Runs in phases with manual checkpoints."
+        "desc": "Download, normalize, and stage Florida court opinions from CourtListener (Free Law Project) API. Runs in phases with manual checkpoints. Covers opinions/clusters/citations/courts/s…"
       },
       {
         "name": "legalclear-audit-remediation",
@@ -1263,12 +1275,16 @@ const DATA = {
         "desc": "Use when validating LegalClear corpus rows vs source PDFs."
       },
       {
+        "name": "legalclear-fix-phase-execution",
+        "desc": "Use when executing LegalClear fix-plan phases (D–F)."
+      },
+      {
         "name": "legalclear-fl-corpus-sync",
         "desc": "Use when syncing FL law corpus into LegalClear Supabase."
       },
       {
         "name": "legalclear-harvest-integration",
-        "desc": "Integrate the separate legal-clear harvest repo (forms-harvest/) into the main LegalClear pipeline — upload PDFs to Supabase, insert into court_forms, extract t…"
+        "desc": "Integrate the separate legal-clear harvest repo (forms-harvest/) into the main LegalClear pipeline — upload PDFs to Supabase, insert into court_forms, extract text, and enrich via…"
       },
       {
         "name": "legalclear-llm-parse-ladder",
@@ -1276,11 +1292,11 @@ const DATA = {
       },
       {
         "name": "legalclear-module-build",
-        "desc": "Build a new LegalClear v2 module (content layer, structured refs, backend agent, router extension) with strict isolation, frozen-contract discipline, and transc…"
+        "desc": "Build a new LegalClear v2 module (content layer, structured refs, backend agent, router extension) with strict isolation, frozen-contract discipline, and transcription-first source…"
       },
       {
         "name": "legalclear-phase2-orchestrator",
-        "desc": "Use when orchestrating LegalClear remediation phases (A–H per REMEDIATION_PLAN.md) on pop-os — dispatch runs, verify, merge-phase playbooks, prod smoke tests, R…"
+        "desc": "Use when orchestrating LegalClear remediation phases (A–H per REMEDIATION_PLAN.md) on pop-os — dispatch runs, verify, merge-phase playbooks, prod smoke tests, Railway/Supabase ops."
       },
       {
         "name": "legalclear-police-report-caselaw-fix",
@@ -1296,7 +1312,7 @@ const DATA = {
       },
       {
         "name": "orin-legal-pipeline",
-        "desc": "Deploy and operate the Florida legal opinions pipeline on NVIDIA Jetson AGX Orin. CourtListener download → PostgreSQL+pgvector storage → Ollama RAG queries."
+        "desc": "Deploy and operate the Florida legal opinions pipeline on NVIDIA Jetson AGX Orin. CourtListener download → PostgreSQL+pgvector storage → Ollama RAG queries. Self-contained Python s…"
       }
     ],
     "MCP": [
@@ -1320,7 +1336,7 @@ const DATA = {
       },
       {
         "name": "nvidia-studio-voice",
-        "desc": "Clean voice audio with NVIDIA Studio Voice — handles files of any length by auto-splitting into 5m50s chunks, processing each, and reassembling."
+        "desc": "Clean voice audio with NVIDIA Studio Voice — handles files of any length by auto-splitting into 5m50s chunks, processing each, and reassembling. Input MUST be pre-converted to 48kH…"
       },
       {
         "name": "songsee",
@@ -1362,15 +1378,15 @@ const DATA = {
       },
       {
         "name": "jetson",
-        "desc": "NVIDIA Jetson AGX Orin development — ML environment setup, GPU-accelerated video pipelines, and real-time ML inference."
+        "desc": "NVIDIA Jetson AGX Orin development — ML environment setup, GPU-accelerated video pipelines, and real-time ML inference. Covers cuDSS, PyTorch, TensorRT, GStreamer, OpenCV pitfalls,…"
       },
       {
         "name": "kaggle-competition-pipeline",
-        "desc": "End-to-end Kaggle competition workflow — recon, deterministic synthetic data generators with programmatic gold labels, LoRA fine-tuning, exact metric replicatio…"
+        "desc": "End-to-end Kaggle competition workflow — recon, deterministic synthetic data generators with programmatic gold labels, LoRA fine-tuning, exact metric replication, and submission pa…"
       },
       {
         "name": "kaggle-competition-workflow",
-        "desc": "End-to-end Kaggle competition workflow — auth, recon, data pull, synthetic data generation, notebook authoring, dataset upload/submission."
+        "desc": "End-to-end Kaggle competition workflow — auth, recon, data pull, synthetic data generation, notebook authoring, dataset upload/submission. Use when the user wants to compete in or…"
       },
       {
         "name": "llama-cpp",
@@ -1378,7 +1394,7 @@ const DATA = {
       },
       {
         "name": "model-config-optimization",
-        "desc": "Audit and optimize Hermes model/provider configuration — cross-reference settings in config.yaml against the model's actual API capabilities to find suboptimal …"
+        "desc": "Audit and optimize Hermes model/provider configuration — cross-reference settings in config.yaml against the model's actual API capabilities to find suboptimal settings."
       },
       {
         "name": "model-fleet",
@@ -1394,7 +1410,7 @@ const DATA = {
       },
       {
         "name": "orin-headless-services",
-        "desc": "Reliably run long-lived Python scripts on Jetson Orin — PID locking, unbuffered output, background process survival, systemd pitfalls, and PostgreSQL access pat…"
+        "desc": "Reliably run long-lived Python scripts on Jetson Orin — PID locking, unbuffered output, background process survival, systemd pitfalls, and PostgreSQL access patterns."
       },
       {
         "name": "realsrgan-upscaling",
@@ -1442,7 +1458,7 @@ const DATA = {
       },
       {
         "name": "legal-clear",
-        "desc": "Florida Pro Se legal form finder + PDF auto-fill engine — interview users, identify forms, auto-populate fillable PDFs, and generate ready-to-submit court docum…"
+        "desc": "Florida Pro Se legal form finder + PDF auto-fill engine — interview users, identify forms, auto-populate fillable PDFs, and generate ready-to-submit court documents. Covers all 20…"
       },
       {
         "name": "linear",
@@ -1455,6 +1471,10 @@ const DATA = {
       {
         "name": "meeting-action-items",
         "desc": "Turn meeting notes into cited decisions, owners, tickets."
+      },
+      {
+        "name": "morning-briefing",
+        "desc": "Use when running Joe's daily morning briefing cron."
       },
       {
         "name": "nano-pdf",
@@ -1470,7 +1490,7 @@ const DATA = {
       },
       {
         "name": "pdf",
-        "desc": "Create, read, merge, fill, and secure PDF files."
+        "desc": "PDF files: create, read, merge, fill, OCR, edit text."
       },
       {
         "name": "petdex",
@@ -1502,7 +1522,7 @@ const DATA = {
       },
       {
         "name": "us-passport-photo",
-        "desc": "Convert any headshot into a USA-compliant 2×2″ passport photo (600×600 at 300 DPI) with automatic face detection and SmartVisa-compliant cropping."
+        "desc": "Convert any headshot into a USA-compliant 2×2″ passport photo (600×600 at 300 DPI) with automatic face detection and SmartVisa-compliant cropping. Also supports manual coordinates…"
       },
       {
         "name": "web-copy-style",
@@ -1523,10 +1543,6 @@ const DATA = {
         "desc": "Search arXiv papers by keyword, author, category, or ID."
       },
       {
-        "name": "blocked-page-recovery",
-        "desc": "Recover blocked/paywalled/WAF'd pages via fallbacks."
-      },
-      {
         "name": "blogwatcher",
         "desc": "Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool."
       },
@@ -1536,19 +1552,27 @@ const DATA = {
       },
       {
         "name": "florida-court-forms-harvest",
-        "desc": "Harvest Florida court forms (civil + county-local) for pro se filer training data."
+        "desc": "Harvest Florida court forms (civil + county-local) for pro se filer training data. Also covers criminal-vertical research: Florida has NO standardized criminal defense forms — temp…"
       },
       {
         "name": "florida-court-research",
-        "desc": "Collect official court closure dates, holiday schedules, and operational data from Florida's 20 judicial circuits."
+        "desc": "Collect official court closure dates, holiday schedules, and operational data from Florida's 20 judicial circuits. Use when seeding the court_closures table, building deadline engi…"
       },
       {
         "name": "florida-statutes-rules-harvest",
         "desc": "Use when loading/refreshing FL statutes or court rules."
       },
       {
+        "name": "gov-contract-research",
+        "desc": "Use when researching gov-contract opportunities for Joe."
+      },
+      {
         "name": "grounded-citations",
         "desc": "Ground answers and documents in cited, verifiable sources."
+      },
+      {
+        "name": "hardware-product-research",
+        "desc": "Use when buying a niche device at lowest verified price."
       },
       {
         "name": "llm-wiki",
@@ -1559,8 +1583,16 @@ const DATA = {
         "desc": "Query Polymarket: markets, prices, orderbooks, history."
       },
       {
+        "name": "prediction-markets",
+        "desc": "Use when working prediction-market/betting-platform APIs."
+      },
+      {
         "name": "research-paper-writing",
         "desc": "Write ML papers for NeurIPS/ICML/ICLR: design→submit."
+      },
+      {
+        "name": "rss-feeds",
+        "desc": "Read RSS, Atom, JSON feeds; discover feeds behind a page."
       },
       {
         "name": "vendor-due-diligence",
@@ -1568,7 +1600,7 @@ const DATA = {
       },
       {
         "name": "web-harvest",
-        "desc": "General web-harvest techniques: remote proxy for geo-blocked sites, SQLite dedup for parallel scraping, Firecrawl vs direct HTTP selection, rate-limited batch d…"
+        "desc": "General web-harvest techniques: remote proxy for geo-blocked sites, SQLite dedup for parallel scraping, Firecrawl vs direct HTTP selection, rate-limited batch downloads."
       }
     ],
     "SoFlo Digital": [
@@ -1578,23 +1610,23 @@ const DATA = {
       },
       {
         "name": "soflo_content_agent",
-        "desc": "Evaluates the discovery manifest from soflo_discovery. If signal threshold is met, synthesizes original article content in the SoFlo Digital voice."
+        "desc": "Evaluates the discovery manifest from soflo_discovery. If signal threshold is met, synthesizes original article content in the SoFlo Digital voice. Performs a self-evaluation fact…"
       },
       {
         "name": "soflo_discovery",
-        "desc": "Daily research agent for SoFlo Digital. Queries for AI news and South Florida tech developments published in the last 24 hours."
+        "desc": "Daily research agent for SoFlo Digital. Queries for AI news and South Florida tech developments published in the last 24 hours. Produces a structured discovery manifest consumed by…"
       },
       {
         "name": "soflo_email_agent",
-        "desc": "Monitors email inboxes for the soflodigital.xyz domain. Reads unread emails, generates and sends appropriate replies, then summarizes all activity and forwards …"
+        "desc": "Monitors email inboxes for the soflodigital.xyz domain. Reads unread emails, generates and sends appropriate replies, then summarizes all activity and forwards the summary to Teleg…"
       },
       {
         "name": "soflo_image_agent",
-        "desc": "Extracts visual concepts from the generated article, crafts a structured image generation prompt, and calls the image generation model on the Orin via Tailscale…"
+        "desc": "Extracts visual concepts from the generated article, crafts a structured image generation prompt, and calls the image generation model on the Orin via Tailscale. Returns the image…"
       },
       {
         "name": "soflo_publisher",
-        "desc": "Final phase of the SoFlo Digital pipeline. Receives the generated article and image URL, writes the markdown post file to the Astro content directory, triggers …"
+        "desc": "Final phase of the SoFlo Digital pipeline. Receives the generated article and image URL, writes the markdown post file to the Astro content directory, triggers an Astro rebuild, an…"
       },
       {
         "name": "soflo_seo_agent",
@@ -1602,11 +1634,11 @@ const DATA = {
       },
       {
         "name": "soflo_site_critic",
-        "desc": "Adversarial agent that audits soflodigital.xyz, identifies design and functional defects, and applies a bounded batch of improvements per run."
+        "desc": "Adversarial agent that audits soflodigital.xyz, identifies design and functional defects, and applies a bounded batch of improvements per run. Model: deepseek-v4-pro."
       },
       {
         "name": "soflodigital-deploy",
-        "desc": "Deploy soflodigital.xyz — Astro static site via Caddy Docker + Cloudflare Tunnel."
+        "desc": "Deploy soflodigital.xyz — Astro static site via Caddy Docker + Cloudflare Tunnel. Covers DNS, tunnel ingress, Caddyfile reverse proxy, and form backend proxying."
       }
     ],
     "Software Development": [
@@ -1616,15 +1648,15 @@ const DATA = {
       },
       {
         "name": "agent-state-machine",
-        "desc": "Pattern for building strict-phase state machine agents that interact with external services with idempotency, clean halt vs partial publish distinction, and str…"
+        "desc": "Pattern for building strict-phase state machine agents that interact with external services with idempotency, clean halt vs partial publish distinction, and structured exit codes.…"
       },
       {
         "name": "android-apk-modding",
-        "desc": "Reverse engineer, patch, and rebuild Android APKs — decompile, analyze obfuscated code, modify smali, remove watermarks/paywalls, rebuild, and sign."
+        "desc": "Reverse engineer, patch, and rebuild Android APKs — decompile, analyze obfuscated code, modify smali, remove watermarks/paywalls, rebuild, and sign. Use when the user asks to mod,…"
       },
       {
         "name": "android-apk-reverse-engineering",
-        "desc": "APK reverse engineering — unpacking, decompiling, smali patching, and rebuilding Android apps on Linux."
+        "desc": "APK reverse engineering — unpacking, decompiling, smali patching, and rebuilding Android apps on Linux. Use when the user wants to mod, patch, remove features, analyze, or reverse…"
       },
       {
         "name": "android-device-rooting",
@@ -1632,11 +1664,11 @@ const DATA = {
       },
       {
         "name": "apk-reverse-engineering",
-        "desc": "Unpack, decompile, patch, rebuild, and re-sign Android APKs — remove watermarks, disable checks, or modify behavior."
+        "desc": "Unpack, decompile, patch, rebuild, and re-sign Android APKs — remove watermarks, disable checks, or modify behavior. Use when asked to mod, crack, reverse engineer, or inspect an A…"
       },
       {
         "name": "backend-migration",
-        "desc": "Replace one backend implementation with another while keeping both operational during the transition."
+        "desc": "Replace one backend implementation with another while keeping both operational during the transition. Covers pre-mutation discovery, abstraction-layer isolation, phased implementat…"
       },
       {
         "name": "codebase-review",
@@ -1644,15 +1676,19 @@ const DATA = {
       },
       {
         "name": "context-handoff",
-        "desc": "Handle structured project resumption and bug-fix handoff prompts with recon-first protocol — read canonical state, confirm architecture, note hard rules, execut…"
+        "desc": "Handle structured project resumption and bug-fix handoff prompts with recon-first protocol — read canonical state, confirm architecture, note hard rules, execute ordered tasks with…"
       },
       {
         "name": "deadline-engine",
-        "desc": "Deterministic deadline computation — calendar-unit periods, leap-crossing regression locks, platform audit for day-count drift."
+        "desc": "Deterministic deadline computation — calendar-unit periods, leap-crossing regression locks, platform audit for day-count drift. Use when building, extending, or auditing any date-c…"
       },
       {
         "name": "debugging-hermes-tui-commands",
         "desc": "Debug Hermes TUI slash commands: Python, gateway, Ink UI."
+      },
+      {
+        "name": "github",
+        "desc": "GitHub via gh CLI: PRs, issues, reviews, repos, auth."
       },
       {
         "name": "github-profile-audit",
@@ -1660,7 +1696,7 @@ const DATA = {
       },
       {
         "name": "gnu-tool-navigator",
-        "desc": "Navigate the GNU package ecosystem to recommend the right tool for any software engineering or architecture problem."
+        "desc": "Navigate the GNU package ecosystem to recommend the right tool for any software engineering or architecture problem. Use when the user asks \"which GNU tool for X?\" or needs to disc…"
       },
       {
         "name": "hermes-agent-skill-authoring",
@@ -1668,7 +1704,7 @@ const DATA = {
       },
       {
         "name": "hermes-s6-container-supervision",
-        "desc": "Modify, debug, or extend the s6-overlay supervision tree inside the Hermes Agent Docker image — adding new services, debugging profile gateways, understanding t…"
+        "desc": "Modify, debug, or extend the s6-overlay supervision tree inside the Hermes Agent Docker image — adding new services, debugging profile gateways, understanding the Architecture B ma…"
       },
       {
         "name": "inspecting-hermes-desktop-dom",
@@ -1676,7 +1712,7 @@ const DATA = {
       },
       {
         "name": "legalclear-build",
-        "desc": "Build methodology for LegalClear modules — phased execution, isolation, frozen contracts, deadline-engine rules, UPL guardrails, and integration test discipline…"
+        "desc": "Build methodology for LegalClear modules — phased execution, isolation, frozen contracts, deadline-engine rules, UPL guardrails, and integration test discipline."
       },
       {
         "name": "node-inspect-debugger",
@@ -1684,7 +1720,7 @@ const DATA = {
       },
       {
         "name": "phased-execution",
-        "desc": "Execute large multi-file projects in small, verifiable phases to avoid Hermes tool-call size limits and stream timeouts."
+        "desc": "Execute large multi-file projects in small, verifiable phases to avoid Hermes tool-call size limits and stream timeouts. Use when building scaffolding, dashboards, multi-file proje…"
       },
       {
         "name": "plan",
@@ -1696,7 +1732,7 @@ const DATA = {
       },
       {
         "name": "port-web-tool",
-        "desc": "Reverse-engineer a client-side web tool (single-file HTML/JS) and port it to a self-hosted Python/FastAPI web app running on the user's VPS over Tailscale."
+        "desc": "Use when building or porting a self-hosted web app on the user's VPS over Tailscale — interactive single-file info-apps built from documents, or ports of client-side tools to Pytho…"
       },
       {
         "name": "python-debugpy",
@@ -1735,10 +1771,16 @@ const DATA = {
         "desc": "Write implementation plans: bite-sized tasks, paths, code."
       }
     ],
+    "Sports": [
+      {
+        "name": "nfl-pool-picks",
+        "desc": "Use when Joe asks for weekly NFL pool picks."
+      }
+    ],
     "Swarm": [
       {
         "name": "agent-discovery",
-        "desc": "Teach swarm agents how to discover each other's capabilities via A2A-style agent cards."
+        "desc": "Teach swarm agents how to discover each other's capabilities via A2A-style agent cards. Load this skill when an agent needs to find which worker can handle a task."
       },
       {
         "name": "browser-agent-core",
@@ -1746,7 +1788,7 @@ const DATA = {
       },
       {
         "name": "builder-core",
-        "desc": "Core identity, operating contract, and checkpoint format for the Builder swarm worker."
+        "desc": "Core identity, operating contract, and checkpoint format for the Builder swarm worker. Scoped implementation agent — ships code, tests, and verification evidence."
       },
       {
         "name": "content-agent-core",
@@ -1802,25 +1844,31 @@ const DATA = {
       },
       {
         "name": "swarm-agent-authoring",
-        "desc": "Create new swarm agents end-to-end: agent cards, profile configs, skill cores, and orchestrator routing integration."
+        "desc": "Create new swarm agents end-to-end: agent cards, profile configs, skill cores, and orchestrator routing integration. Use when adding a new specialist worker to the Hermes swarm."
+      }
+    ],
+    "Web": [
+      {
+        "name": "blocked-page-recovery",
+        "desc": "Use when a fetch fails: 403/429, paywall, WAF, bot wall."
       }
     ],
     "Other": [
       {
         "name": "ai-video-content",
-        "desc": "Generate and post AI video/image content using Higgsfield (MCP or CLI) — auth, model selection, generation, and social posting pipeline."
+        "desc": "Generate and post AI video/image content using Higgsfield (MCP or CLI) — auth, model selection, generation, and social posting pipeline. Prefer MCP for in-agent access."
       },
       {
         "name": "auto-research",
-        "desc": "Autonomous NeMo-RL research agent workflow for directed hypothesis testing and open-ended discovery."
+        "desc": "Autonomous NeMo-RL research agent workflow for directed hypothesis testing and open-ended discovery. Guides agents through the full experiment lifecycle: understanding recipes and…"
       },
       {
         "name": "brev-etiquette",
-        "desc": "Brev instance operating guidance for NeMo-RL agents working in /home/ubuntu/RL with limited workspace disk, a larger /ephemeral volume, and optional /home/ubunt…"
+        "desc": "Brev instance operating guidance for NeMo-RL agents working in /home/ubuntu/RL with limited workspace disk, a larger /ephemeral volume, and optional /home/ubuntu/RL/.env secrets. U…"
       },
       {
         "name": "digital-health-clinical-asr-build",
-        "desc": "Stage 2 of the Clinical ASR Flywheel. Use when curating clinical terms, tagging IPA, and synthesizing a NeMo manifest."
+        "desc": "Stage 2 of the Clinical ASR Flywheel. Use when curating clinical terms, tagging IPA, and synthesizing a NeMo manifest. NOT for scoring (use /digital-health-clinical-asr-eval)."
       },
       {
         "name": "digital-health-clinical-asr-eval",
@@ -1828,7 +1876,7 @@ const DATA = {
       },
       {
         "name": "digital-health-clinical-asr-finetune",
-        "desc": "Stage 4 of the Clinical ASR Flywheel. Use when priority KER is above 0.3 to run stock NeMo SFT on Parakeet TDT v2 and offline cycle N+1 re-eval."
+        "desc": "Stage 4 of the Clinical ASR Flywheel. Use when priority KER is above 0.3 to run stock NeMo SFT on Parakeet TDT v2 and offline cycle N+1 re-eval. NOT for generic word boosting (use…"
       },
       {
         "name": "digital-health-clinical-asr-setup",
@@ -1844,7 +1892,7 @@ const DATA = {
       },
       {
         "name": "launch-nemo-rl",
-        "desc": "Playbook for launching, monitoring, stopping, and debugging NeMo-RL recipes on a Kubernetes cluster via the nrl-k8s CLI."
+        "desc": "Playbook for launching, monitoring, stopping, and debugging NeMo-RL recipes on a Kubernetes cluster via the nrl-k8s CLI. Covers ephemeral vs long-lived RayCluster modes, iterating…"
       },
       {
         "name": "linkedin-autopilot",
@@ -1856,15 +1904,15 @@ const DATA = {
       },
       {
         "name": "seedance-clean",
-        "desc": "Seedance 2.0 prompt-writing system. Use whenever the user wants to write a Seedance prompt, build a cinematic shot or scene, turn an idea or script beat into a …"
+        "desc": "Seedance 2.0 prompt-writing system. Use whenever the user wants to write a Seedance prompt, build a cinematic shot or scene, turn an idea or script beat into a prompt, set up refer…"
       },
       {
         "name": "session-memory",
-        "desc": "Manage durable working-session memory for coding agents. Use when a user asks to preserve or recover agent context across disconnects, VS Code restarts, long-ru…"
+        "desc": "Manage durable working-session memory for coding agents. Use when a user asks to preserve or recover agent context across disconnects, VS Code restarts, long-running work, handoffs…"
       },
       {
         "name": "skill-card-generator",
-        "desc": "Use only to generate or update a governance skill card for a specified existing agent skill directory."
+        "desc": "Use only to generate or update a governance skill card for a specified existing agent skill directory. Do not use for explaining, listing, comparing, or discussing skill capabiliti…"
       },
       {
         "name": "yuanbao",
@@ -1885,6 +1933,10 @@ const DATA = {
       {
         "name": "google-dorking",
         "desc": "Use when researching or running Google dorking queries."
+      },
+      {
+        "name": "lab-pentest-harness",
+        "desc": "Use when scanning or pentesting Joe's own lab or network."
       }
     ],
     "Smart Home": [
@@ -1915,8 +1967,12 @@ const DATA = {
         "desc": "Post text, images, and articles to LinkedIn via the official Posts API v2."
       },
       {
+        "name": "reddit-reading",
+        "desc": "Read Reddit: subreddits, search, threads, users. No browser."
+      },
+      {
         "name": "social-media-posting",
-        "desc": "Draft, format, and publish content across multiple social media platforms (LinkedIn, X/Twitter, Facebook Pages, Instagram)."
+        "desc": "Draft, format, and publish content across multiple social media platforms (LinkedIn, X/Twitter, Facebook Pages, Instagram). Covers cross-posting orchestration, platform-specific fo…"
       },
       {
         "name": "xurl",
@@ -1926,11 +1982,11 @@ const DATA = {
     "Supabase": [
       {
         "name": "supabase",
-        "desc": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libra…"
+        "desc": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integra…"
       },
       {
         "name": "supabase-postgres-best-practices",
-        "desc": "Postgres best practices maintained by Supabase, for Postgres running anywhere."
+        "desc": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or al…"
       }
     ]
   },
@@ -2083,7 +2139,7 @@ const DATA = {
   "mcp_servers": {
     "GitHub (MCP)": {
       "tool_count": 26,
-      "transport": "stdio (bash wrapper)",
+      "transport": "stdio",
       "tools": [
         {
           "name": "add_issue_comment",
@@ -2191,359 +2247,17 @@ const DATA = {
         }
       ]
     },
-    "Higgsfield (MCP)": {
-      "tool_count": 84,
-      "transport": "OAuth (streamable HTTP)",
-      "tools": [
-        {
-          "name": "animation_actions",
-          "desc": "Read-only catalog of the 3D rig animation library (678 actions: locomotion, gestures, dancing, combat, daily actions)."
-        },
-        {
-          "name": "apps_describe",
-          "desc": "Get an app's action contract: with `action`, the full input/output schema + execution mode for that one action; without …"
-        },
-        {
-          "name": "apps_invoke",
-          "desc": "Run one described action on a Marketplace app AS the current user."
-        },
-        {
-          "name": "apps_search",
-          "desc": "Search Higgsfield Marketplace apps callable through MCP. Returns each app's id, name, and the actions it exposes."
-        },
-        {
-          "name": "balance",
-          "desc": "Get the user's available credits and current subscription plan. For transaction history, call `transactions` instead."
-        },
-        {
-          "name": "cancel_trial_auto_renewal",
-          "desc": "Cancel the auto-renewal of the Higgsfield MCP free trial."
-        },
-        {
-          "name": "confirm_billing_purchase",
-          "desc": "INTERNAL — invoked ONLY by the plans widget on an explicit user Confirm click."
-        },
-        {
-          "name": "confirm_trial_cancel",
-          "desc": "INTERNAL — invoked ONLY by the cancel-trial confirmation widget on an explicit user click of 'Cancel auto-renewal'."
-        },
-        {
-          "name": "create_voice",
-          "desc": "Open the Create Voice Apps UI. Call this immediately when the user asks to create a voice, call the Create Voice tool, o…"
-        },
-        {
-          "name": "create_voice_from_confirmed_audio",
-          "desc": "Backend-only creation of a cloned voice from an already confirmed audio upload."
-        },
-        {
-          "name": "create_website",
-          "desc": "Start a new full-stack website. Creates the website and a git repo: a React 19 + TanStack Start app, server-rendered, in…"
-        },
-        {
-          "name": "deploy_website",
-          "desc": "Build and deploy the website via CI, then return its live URL."
-        },
-        {
-          "name": "dubbing",
-          "desc": "Dub a video into another language: translate the spoken audio, synthesize it in the target language, and lip-sync the re…"
-        },
-        {
-          "name": "generate_3d",
-          "desc": "Generate a 3D GLB mesh. Use `models_explore(type:'3d')` to pick a model and see its `medias[].roles` and `parameters`."
-        },
-        {
-          "name": "generate_audio",
-          "desc": "Generate one speech/voice request (text-to-speech) and render it in the generation widget."
-        },
-        {
-          "name": "generate_audio_batch",
-          "desc": "Submit 1-12 independent audio generations in parallel without opening a widget."
-        },
-        {
-          "name": "generate_image",
-          "desc": "Generate one image request and render its result(s) in the generation widget."
-        },
-        {
-          "name": "generate_image_batch",
-          "desc": "Submit 1-12 independent image generations in parallel without opening a widget."
-        },
-        {
-          "name": "generate_video",
-          "desc": "Generate one video request and render its result(s) in the generation widget."
-        },
-        {
-          "name": "generate_video_batch",
-          "desc": "Submit 1-12 independent video generations in parallel without opening a widget."
-        },
-        {
-          "name": "get_explainer_presets",
-          "desc": "Show the explainer video style presets (CMS-managed catalog). Returns preset ids, names, and preview media."
-        },
-        {
-          "name": "get_workflow_bundle_file",
-          "desc": "Read a safe text file or directory from a workflow's resource folder."
-        },
-        {
-          "name": "get_workflow_instructions",
-          "desc": "Ad Multiplier: when the user says 'multiply my video', 'multiply my ad', asks for multiple edited variations of one supp…"
-        },
-        {
-          "name": "job_display",
-          "desc": "Show one specific previous generation in the single-result UI widget by job ID."
-        },
-        {
-          "name": "job_status",
-          "desc": "Check the status and results of an async job. Returns instantly."
-        },
-        {
-          "name": "jobs_wait",
-          "desc": "Long-poll 1-12 generation jobs together without opening a widget."
-        },
-        {
-          "name": "list_voices",
-          "desc": "List available voices for speech and voice tools. Returns built-in preset voices plus the user's own custom voices."
-        },
-        {
-          "name": "list_website_categories",
-          "desc": "List the content categories a website can be filed under — each with a slug, label, description, and display position."
-        },
-        {
-          "name": "list_websites",
-          "desc": "List the websites you own — each with its id, name, slug, and live URL."
-        },
-        {
-          "name": "list_workspaces",
-          "desc": "List every workspace the user can access (their private workspace plus any shared/team workspaces)."
-        },
-        {
-          "name": "media_confirm",
-          "desc": "Confirm file uploads after using media_upload's upload_url method."
-        },
-        {
-          "name": "media_import_url",
-          "desc": "Import an HTTPS image, video, or audio URL into Higgsfield storage and return a confirmed media_id."
-        },
-        {
-          "name": "media_upload",
-          "desc": "Upload media for use in generation, or general files (documents, archives, code) for sharing."
-        },
-        {
-          "name": "media_upload_widget",
-          "desc": "Open the Higgsfield upload widget for a user-provided local image, video, or audio file."
-        },
-        {
-          "name": "models_explore",
-          "desc": "Find generation models. Use recommend with goal + input context; use get for model constraints."
-        },
-        {
-          "name": "motion_control",
-          "desc": "Animate an existing character image with the motion and camera movement from a reference video using Kling 3.0 Motion Co…"
-        },
-        {
-          "name": "outpaint_image",
-          "desc": "Expand or uncrop an existing image by outpainting beyond the original frame while preserving the source content."
-        },
-        {
-          "name": "participate_in_contest",
-          "desc": "Enter the website in the current Higgsfield app contest, together with the social-media links promoting it."
-        },
-        {
-          "name": "personal_clipper_create",
-          "desc": "Turn YouTube videos into ready-to-share clips. This is a long-running job and can take up to 30+ minutes."
-        },
-        {
-          "name": "personal_clipper_jobs",
-          "desc": "Show recent clipping jobs."
-        },
-        {
-          "name": "personal_clipper_status",
-          "desc": "Check clip creation progress."
-        },
-        {
-          "name": "presets_show",
-          "desc": "Show available Higgsfield presets for image-to-video generation. Returns preset ids, names, previews, and descriptions."
-        },
-        {
-          "name": "publish_website",
-          "desc": "Publish the website: lists the website's CURRENT LIVE production deploy on the Higgsfield community feed ('show in feed'…"
-        },
-        {
-          "name": "reframe",
-          "desc": "Expand or reframe an existing video to a new aspect ratio while preserving the source content."
-        },
-        {
-          "name": "remove_background",
-          "desc": "Remove or cut out the background from an existing image or video."
-        },
-        {
-          "name": "rename_website",
-          "desc": "Rename the website's SUBDOMAIN (the slug in its public URL)."
-        },
-        {
-          "name": "resolve_explainer_preset",
-          "desc": "Resolve a explainer video style preset (from get_explainer_presets) into a style reference media_id: the backend imports…"
-        },
-        {
-          "name": "reveal_generation",
-          "desc": "Confirm the user has rights to the content of an `ip_detected` generation and flip its status to `completed`."
-        },
-        {
-          "name": "sandbox_exec",
-          "desc": "Execute a shell command in a remote Higgsfield cloud Linux sandbox — NOT your local machine or the client's own shell."
-        },
-        {
-          "name": "select_workspace",
-          "desc": "Set or clear the active workspace — the one all subsequent MCP operations bill against and read from (generations, balan…"
-        },
-        {
-          "name": "shorts_studio_create",
-          "desc": "Start a Shorts Studio short: restyle one uploaded source video (4s–120s) into a set of AI-generated short-form clips usi…"
-        },
-        {
-          "name": "shorts_studio_create_preset",
-          "desc": "Create a user-owned Shorts Studio style preset from reference media (videos + images)."
-        },
-        {
-          "name": "shorts_studio_list_presets",
-          "desc": "Browse Shorts Studio style presets — the visual STYLE a short is restyled toward."
-        },
-        {
-          "name": "shorts_studio_list_sessions",
-          "desc": "List the caller's past Shorts Studio sessions (newest first) to find a session_id to poll with shorts_studio_status."
-        },
-        {
-          "name": "shorts_studio_status",
-          "desc": "Poll one Shorts Studio session. Returns {id, status, job_ids}."
-        },
-        {
-          "name": "show_characters",
-          "desc": "Soul Characters widget — reusable trained identity models."
-        },
-        {
-          "name": "show_generation_by_ids",
-          "desc": "Render exactly 1-60 requested generation jobs in the full-profile gallery widget, ordered by index and paginated locally…"
-        },
-        {
-          "name": "show_generations",
-          "desc": "Browse completed non-Marketing Studio generation history and render one paginated page in the gallery widget."
-        },
-        {
-          "name": "show_marketing_studio",
-          "desc": "When replying to the user, do not say `ms_image` — refer to it as \"DTC Ads\"."
-        },
-        {
-          "name": "show_marketing_studio_generations",
-          "desc": "Browse past completed Marketing Studio generations only."
-        },
-        {
-          "name": "show_medias",
-          "desc": "List your uploaded media files by type. Returns media IDs, URLs, and creation timestamps."
-        },
-        {
-          "name": "show_plans_and_credits",
-          "desc": "Open the single combined pricing widget for everything billing-related."
-        },
-        {
-          "name": "show_reference_elements",
-          "desc": "Elements widget — reusable characters / environments / props per workspace."
-        },
-        {
-          "name": "sync_agents",
-          "desc": "Sync Agents — imports the user's user-authored Skills and a personality dump from the current host LLM into Higgsfield."
-        },
-        {
-          "name": "tiktok_accounts",
-          "desc": "List the user's connected TikTok accounts. Returns each account's connector_id (needed by other tiktok_* tools) and stat…"
-        },
-        {
-          "name": "tiktok_connect",
-          "desc": "Start connecting the user's TikTok account. Returns an authorize_url — show it to the user as a link; they open it in a …"
-        },
-        {
-          "name": "tiktok_music_trending",
-          "desc": "List trending commercially licensed tracks from TikTok's Commercial Music Library for the connected account."
-        },
-        {
-          "name": "tiktok_music_tune",
-          "desc": "Open the tuning editor for one Commercial Music Library track the user already picked (via tiktok_music_trending): trim …"
-        },
-        {
-          "name": "tiktok_prepare_publish",
-          "desc": "Step 1 of publishing to TikTok. Validates the media and TikTok account, creates a publish session, and returns what the …"
-        },
-        {
-          "name": "tiktok_publish",
-          "desc": "Step 2 of publishing. Call only after tiktok_prepare_publish and after collecting the user's explicit choices and confir…"
-        },
-        {
-          "name": "tiktok_publish_status",
-          "desc": "Step 3 of publishing. Fetch processing status for a publish_id returned by tiktok_publish."
-        },
-        {
-          "name": "tiktok_reconnect",
-          "desc": "Re-run the TikTok OAuth for an existing connector in `error` status (expired/revoked access)."
-        },
-        {
-          "name": "transactions",
-          "desc": "List the user's credit transactions (spend/refund/grant/deduct), newest first."
-        },
-        {
-          "name": "upscale_image",
-          "desc": "Upscale and enhance an existing image. Use this when the user asks to upscale, enhance, or increase the resolution of an…"
-        },
-        {
-          "name": "upscale_video",
-          "desc": "Upscale and enhance an existing video. Use this when the user asks to upscale, enhance, sharpen, denoise, restore, or co…"
-        },
-        {
-          "name": "video_analysis_create",
-          "desc": "Start a scene-by-scene analysis of a video. Provide EXACTLY ONE of: (a) video_input_id — UUID of a video the user has up…"
-        },
-        {
-          "name": "video_analysis_jobs",
-          "desc": "List the user's video analyses in the current workspace, newest first."
-        },
-        {
-          "name": "video_analysis_status",
-          "desc": "Get the status and result of a video analysis. Poll this after video_analysis_create until status='completed' (scenes po…"
-        },
-        {
-          "name": "virality_predictor",
-          "desc": "Virality Predictor predicts a video's virality potential, engagement, attention, audience response, retention risk, hook…"
-        },
-        {
-          "name": "voice_change",
-          "desc": "Replace the spoken voice in a video with a different voice while keeping the original timing and visuals, then re-merge …"
-        },
-        {
-          "name": "website_db",
-          "desc": "Inspect the website's database (D1 / SQLite), READ-ONLY. The website has ONE database — the live site's real data."
-        },
-        {
-          "name": "website_repo_access",
-          "desc": "Get direct git access to a website's repo to edit it — THE way to get the website's code."
-        },
-        {
-          "name": "website_secrets",
-          "desc": "Manage a website's SECRETS (environment variables: API keys, tokens)."
-        },
-        {
-          "name": "website_status",
-          "desc": "Get the website's deploy status — the live URL and the status of the last deploy."
-        }
-      ]
-    },
     "Hostinger (MCP)": {
       "tool_count": 181,
-      "transport": "API key (stdio)",
+      "transport": "stdio",
       "tools": [
         {
           "name": "DNS_deleteDNSRecordsV1",
-          "desc": "Delete DNS records for the selected domain. To filter which records to delete, add the `name` of the record and `type` t…"
+          "desc": "Delete DNS records for the selected domain. To filter which records to delete, add the `name` of the record and `type` to the filter. Multiple filters can be provided with single r…"
         },
         {
           "name": "DNS_getDNSRecordsV1",
-          "desc": "Retrieve DNS zone records for a specific domain. Use this endpoint to view current DNS configuration for domain manageme…"
+          "desc": "Retrieve DNS zone records for a specific domain. Use this endpoint to view current DNS configuration for domain management."
         },
         {
           "name": "DNS_getDNSSnapshotListV1",
@@ -2551,7 +2265,7 @@ const DATA = {
         },
         {
           "name": "DNS_getDNSSnapshotV1",
-          "desc": "Retrieve particular DNS snapshot with contents of DNS zone records."
+          "desc": "Retrieve particular DNS snapshot with contents of DNS zone records. Use this endpoint to view historical DNS configurations for domains."
         },
         {
           "name": "DNS_resetDNSRecordsV1",
@@ -2563,23 +2277,23 @@ const DATA = {
         },
         {
           "name": "DNS_updateDNSRecordsV1",
-          "desc": "Update DNS records for the selected domain. Using `overwrite = true` will replace existing records with the provided one…"
+          "desc": "Update DNS records for the selected domain. Using `overwrite = true` will replace existing records with the provided ones. Otherwise existing records will be updated and new record…"
         },
         {
           "name": "DNS_validateDNSRecordsV1",
-          "desc": "Validate DNS records prior to update for the selected domain."
+          "desc": "Validate DNS records prior to update for the selected domain. If the validation is successful, the response will contain `200 Success` code. If there is validation error, the respo…"
         },
         {
           "name": "VPS_activateFirewallV1",
-          "desc": "Activate a firewall for a specified virtual machine. Only one firewall can be active for a virtual machine at a time."
+          "desc": "Activate a firewall for a specified virtual machine. Only one firewall can be active for a virtual machine at a time. Use this endpoint to apply firewall rules to VPS instances."
         },
         {
           "name": "VPS_attachPublicKeyV1",
-          "desc": "Attach existing public keys from your account to a specified virtual machine."
+          "desc": "Attach existing public keys from your account to a specified virtual machine. Multiple keys can be attached to a single virtual machine. Use this endpoint to enable SSH key authent…"
         },
         {
           "name": "VPS_createFirewallRuleV1",
-          "desc": "Create new firewall rule for a specified firewall."
+          "desc": "Create new firewall rule for a specified firewall. By default, the firewall drops all incoming traffic, which means you must add accept rules for all ports you want to use. Any vir…"
         },
         {
           "name": "VPS_createNewFirewallV1",
@@ -2587,15 +2301,15 @@ const DATA = {
         },
         {
           "name": "VPS_createNewProjectV1",
-          "desc": "Deploy new project from docker-compose.yaml contents or download contents from URL."
+          "desc": "Deploy new project from docker-compose.yaml contents or download contents from URL. URL can be Github repository url in format https://github.com/[user]/[repo] and it will be autom…"
         },
         {
           "name": "VPS_createPTRRecordV1",
-          "desc": "Create or update a PTR (Pointer) record for a specified virtual machine."
+          "desc": "Create or update a PTR (Pointer) record for a specified virtual machine. Use this endpoint to configure reverse DNS lookup for VPS IP addresses."
         },
         {
           "name": "VPS_createPostInstallScriptV1",
-          "desc": "Add a new post-install script to your account, which can then be used after virtual machine installation."
+          "desc": "Add a new post-install script to your account, which can then be used after virtual machine installation. The script contents will be saved to the file `/post_install` with executa…"
         },
         {
           "name": "VPS_createPublicKeyV1",
@@ -2603,23 +2317,23 @@ const DATA = {
         },
         {
           "name": "VPS_createSnapshotV1",
-          "desc": "Create a snapshot of a specified virtual machine. A snapshot captures the state and data of the virtual machine at a spe…"
+          "desc": "Create a snapshot of a specified virtual machine. A snapshot captures the state and data of the virtual machine at a specific point in time, allowing users to restore the virtual m…"
         },
         {
           "name": "VPS_deactivateFirewallV1",
-          "desc": "Deactivate a firewall for a specified virtual machine."
+          "desc": "Deactivate a firewall for a specified virtual machine. Use this endpoint to remove firewall protection from VPS instances."
         },
         {
           "name": "VPS_deleteFirewallRuleV1",
-          "desc": "Delete a specific firewall rule from a specified firewall."
+          "desc": "Delete a specific firewall rule from a specified firewall. Any virtual machine that has this firewall activated will lose sync with the firewall and will have to be synced again ma…"
         },
         {
           "name": "VPS_deleteFirewallV1",
-          "desc": "Delete a specified firewall. Any virtual machine that has this firewall activated will automatically have it deactivated…"
+          "desc": "Delete a specified firewall. Any virtual machine that has this firewall activated will automatically have it deactivated. Use this endpoint to remove unused firewall configurations…"
         },
         {
           "name": "VPS_deletePTRRecordV1",
-          "desc": "Delete a PTR (Pointer) record for a specified virtual machine."
+          "desc": "Delete a PTR (Pointer) record for a specified virtual machine. Once deleted, reverse DNS lookups to the virtual machine's IP address will no longer return the previously configured…"
         },
         {
           "name": "VPS_deletePostInstallScriptV1",
@@ -2627,11 +2341,11 @@ const DATA = {
         },
         {
           "name": "VPS_deleteProjectV1",
-          "desc": "Completely removes a Docker Compose project from the virtual machine, stopping all containers and cleaning up associated…"
+          "desc": "Completely removes a Docker Compose project from the virtual machine, stopping all containers and cleaning up associated resources including networks, volumes, and images. This ope…"
         },
         {
           "name": "VPS_deletePublicKeyV1",
-          "desc": "Delete a public key from your account. **Deleting public key from account does not remove it from virtual machine** Use …"
+          "desc": "Delete a public key from your account. **Deleting public key from account does not remove it from virtual machine** Use this endpoint to remove unused SSH keys from account."
         },
         {
           "name": "VPS_deleteSnapshotV1",
@@ -2639,19 +2353,19 @@ const DATA = {
         },
         {
           "name": "VPS_getActionDetailsV1",
-          "desc": "Retrieve detailed information about a specific action performed on a specified virtual machine."
+          "desc": "Retrieve detailed information about a specific action performed on a specified virtual machine. Use this endpoint to monitor specific VPS operation status and details."
         },
         {
           "name": "VPS_getActionsV1",
-          "desc": "Retrieve actions performed on a specified virtual machine."
+          "desc": "Retrieve actions performed on a specified virtual machine. Actions are operations or events that have been executed on the virtual machine, such as starting, stopping, or modifying…"
         },
         {
           "name": "VPS_getAttachedPublicKeysV1",
-          "desc": "Retrieve public keys attached to a specified virtual machine."
+          "desc": "Retrieve public keys attached to a specified virtual machine. Use this endpoint to view SSH keys configured for specific VPS instances."
         },
         {
           "name": "VPS_getBackupsV1",
-          "desc": "Retrieve backups for a specified virtual machine. Use this endpoint to view available backup points for VPS data recover…"
+          "desc": "Retrieve backups for a specified virtual machine. Use this endpoint to view available backup points for VPS data recovery."
         },
         {
           "name": "VPS_getDataCenterListV1",
@@ -2659,7 +2373,7 @@ const DATA = {
         },
         {
           "name": "VPS_getFirewallDetailsV1",
-          "desc": "Retrieve firewall by its ID and rules associated with it."
+          "desc": "Retrieve firewall by its ID and rules associated with it. Use this endpoint to view specific firewall configuration and rules."
         },
         {
           "name": "VPS_getFirewallListV1",
@@ -2667,7 +2381,7 @@ const DATA = {
         },
         {
           "name": "VPS_getMetricsV1",
-          "desc": "Retrieve historical metrics for a specified virtual machine."
+          "desc": "Retrieve historical metrics for a specified virtual machine. It includes the following metrics: - CPU usage - Memory usage - Disk usage - Network usage - Uptime Use this endpoint t…"
         },
         {
           "name": "VPS_getPostInstallScriptV1",
@@ -2675,23 +2389,23 @@ const DATA = {
         },
         {
           "name": "VPS_getPostInstallScriptsV1",
-          "desc": "Retrieve post-install scripts associated with your account."
+          "desc": "Retrieve post-install scripts associated with your account. Use this endpoint to view available automation scripts for VPS deployment."
         },
         {
           "name": "VPS_getProjectContainersV1",
-          "desc": "Retrieves a list of all containers belonging to a specific Docker Compose project on the virtual machine."
+          "desc": "Retrieves a list of all containers belonging to a specific Docker Compose project on the virtual machine. This endpoint returns detailed information about each container including…"
         },
         {
           "name": "VPS_getProjectContentsV1",
-          "desc": "Retrieves the complete project information including the docker-compose.yml file contents, project metadata, and current…"
+          "desc": "Retrieves the complete project information including the docker-compose.yml file contents, project metadata, and current deployment status. This endpoint provides the full configur…"
         },
         {
           "name": "VPS_getProjectListV1",
-          "desc": "Retrieves a list of all Docker Compose projects currently deployed on the virtual machine."
+          "desc": "Retrieves a list of all Docker Compose projects currently deployed on the virtual machine. This endpoint returns basic information about each project including name, status, file p…"
         },
         {
           "name": "VPS_getProjectLogsV1",
-          "desc": "Retrieves aggregated log entries from all services within a Docker Compose project."
+          "desc": "Retrieves aggregated log entries from all services within a Docker Compose project. This endpoint returns recent log output from each container, organized by service name with time…"
         },
         {
           "name": "VPS_getPublicKeysV1",
@@ -2699,7 +2413,7 @@ const DATA = {
         },
         {
           "name": "VPS_getScanMetricsV1",
-          "desc": "Retrieve scan metrics for the [Monarx](https://www.monarx.com/) malware scanner installed on a specified virtual machine…"
+          "desc": "Retrieve scan metrics for the [Monarx](https://www.monarx.com/) malware scanner installed on a specified virtual machine. The scan metrics provide detailed information about malwar…"
         },
         {
           "name": "VPS_getSnapshotV1",
@@ -2707,15 +2421,15 @@ const DATA = {
         },
         {
           "name": "VPS_getTemplateDetailsV1",
-          "desc": "Retrieve detailed information about a specific OS template for virtual machines."
+          "desc": "Retrieve detailed information about a specific OS template for virtual machines. Use this endpoint to view specific template specifications before deployment."
         },
         {
           "name": "VPS_getTemplatesV1",
-          "desc": "Retrieve available OS templates for virtual machines."
+          "desc": "Retrieve available OS templates for virtual machines. Use this endpoint to view operating system options before creating or recreating VPS instances."
         },
         {
           "name": "VPS_getVirtualMachineDetailsV1",
-          "desc": "Retrieve detailed information about a specified virtual machine."
+          "desc": "Retrieve detailed information about a specified virtual machine. Use this endpoint to view comprehensive VPS configuration and status."
         },
         {
           "name": "VPS_getVirtualMachinesV1",
@@ -2723,91 +2437,91 @@ const DATA = {
         },
         {
           "name": "VPS_installMonarxV1",
-          "desc": "Install the Monarx malware scanner on a specified virtual machine."
+          "desc": "Install the Monarx malware scanner on a specified virtual machine. [Monarx](https://www.monarx.com/) is a security tool designed to detect and prevent malware infections on virtual…"
         },
         {
           "name": "VPS_purchaseNewVirtualMachineV1",
-          "desc": "Purchase and setup a new virtual machine. If virtual machine setup fails for any reason, login to [hPanel](https://hpane…"
+          "desc": "Purchase and setup a new virtual machine. If virtual machine setup fails for any reason, login to [hPanel](https://hpanel.hostinger.com/) and complete the setup manually. If no pay…"
         },
         {
           "name": "VPS_recreateVirtualMachineV1",
-          "desc": "Recreate a virtual machine from scratch. The recreation process involves reinstalling the operating system and resetting…"
+          "desc": "Recreate a virtual machine from scratch. The recreation process involves reinstalling the operating system and resetting the virtual machine to its initial state. Snapshots, if the…"
         },
         {
           "name": "VPS_resetHostnameV1",
-          "desc": "Reset hostname and PTR record of a specified virtual machine to default value."
+          "desc": "Reset hostname and PTR record of a specified virtual machine to default value. Use this endpoint to restore default hostname configuration for VPS instances."
         },
         {
           "name": "VPS_restartProjectV1",
-          "desc": "Restarts all services in a Docker Compose project by stopping and starting containers in the correct dependency order."
+          "desc": "Restarts all services in a Docker Compose project by stopping and starting containers in the correct dependency order. This operation preserves data volumes and network configurati…"
         },
         {
           "name": "VPS_restartVirtualMachineV1",
-          "desc": "Restart a specified virtual machine by fully stopping and starting it."
+          "desc": "Restart a specified virtual machine by fully stopping and starting it. If the virtual machine was stopped, it will be started. Use this endpoint to reboot VPS instances."
         },
         {
           "name": "VPS_restoreBackupV1",
-          "desc": "Restore a backup for a specified virtual machine. The system will then initiate the restore process, which may take some…"
+          "desc": "Restore a backup for a specified virtual machine. The system will then initiate the restore process, which may take some time depending on the size of the backup. **All data on the…"
         },
         {
           "name": "VPS_restoreSnapshotV1",
-          "desc": "Restore a specified virtual machine to a previous state using a snapshot."
+          "desc": "Restore a specified virtual machine to a previous state using a snapshot. Restoring from a snapshot allows users to revert the virtual machine to that state, which is useful for sy…"
         },
         {
           "name": "VPS_setHostnameV1",
-          "desc": "Set hostname for a specified virtual machine. Changing hostname does not update PTR record automatically."
+          "desc": "Set hostname for a specified virtual machine. Changing hostname does not update PTR record automatically. If you want your virtual machine to be reachable by a hostname, you need t…"
         },
         {
           "name": "VPS_setNameserversV1",
-          "desc": "Set nameservers for a specified virtual machine. Be aware, that improper nameserver configuration can lead to the virtua…"
+          "desc": "Set nameservers for a specified virtual machine. Be aware, that improper nameserver configuration can lead to the virtual machine being unable to resolve domain names. Use this end…"
         },
         {
           "name": "VPS_setPanelPasswordV1",
-          "desc": "Set panel password for a specified virtual machine."
+          "desc": "Set panel password for a specified virtual machine. If virtual machine does not use panel OS, the request will still be processed without any effect. Requirements for password are…"
         },
         {
           "name": "VPS_setRootPasswordV1",
-          "desc": "Set root password for a specified virtual machine."
+          "desc": "Set root password for a specified virtual machine. Requirements for password are same as in the [recreate virtual machine endpoint](/#tag/vps-virtual-machine/POST/api/vps/v1/virtua…"
         },
         {
           "name": "VPS_setupPurchasedVirtualMachineV1",
-          "desc": "Setup newly purchased virtual machine with `initial` state."
+          "desc": "Setup newly purchased virtual machine with `initial` state. Use this endpoint to configure and initialize purchased VPS instances."
         },
         {
           "name": "VPS_startProjectV1",
-          "desc": "Starts all services in a Docker Compose project that are currently stopped."
+          "desc": "Starts all services in a Docker Compose project that are currently stopped. This operation brings up containers in the correct dependency order as defined in the compose file. Use…"
         },
         {
           "name": "VPS_startRecoveryModeV1",
-          "desc": "Initiate recovery mode for a specified virtual machine."
+          "desc": "Initiate recovery mode for a specified virtual machine. Recovery mode is a special state that allows users to perform system rescue operations, such as repairing file systems, reco…"
         },
         {
           "name": "VPS_startVirtualMachineV1",
-          "desc": "Start a specified virtual machine. If the virtual machine is already running, the request will still be processed withou…"
+          "desc": "Start a specified virtual machine. If the virtual machine is already running, the request will still be processed without any effect. Use this endpoint to power on stopped VPS inst…"
         },
         {
           "name": "VPS_stopProjectV1",
-          "desc": "Stops all running services in a Docker Compose project while preserving container configurations and data volumes."
+          "desc": "Stops all running services in a Docker Compose project while preserving container configurations and data volumes. This operation gracefully shuts down containers in reverse depend…"
         },
         {
           "name": "VPS_stopRecoveryModeV1",
-          "desc": "Stop recovery mode for a specified virtual machine."
+          "desc": "Stop recovery mode for a specified virtual machine. If virtual machine is not in recovery mode, this operation will fail. Use this endpoint to exit system rescue mode and return VP…"
         },
         {
           "name": "VPS_stopVirtualMachineV1",
-          "desc": "Stop a specified virtual machine. If the virtual machine is already stopped, the request will still be processed without…"
+          "desc": "Stop a specified virtual machine. If the virtual machine is already stopped, the request will still be processed without any effect. Use this endpoint to power off running VPS inst…"
         },
         {
           "name": "VPS_syncFirewallV1",
-          "desc": "Sync a firewall for a specified virtual machine. Firewall can lose sync with virtual machine if the firewall has new rul…"
+          "desc": "Sync a firewall for a specified virtual machine. Firewall can lose sync with virtual machine if the firewall has new rules added, removed or updated. Use this endpoint to apply upd…"
         },
         {
           "name": "VPS_uninstallMonarxV1",
-          "desc": "Uninstall the Monarx malware scanner on a specified virtual machine."
+          "desc": "Uninstall the Monarx malware scanner on a specified virtual machine. If Monarx is not installed, the request will still be processed without any effect. Use this endpoint to remove…"
         },
         {
           "name": "VPS_updateFirewallRuleV1",
-          "desc": "Update a specific firewall rule from a specified firewall."
+          "desc": "Update a specific firewall rule from a specified firewall. Any virtual machine that has this firewall activated will lose sync with the firewall and will have to be synced again ma…"
         },
         {
           "name": "VPS_updatePostInstallScriptV1",
@@ -2815,7 +2529,7 @@ const DATA = {
         },
         {
           "name": "VPS_updateProjectV1",
-          "desc": "Updates a Docker Compose project by pulling the latest image versions and recreating containers with new configurations…"
+          "desc": "Updates a Docker Compose project by pulling the latest image versions and recreating containers with new configurations. This operation preserves data volumes while applying change…"
         },
         {
           "name": "billing_deletePaymentMethodV1",
@@ -2831,23 +2545,23 @@ const DATA = {
         },
         {
           "name": "billing_getCatalogItemListV1",
-          "desc": "Retrieve catalog items available for order. Prices in catalog items is displayed as cents (without floating point), e.g…"
+          "desc": "Retrieve catalog items available for order. Prices in catalog items is displayed as cents (without floating point), e.g: float `17.99` is displayed as integer `1799`. Use this endp…"
         },
         {
           "name": "billing_getPaymentMethodListV1",
-          "desc": "Retrieve available payment methods that can be used for placing new orders."
+          "desc": "Retrieve available payment methods that can be used for placing new orders. If you want to add new payment method, please use [hPanel](https://hpanel.hostinger.com/billing/payment-…"
         },
         {
           "name": "billing_getSubscriptionListV1",
-          "desc": "Retrieve a list of all subscriptions associated with your account."
+          "desc": "Retrieve a list of all subscriptions associated with your account. Use this endpoint to monitor active services and billing status."
         },
         {
           "name": "billing_setDefaultPaymentMethodV1",
-          "desc": "Set the default payment method for your account. Use this endpoint to configure the primary payment method for future or…"
+          "desc": "Set the default payment method for your account. Use this endpoint to configure the primary payment method for future orders."
         },
         {
           "name": "domains_checkDomainAvailabilityV1",
-          "desc": "Check availability of domain names across multiple TLDs. Multiple TLDs can be checked at once."
+          "desc": "Check availability of domain names across multiple TLDs. Multiple TLDs can be checked at once. If you want alternative domains with response, provide only one TLD and set `with_alt…"
         },
         {
           "name": "domains_createDomainForwardingV1",
@@ -2867,23 +2581,23 @@ const DATA = {
         },
         {
           "name": "domains_disableDomainLockV1",
-          "desc": "Disable domain lock for the domain. Domain lock needs to be disabled before transferring the domain to another registrar…"
+          "desc": "Disable domain lock for the domain. Domain lock needs to be disabled before transferring the domain to another registrar. Use this endpoint to prepare domains for transfer to other…"
         },
         {
           "name": "domains_disablePrivacyProtectionV1",
-          "desc": "Disable privacy protection for the domain. When privacy protection is disabled, domain owner's personal information is v…"
+          "desc": "Disable privacy protection for the domain. When privacy protection is disabled, domain owner's personal information is visible in public WHOIS database. Use this endpoint to make d…"
         },
         {
           "name": "domains_enableDomainLockV1",
-          "desc": "Enable domain lock for the domain. When domain lock is enabled, the domain cannot be transferred to another registrar wi…"
+          "desc": "Enable domain lock for the domain. When domain lock is enabled, the domain cannot be transferred to another registrar without first disabling the lock. Use this endpoint to secure…"
         },
         {
           "name": "domains_enablePrivacyProtectionV1",
-          "desc": "Enable privacy protection for the domain. When privacy protection is enabled, domain owner's personal information is hid…"
+          "desc": "Enable privacy protection for the domain. When privacy protection is enabled, domain owner's personal information is hidden from public WHOIS database. Use this endpoint to protect…"
         },
         {
           "name": "domains_getDomainDetailsV1",
-          "desc": "Retrieve detailed information for specified domain."
+          "desc": "Retrieve detailed information for specified domain. Use this endpoint to view comprehensive domain configuration and status."
         },
         {
           "name": "domains_getDomainForwardingV1",
@@ -2899,7 +2613,7 @@ const DATA = {
         },
         {
           "name": "domains_getWHOISProfileUsageV1",
-          "desc": "Retrieve domain list where provided WHOIS contact profile is used."
+          "desc": "Retrieve domain list where provided WHOIS contact profile is used. Use this endpoint to view which domains use specific contact profiles."
         },
         {
           "name": "domains_getWHOISProfileV1",
@@ -2907,15 +2621,15 @@ const DATA = {
         },
         {
           "name": "domains_purchaseNewDomainV1",
-          "desc": "Purchase and register a new domain name. If registration fails, login to [hPanel](https://hpanel.hostinger.com/) and che…"
+          "desc": "Purchase and register a new domain name. If registration fails, login to [hPanel](https://hpanel.hostinger.com/) and check domain registration status. If no payment method is provi…"
         },
         {
           "name": "domains_updateDomainNameserversV1",
-          "desc": "Set nameservers for a specified domain. Be aware, that improper nameserver configuration can lead to the domain being un…"
+          "desc": "Set nameservers for a specified domain. Be aware, that improper nameserver configuration can lead to the domain being unresolvable or unavailable. Use this endpoint to configure cu…"
         },
         {
           "name": "ecommerce_createCustomSalesChannelV1",
-          "desc": "Create a custom sales channel for a store. Build your own frontend and keep your catalog, orders, shipping and payments …"
+          "desc": "Create a custom sales channel for a store. Build your own frontend and keep your catalog, orders, shipping and payments in sync through the Ecommerce API."
         },
         {
           "name": "ecommerce_createDigitalProductV1",
@@ -2939,11 +2653,11 @@ const DATA = {
         },
         {
           "name": "ecommerce_getCustomStorefrontSetupInstructionsV1",
-          "desc": "Retrieve step-by-step setup instructions, formatted as Markdown, for connecting a custom sales channel to your store and…"
+          "desc": "Retrieve step-by-step setup instructions, formatted as Markdown, for connecting a custom sales channel to your store and keeping your catalog, orders, shipping and payments in sync…"
         },
         {
           "name": "ecommerce_getStoreMetadataV1",
-          "desc": "Get a store's readiness metadata: whether payment methods and shipping are configured, plus its default currency."
+          "desc": "Get a store's readiness metadata: whether payment methods and shipping are configured, plus its default currency. Useful to verify prerequisites before building a storefront."
         },
         {
           "name": "ecommerce_getStoresV1",
@@ -2959,63 +2673,63 @@ const DATA = {
         },
         {
           "name": "ecommerce_updateSalesChannelV1",
-          "desc": "Update a custom sales channel. The merchant-facing `name` and the public `url` (returned as the channel `domain`) can be…"
+          "desc": "Update a custom sales channel. The merchant-facing `name` and the public `url` (returned as the channel `domain`) can be changed. Pass `null` to clear a value."
         },
         {
           "name": "horizons_createWebsiteV1",
-          "desc": "Create new Hostinger Horizons website from the given message.\\n Use this tool when user asks you to create a website, la…"
+          "desc": "Create new Hostinger Horizons website from the given message.\\n Use this tool when user asks you to create a website, landing page, blog or any other type of application.\\n This to…"
         },
         {
           "name": "horizons_getWebsiteV1",
-          "desc": "Get a link for the user to edit their website in Hostinger Horizons interface.\\n Use this tool when user wants to modify…"
+          "desc": "Get a link for the user to edit their website in Hostinger Horizons interface.\\n Use this tool when user wants to modify, edit or add new features to an existing website.\\n Website…"
         },
         {
           "name": "hosting_activateWordPressPluginV1",
-          "desc": "Activate an installed plugin on a WordPress installation."
+          "desc": "Activate an installed plugin on a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/hosting/v1/wordpres…"
         },
         {
           "name": "hosting_activateWordPressThemeV1",
-          "desc": "Activate an installed theme on a WordPress installation."
+          "desc": "Activate an installed theme on a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/hosting/v1/wordpress…"
         },
         {
           "name": "hosting_changeDatabasePasswordV1",
-          "desc": "Changes the password for the specified database user."
+          "desc": "Changes the password for the specified database user. The database name must be the full name returned by the list databases endpoint. The password must also be updated in any webs…"
         },
         {
           "name": "hosting_checkIfWooCommerceIsInstalledV1",
-          "desc": "Check whether WooCommerce is installed on any WordPress installation of a domain."
+          "desc": "Check whether WooCommerce is installed on any WordPress installation of a domain. Optionally filter by domain to scope the check."
         },
         {
           "name": "hosting_createAccountCronJobV1",
-          "desc": "Creates a cron job for the specified account from a schedule expression and a command."
+          "desc": "Creates a cron job for the specified account from a schedule expression and a command. Returns the created cron job, including its uid, which is required to delete the cron job or…"
         },
         {
           "name": "hosting_createAccountDatabaseRemoteConnectionV1",
-          "desc": "Allows a remote host to connect to the specified database. Provide an IPv4/IPv6 address, or \"%\" to allow any host."
+          "desc": "Allows a remote host to connect to the specified database. Provide an IPv4/IPv6 address, or \"%\" to allow any host. The database name must be the full name returned by the list data…"
         },
         {
           "name": "hosting_createAccountDatabaseV1",
-          "desc": "Creates a database with a database user and password for the specified account."
+          "desc": "Creates a database with a database user and password for the specified account. The database name and user are automatically prefixed with the account username when needed."
         },
         {
           "name": "hosting_createNodeJSBuildFromArchiveV1",
-          "desc": "Upload a project archive, auto-detect build settings, and immediately start a Node.js build."
+          "desc": "Upload a project archive, auto-detect build settings, and immediately start a Node.js build. This is the recommended single-step approach for deploying a Node.js application. The a…"
         },
         {
           "name": "hosting_createWebsiteParkedDomainV1",
-          "desc": "Create a parked or alias domain for the selected website."
+          "desc": "Create a parked or alias domain for the selected website. Provide a domain name or IP address to park on the website so it serves the same content as the parent domain."
         },
         {
           "name": "hosting_createWebsiteSubdomainV1",
-          "desc": "Create a new subdomain for the selected website. Provide a subdomain prefix and, optionally, a custom directory or the w…"
+          "desc": "Create a new subdomain for the selected website. Provide a subdomain prefix and, optionally, a custom directory or the website public directory to use as the subdomain root."
         },
         {
           "name": "hosting_createWebsiteV1",
-          "desc": "Create a new website for the authenticated client."
+          "desc": "Create a new website for the authenticated client. Provide the domain name and associated order ID to create a new website. The datacenter_code parameter is required when creating…"
         },
         {
           "name": "hosting_deactivateWordPressPluginV1",
-          "desc": "Deactivate an installed plugin on a WordPress installation."
+          "desc": "Deactivate an installed plugin on a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/hosting/v1/wordpr…"
         },
         {
           "name": "hosting_deleteAccountCronJobV1",
@@ -3023,75 +2737,75 @@ const DATA = {
         },
         {
           "name": "hosting_deleteAccountDatabaseRemoteConnectionV1",
-          "desc": "Permanently removes a remote-access rule, revoking the given host's remote access to the database."
+          "desc": "Permanently removes a remote-access rule, revoking the given host's remote access to the database. Identify the rule with the required ip query parameter (the IPv4/IPv6 address, or…"
         },
         {
           "name": "hosting_deleteAccountDatabaseV1",
-          "desc": "Permanently deletes a database and its remote connections."
+          "desc": "Permanently deletes a database and its remote connections. The database name must be the full name returned by the list databases endpoint."
         },
         {
           "name": "hosting_deleteWebsiteParkedDomainV1",
-          "desc": "Delete an existing parked or alias domain from the selected website."
+          "desc": "Delete an existing parked or alias domain from the selected website. Use this endpoint to remove parked domains that are no longer needed."
         },
         {
           "name": "hosting_deleteWebsiteSubdomainV1",
-          "desc": "Delete an existing subdomain from the selected website."
+          "desc": "Delete an existing subdomain from the selected website. Use this endpoint to remove subdomains that are no longer needed."
         },
         {
           "name": "hosting_deployJsApplication",
-          "desc": "Deploy a JavaScript application from an archive file to a hosting server."
+          "desc": "Deploy a JavaScript application from an archive file to a hosting server. IMPORTANT: the archive must ONLY contain application source files, not the build output, skip node_modules…"
         },
         {
           "name": "hosting_deployStaticWebsite",
-          "desc": "Deploy a static website from an archive file to a hosting server."
+          "desc": "Deploy a static website from an archive file to a hosting server. IMPORTANT: This tool only works for static websites with no build process. The archive must contain pre-built stat…"
         },
         {
           "name": "hosting_deployWordpressPlugin",
-          "desc": "Deploy a WordPress plugin from a directory to a hosting server."
+          "desc": "Deploy a WordPress plugin from a directory to a hosting server. This tool uploads all plugin files and triggers plugin deployment."
         },
         {
           "name": "hosting_deployWordpressTheme",
-          "desc": "Deploy a WordPress theme from a directory to a hosting server."
+          "desc": "Deploy a WordPress theme from a directory to a hosting server. This tool uploads all theme files and triggers theme deployment. The uploaded theme can optionally be activated after…"
         },
         {
           "name": "hosting_generateAFreeSubdomainV1",
-          "desc": "Generate a unique free subdomain that can be used for hosting services without purchasing custom domains."
+          "desc": "Generate a unique free subdomain that can be used for hosting services without purchasing custom domains. Free subdomains allow you to start using hosting services immediately and…"
         },
         {
           "name": "hosting_getCronJobOutputV1",
-          "desc": "Returns the output captured from the last execution of the cron job identified by its uid."
+          "desc": "Returns the output captured from the last execution of the cron job identified by its uid. The uid is returned by the list cron jobs endpoint."
         },
         {
           "name": "hosting_getNodeJSBuildLogsV1",
-          "desc": "Retrieve logs from a specific Node.js build process."
+          "desc": "Retrieve logs from a specific Node.js build process. To stream live output while a build is running, poll this endpoint repeatedly while the build state is `running`, passing the p…"
         },
         {
           "name": "hosting_getPHPDetailsV1",
-          "desc": "Returns the full PHP configuration for the website: current version, available versions (supported and unsupported), ena…"
+          "desc": "Returns the full PHP configuration for the website: current version, available versions (supported and unsupported), enabled/disabled extensions, options with their current value,…"
         },
         {
           "name": "hosting_getPHPInfoV1",
-          "desc": "Returns the full phpinfo page (HTML) for the website."
+          "desc": "Returns the full phpinfo page (HTML) for the website. Use it to debug PHP issues or inspect the complete PHP environment of the website."
         },
         {
           "name": "hosting_getPhpMyAdminLinkV1",
-          "desc": "Returns a direct sign-on link to phpMyAdmin for the specified database."
+          "desc": "Returns a direct sign-on link to phpMyAdmin for the specified database. Use this when a visual database interface is needed for SQL queries, imports, exports, or table management.…"
         },
         {
           "name": "hosting_importWordpressWebsite",
-          "desc": "Import a WordPress website from an archive file to a hosting server."
+          "desc": "Import a WordPress website from an archive file to a hosting server. This tool uploads a website archive (zip, tar, tar.gz, etc.) and a database dump (.sql file) to deploy a comple…"
         },
         {
           "name": "hosting_installWordPressPluginsV1",
-          "desc": "Install one or more plugins on an existing WordPress installation."
+          "desc": "Install one or more plugins on an existing WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/hosting/v1…"
         },
         {
           "name": "hosting_installWordPressThemeV1",
-          "desc": "Install a theme on an existing WordPress installation."
+          "desc": "Install a theme on an existing WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/hosting/v1/wordpress/i…"
         },
         {
           "name": "hosting_installWordPressV1",
-          "desc": "Install WordPress on an existing website. The website must already exist before calling this endpoint."
+          "desc": "Install WordPress on an existing website. The website must already exist before calling this endpoint. To create a new website first, use POST /api/hosting/v1/websites and poll GET…"
         },
         {
           "name": "hosting_listAccountCronJobsV1",
@@ -3099,75 +2813,75 @@ const DATA = {
         },
         {
           "name": "hosting_listAccountDatabaseRemoteConnectionsV1",
-          "desc": "Returns the remote-access rules for the specified account: the remote hosts (IPv4/IPv6 addresses, or \"%\" for any host) a…"
+          "desc": "Returns the remote-access rules for the specified account: the remote hosts (IPv4/IPv6 addresses, or \"%\" for any host) allowed to connect to the account databases. Use the domain f…"
         },
         {
           "name": "hosting_listAccountDatabasesV1",
-          "desc": "Returns a paginated list of databases for the specified account."
+          "desc": "Returns a paginated list of databases for the specified account. Use the domain and is_assigned filters to find databases assigned to a specific domain."
         },
         {
           "name": "hosting_listAvailableDatacentersV1",
-          "desc": "Retrieve a list of datacenters available for setting up hosting plans based on available datacenter capacity and hosting…"
+          "desc": "Retrieve a list of datacenters available for setting up hosting plans based on available datacenter capacity and hosting plan of your order. The first item in the list is the best…"
         },
         {
           "name": "hosting_listAvailableWordPressPluginsV1",
-          "desc": "List plugins recommended for installation on a WordPress installation that are not yet installed."
+          "desc": "List plugins recommended for installation on a WordPress installation that are not yet installed. Provide the WordPress installation (software) identifier in the path. It can be ob…"
         },
         {
           "name": "hosting_listInstalledWordPressPluginsV1",
-          "desc": "List plugins installed on a WordPress installation, including their status, available updates and known vulnerabilities…"
+          "desc": "List plugins installed on a WordPress installation, including their status, available updates and known vulnerabilities. Provide the WordPress installation (software) identifier in…"
         },
         {
           "name": "hosting_listInstalledWordPressThemesV1",
-          "desc": "List themes installed on a WordPress installation, including their status, available updates and known vulnerabilities."
+          "desc": "List themes installed on a WordPress installation, including their status, available updates and known vulnerabilities. Provide the WordPress installation (software) identifier in…"
         },
         {
           "name": "hosting_listJsDeployments",
-          "desc": "List javascript application deployments for checking their status."
+          "desc": "List javascript application deployments for checking their status. Use this tool when customer asks for the status of the deployment. This tool retrieves a paginated list of Node.j…"
         },
         {
           "name": "hosting_listNodeJSBuildsV1",
-          "desc": "Retrieve a paginated list of Node.js build processes for a specific website."
+          "desc": "Retrieve a paginated list of Node.js build processes for a specific website. Each build represents a single run of the Node.js build pipeline. Use the `states` query parameter to f…"
         },
         {
           "name": "hosting_listOrdersV1",
-          "desc": "Retrieve a paginated list of orders accessible to the authenticated client."
+          "desc": "Retrieve a paginated list of orders accessible to the authenticated client. This endpoint returns orders of your hosting accounts as well as orders of other client hosting accounts…"
         },
         {
           "name": "hosting_listSuggestedWordPressPluginsV1",
-          "desc": "List curated plugin suggestions grouped by website type."
+          "desc": "List curated plugin suggestions grouped by website type. Use the returned `slug` values with POST /api/hosting/v1/accounts/{username}/wordpress/{software}/plugins/install."
         },
         {
           "name": "hosting_listWebsiteParkedDomainsV1",
-          "desc": "Retrieve all parked or alias domains created under the selected website."
+          "desc": "Retrieve all parked or alias domains created under the selected website. Use this endpoint to inspect parked domain configuration for a specific website, including the parent domai…"
         },
         {
           "name": "hosting_listWebsiteSubdomainsV1",
-          "desc": "Retrieve all subdomains created under the selected website."
+          "desc": "Retrieve all subdomains created under the selected website. Use this endpoint to inspect subdomain configuration for a specific website, including the parent domain and root direct…"
         },
         {
           "name": "hosting_listWebsitesV1",
-          "desc": "Retrieve a paginated list of websites (main and addon types) accessible to the authenticated client."
+          "desc": "Retrieve a paginated list of websites (main and addon types) accessible to the authenticated client. This endpoint returns websites from your hosting accounts as well as websites f…"
         },
         {
           "name": "hosting_listWordPressInstallationsV1",
-          "desc": "List WordPress installations accessible to the authenticated client."
+          "desc": "List WordPress installations accessible to the authenticated client. Use this endpoint to discover existing WordPress installations and to poll for installation status after callin…"
         },
         {
           "name": "hosting_listWordPressThemesV1",
-          "desc": "List WordPress themes available to install. Use the returned `slug` values with POST /api/hosting/v1/accounts/{username}…"
+          "desc": "List WordPress themes available to install. Use the returned `slug` values with POST /api/hosting/v1/accounts/{username}/wordpress/{software}/themes/install."
         },
         {
           "name": "hosting_repairDatabaseV1",
-          "desc": "Repairs corrupted database tables asynchronously. Use when database errors, crashes, or corruption are reported."
+          "desc": "Repairs corrupted database tables asynchronously. Use when database errors, crashes, or corruption are reported. The database name must be the full name returned by the list databa…"
         },
         {
           "name": "hosting_resetPHPExtensionsV1",
-          "desc": "Resets all PHP extensions of the website to their default state."
+          "desc": "Resets all PHP extensions of the website to their default state. Use it to recover from extension conflicts or restore the original configuration."
         },
         {
           "name": "hosting_searchWordPressPluginsV1",
-          "desc": "Search the WordPress.org plugin directory for plugins available to install."
+          "desc": "Search the WordPress.org plugin directory for plugins available to install. Use the returned `slug` values with POST /api/hosting/v1/accounts/{username}/wordpress/{software}/plugin…"
         },
         {
           "name": "hosting_showJsDeploymentLogs",
@@ -3175,23 +2889,23 @@ const DATA = {
         },
         {
           "name": "hosting_uninstallWordPressPluginsV1",
-          "desc": "Uninstall one or more plugins from a WordPress installation."
+          "desc": "Uninstall one or more plugins from a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/hosting/v1/wordp…"
         },
         {
           "name": "hosting_uninstallWordPressThemesV1",
-          "desc": "Uninstall one or more themes from a WordPress installation."
+          "desc": "Uninstall one or more themes from a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/hosting/v1/wordpr…"
         },
         {
           "name": "hosting_updateHostingerWordPressPluginV1",
-          "desc": "Update a Hostinger plugin to its latest version on a WordPress installation."
+          "desc": "Update a Hostinger plugin to its latest version on a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained from GET /api/…"
         },
         {
           "name": "hosting_updatePHPExtensionsV1",
-          "desc": "Enables or disables PHP extensions (modules) for the website."
+          "desc": "Enables or disables PHP extensions (modules) for the website. Use the Get PHP details endpoint to check the current extension states before changing them."
         },
         {
           "name": "hosting_updatePHPOptionsV1",
-          "desc": "Updates PHP options for the website (e.g. `memory_limit`, `max_execution_time`, `upload_max_filesize`)."
+          "desc": "Updates PHP options for the website (e.g. `memory_limit`, `max_execution_time`, `upload_max_filesize`). Only provide the options you want to change, inside the `options` object. Va…"
         },
         {
           "name": "hosting_updatePHPVersionV1",
@@ -3199,27 +2913,27 @@ const DATA = {
         },
         {
           "name": "hosting_updateWordPressPluginsV1",
-          "desc": "Update one or more installed plugins to their latest version on a WordPress installation."
+          "desc": "Update one or more installed plugins to their latest version on a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained f…"
         },
         {
           "name": "hosting_updateWordPressThemesV1",
-          "desc": "Update one or more installed themes to their latest version on a WordPress installation."
+          "desc": "Update one or more installed themes to their latest version on a WordPress installation. Provide the WordPress installation (software) identifier in the path. It can be obtained fr…"
         },
         {
           "name": "hosting_verifyDomainOwnershipV1",
-          "desc": "Verify ownership of a single domain and return the verification status."
+          "desc": "Verify ownership of a single domain and return the verification status. Use this endpoint to check if a domain is accessible for you before using it for new websites. If the domain…"
         },
         {
           "name": "reach_createANewContactSegmentV1",
-          "desc": "Create a new contact segment. This endpoint allows creating a new contact segment that can be used to organize contacts…"
+          "desc": "Create a new contact segment. This endpoint allows creating a new contact segment that can be used to organize contacts. The segment can be configured with specific criteria like e…"
         },
         {
           "name": "reach_createANewContactV1",
-          "desc": "Create a new contact in the email marketing system."
+          "desc": "Create a new contact in the email marketing system. This endpoint allows you to create a new contact with basic information like name, email, and surname. If double opt-in is enabl…"
         },
         {
           "name": "reach_createNewContactsV1",
-          "desc": "Create a new contact in the email marketing system."
+          "desc": "Create a new contact in the email marketing system. This endpoint allows you to create a new contact with basic information like name, email, and surname. If double opt-in is enabl…"
         },
         {
           "name": "reach_deleteAContactV1",
@@ -3227,11 +2941,11 @@ const DATA = {
         },
         {
           "name": "reach_getProfileDomainDNSStatusV1",
-          "desc": "Retrieve the DNS configuration status for a profile's domain."
+          "desc": "Retrieve the DNS configuration status for a profile's domain. This endpoint reports the state of MX, SPF, DKIM and DMARC records, including the actual records found and the suggest…"
         },
         {
           "name": "reach_getSegmentDetailsV1",
-          "desc": "Get details of a specific segment. This endpoint retrieves information about a single segment identified by UUID."
+          "desc": "Get details of a specific segment. This endpoint retrieves information about a single segment identified by UUID. Segments are used to organize and group contacts based on specific…"
         },
         {
           "name": "reach_listContactGroupsV1",
@@ -3239,11 +2953,11 @@ const DATA = {
         },
         {
           "name": "reach_listContactsV1",
-          "desc": "Get a list of contacts, optionally filtered by group and subscription status."
+          "desc": "Get a list of contacts, optionally filtered by group and subscription status. This endpoint returns a paginated list of contacts with their basic information. You can filter contac…"
         },
         {
           "name": "reach_listProfileSegmentContactsV1",
-          "desc": "Retrieve contacts associated with a specific segment for a given profile."
+          "desc": "Retrieve contacts associated with a specific segment for a given profile. This endpoint allows you to fetch and filter contacts that belong to a particular segment, identified by i…"
         },
         {
           "name": "reach_listProfilesV1",
@@ -3251,79 +2965,15 @@ const DATA = {
         },
         {
           "name": "reach_listSegmentContactsV1",
-          "desc": "Retrieve contacts associated with a specific segment."
+          "desc": "Retrieve contacts associated with a specific segment. This endpoint allows you to fetch and filter contacts that belong to a particular segment, identified by its UUID."
         },
         {
           "name": "reach_listSegmentsV1",
-          "desc": "Get a list of all contact segments. This endpoint returns a list of contact segments that can be used to organize contac…"
+          "desc": "Get a list of all contact segments. This endpoint returns a list of contact segments that can be used to organize contacts."
         },
         {
           "name": "v2_getDomainVerificationsDIRECT",
           "desc": "Retrieve a list of pending and completed domain verifications."
-        }
-      ]
-    },
-    "Spotify (Plugin)": {
-      "tool_count": 7,
-      "transport": "OAuth (plugin)",
-      "tools": [
-        {
-          "name": "spotify_albums",
-          "desc": "Fetch Spotify album metadata or album tracks."
-        },
-        {
-          "name": "spotify_devices",
-          "desc": "List Spotify Connect devices or transfer playback to a different device."
-        },
-        {
-          "name": "spotify_library",
-          "desc": "List, save, or remove the user's saved Spotify tracks or albums. Use `kind` to select which."
-        },
-        {
-          "name": "spotify_playback",
-          "desc": "Control Spotify playback, inspect the active playback state, or fetch recently played tracks."
-        },
-        {
-          "name": "spotify_playlists",
-          "desc": "List, inspect, create, update, and modify Spotify playlists."
-        },
-        {
-          "name": "spotify_queue",
-          "desc": "Inspect the user's Spotify queue or add an item to it."
-        },
-        {
-          "name": "spotify_search",
-          "desc": "Search the Spotify catalog for tracks, albums, artists, playlists, shows, or episodes."
-        }
-      ]
-    },
-    "Video Gen (Plugin)": {
-      "tool_count": 1,
-      "transport": "Plugin",
-      "tools": [
-        {
-          "name": "video_generate",
-          "desc": "Generate a video from a text prompt (text-to-video), animate a still image (image-to-video), or guide generati…"
-        }
-      ]
-    },
-    "Video Analyze (Plugin)": {
-      "tool_count": 1,
-      "transport": "Plugin",
-      "tools": [
-        {
-          "name": "video_analyze",
-          "desc": "Analyze a video from a URL or local file path using a multimodal AI model."
-        }
-      ]
-    },
-    "X Search (Plugin)": {
-      "tool_count": 1,
-      "transport": "Plugin (xAI built-in)",
-      "tools": [
-        {
-          "name": "x_search",
-          "desc": "Search X (Twitter) posts, profiles, and threads using xAI's built-in X Search tool."
         }
       ]
     }
